@@ -1,4 +1,10 @@
-DirectoryIndex index.html
+DirectoryIndex home-20260725.html
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^$ /home-20260725.html [R=302,L,NE]
+    RewriteRule ^index\.html$ /home-20260725.html [R=302,L,NE]
+</IfModule>
 
 <IfModule mod_expires.c>
     ExpiresActive On
