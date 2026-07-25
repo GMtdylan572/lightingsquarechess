@@ -1083,7 +1083,6 @@ blockquote .author {
   height: 24px;
 }
 
-
 .dt {
   width: 443px;
 }
@@ -1101,6 +1100,48 @@ blockquote .author {
 
 .reg {
   width: 120px;
+}
+
+/* Home page tournament announcement */
+.championship-banner {
+  background: #003F6C;
+  color: #ffffff;
+  padding: 16px 0;
+}
+
+.championship-banner-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.championship-banner strong,
+.championship-banner span {
+  display: block;
+}
+
+.championship-banner strong {
+  font-size: 20px;
+}
+
+.championship-banner span {
+  margin-top: 4px;
+}
+
+.championship-banner a {
+  background: #ffffff;
+  color: #003F6C;
+  font-weight: 700;
+  padding: 10px 14px;
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .championship-banner-content {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
 html, body {
   margin: 0;
@@ -2161,7 +2202,4 @@ blockquote .author {
 .reg {
   width: 120px;
 }
-
-
-
 
