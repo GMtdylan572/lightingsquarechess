@@ -1,0 +1,69 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/components/PageHeader.astro";
+
+const rows = [
+  {
+    href: "/programs/bay-area",
+    label: "Bay Area",
+    title: "In-person classes and rated quads",
+    body: "A ten-week introductory course in Cupertino covering rules, notation, tactics and basic strategy, plus a monthly USCF-rated quad at the same address once players are ready to compete.",
+    photo: "https://i.ibb.co/Fq5BmC0n/bayarea-1s.jpg",
+    facts: [["Since", "2023"], ["Cost", "Free"], ["Venue", "De Anza Learning Center"]],
+  },
+  {
+    href: "/programs/national",
+    label: "National",
+    title: "Free online classes in four states",
+    body: "US Chess has more than 76,000 members nationally. Alaska and North Dakota have fewer than a hundred each. We teach an introductory course into those states, and into Idaho and Mississippi, over video call.",
+    photo: "https://i.ibb.co/d0j36SF9/25206877-7060296.jpg",
+    facts: [["Since", "2024"], ["Courses", "8"], ["States", "AK, ND, ID, MS"]],
+  },
+  {
+    href: "/programs/international",
+    label: "International",
+    title: "Club Bootstrap",
+    body: "A teacher writes to us from a school with no chess club. We ship sets, run weekly lessons over video, and support the club until it can run on its own. Seven schools across four countries so far.",
+    photo: "https://i.ibb.co/BVX6f9ys/2c20fafa-4eec-46bd-9870-b171db690b8f.jpg",
+    facts: [["Since", "2025"], ["Schools", "7"], ["Countries", "KE, NG, MW, ZA"]],
+  },
+];
+---
+<Base
+  title="Programs"
+  description="Three programs bridging the chess education gap: in-person classes and rated tournaments in the Bay Area, free online classes in underserved US states, and the Club Bootstrap Initiative for schools abroad."
+>
+  <PageHeader
+    kicker="What we run"
+    title="Programs"
+    lede="Each one attacks a different reason a child who wants to play chess cannot."
+    crumbs={[{ href: "/", label: "Home" }]}
+  />
+
+  <div class="mx-auto max-w-6xl divide-y divide-border px-5">
+    {rows.map((r) => (
+      <article class="grid gap-8 py-14 lg:grid-cols-12 lg:gap-12">
+        <div class="lg:col-span-5">
+          <img src={r.photo} alt="" loading="lazy" width="720" height="540"
+               class="aspect-[4/3] w-full rounded-md border border-border object-cover" />
+        </div>
+        <div class="lg:col-span-7">
+          <p class="label mb-2">{r.label}</p>
+          <h2 class="mb-3 text-[1.6rem] font-semibold">{r.title}</h2>
+          <p class="mb-6 max-w-[58ch] leading-relaxed text-muted-foreground">{r.body}</p>
+          <dl class="mb-6 grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-3">
+            {r.facts.map(([k, v]) => (
+              <div class="bg-card p-3">
+                <dt class="label mb-0.5">{k}</dt>
+                <dd class="font-mono text-[0.92rem]">{v}</dd>
+              </div>
+            ))}
+          </dl>
+          <a href={r.href} class="inline-flex h-11 items-center rounded-sm border border-input px-5 text-[0.92rem] font-medium transition-colors hover:bg-accent">
+            Read more
+          </a>
+        </div>
+      </article>
+    ))}
+  </div>
+</Base>

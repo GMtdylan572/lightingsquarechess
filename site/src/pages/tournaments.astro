@@ -1,0 +1,65 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import ResultsArchive from "@/components/ResultsArchive";
+import { upcomingQuads, pastQuads } from "@/data/site";
+---
+<Base
+  title="Tournaments"
+  description="USCF-rated quads, the Summer Championship and free online events. Full schedule plus a searchable archive of every Lightning Square tournament since 2023."
+>
+  <PageHeader
+    kicker="Schedule and records"
+    title="Tournaments"
+    lede="Everything we have run since October 2023, with a link to the official US Chess crosstable for each one."
+    crumbs={[{ href: "/", label: "Home" }]}
+  />
+
+  <section class="mx-auto max-w-6xl px-5 py-16">
+    <div class="grid gap-px overflow-hidden rounded-md bg-border sm:grid-cols-3">
+      <a href="/quads" class="group bg-card p-6 transition-colors hover:bg-accent">
+        <p class="label mb-2">Monthly</p>
+        <h2 class="mb-2 text-xl font-semibold group-hover:text-primary">Quads Series</h2>
+        <p class="text-[0.92rem] leading-relaxed text-muted-foreground">Four players, three games, one afternoon. G/25 d5, dual-rated.</p>
+      </a>
+      <a href="/championship" class="group bg-card p-6 transition-colors hover:bg-accent">
+        <p class="label mb-2">Annual</p>
+        <h2 class="mb-2 text-xl font-semibold group-hover:text-primary">Summer Championship</h2>
+        <p class="text-[0.92rem] leading-relaxed text-muted-foreground">Open, U1600 and U800 with a cash prize fund, plus an evening blitz.</p>
+      </a>
+      <a href="/online" class="group bg-card p-6 transition-colors hover:bg-accent">
+        <p class="label mb-2">Occasional</p>
+        <h2 class="mb-2 text-xl font-semibold group-hover:text-primary">Online Swiss</h2>
+        <p class="text-[0.92rem] leading-relaxed text-muted-foreground">Free G/15+10 events on Chess.com, directed by our students.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-secondary">
+    <div class="mx-auto max-w-6xl px-5 py-16">
+      <h2 class="label mb-6">Upcoming</h2>
+      <ol class="divide-y divide-border overflow-hidden rounded-md border border-border bg-card">
+        {upcomingQuads.map((q, i) => (
+          <li class="flex flex-wrap items-center gap-4 p-5">
+            <time datetime={q.date} class="w-36 shrink-0 font-mono text-[0.95rem] font-medium">{q.display}</time>
+            <div class="min-w-[12rem] flex-1">
+              <p class="font-medium">{q.name}</p>
+              <p class="text-[0.85rem] text-muted-foreground">{q.venue.name} &middot; {q.format} &middot; USCF-rated</p>
+            </div>
+            {i === 0
+              ? <span class="rounded-sm bg-primary px-2 py-1 font-mono text-[0.65rem] uppercase tracking-wider text-primary-foreground">Next</span>
+              : <span class="font-mono text-[0.72rem] uppercase tracking-wider text-muted-foreground">Registration soon</span>}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 py-16">
+    <h2 class="label mb-2">Archive</h2>
+    <p class="mb-6 max-w-[60ch] text-muted-foreground">
+      Every rated quad we have directed. Crosstables are hosted by US Chess and open in a new tab.
+    </p>
+    <ResultsArchive client:load events={pastQuads} />
+  </section>
+</Base>

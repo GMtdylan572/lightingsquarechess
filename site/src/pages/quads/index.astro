@@ -1,0 +1,74 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import { upcomingQuads, venues } from "@/data/site";
+---
+<Base
+  title="Monthly Quads"
+  description="USCF-rated quads tournaments, G/25 d5, for elementary and middle school players at the De Anza Learning Center in Cupertino. Format, schedule and how to enter."
+>
+  <PageHeader
+    kicker="Monthly, USCF-rated"
+    title="Monthly Quads"
+    lede="The friendliest way for a young player to get an official US Chess rating."
+    crumbs={[{ href: "/", label: "Home" }, { href: "/tournaments", label: "Tournaments" }]}
+  />
+
+  <section class="mx-auto max-w-6xl px-5 py-16">
+    <div class="grid gap-10 lg:grid-cols-12">
+      <div class="lg:col-span-7">
+        <h2 class="mb-4 text-3xl font-semibold">How a quad works</h2>
+        <p class="mb-4 max-w-[60ch] leading-relaxed text-muted-foreground">
+          Entrants are sorted by rating and split into groups of four. Inside each
+          group everyone plays everyone else, so every player gets three games
+          against opponents at roughly their own strength. Nobody sits out a round.
+        </p>
+        <p class="max-w-[60ch] leading-relaxed text-muted-foreground">
+          If the entry count is not divisible by four, the director runs a small
+          three-round Swiss among the lowest-rated and unrated players so they
+          still get three games.
+        </p>
+
+        <dl class="mt-8 grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-2">
+          <div class="bg-card p-4"><dt class="label mb-1">Time control</dt><dd class="font-mono text-[1.05rem]">G/25 d5</dd></div>
+          <div class="bg-card p-4"><dt class="label mb-1">Rating type</dt><dd class="font-mono text-[1.05rem]">Regular + Quick</dd></div>
+          <div class="bg-card p-4"><dt class="label mb-1">Rounds</dt><dd class="font-mono text-[1.05rem]">3</dd></div>
+          <div class="bg-card p-4"><dt class="label mb-1">Membership</dt><dd class="font-mono text-[1.05rem]">USCF required</dd></div>
+        </dl>
+
+        <a href="/quads/faq" class="mt-6 inline-flex h-11 items-center rounded-sm border border-input px-5 text-[0.92rem] font-medium transition-colors hover:bg-accent">
+          Read the full FAQ
+        </a>
+      </div>
+
+      <div class="lg:col-span-5">
+        <img src="https://i.ibb.co/p2vm02P/IMG-0441.jpg" alt="Young players at a Lightning Square quads tournament"
+             loading="lazy" width="720" height="540"
+             class="aspect-[4/3] w-full rounded-md border border-border object-cover" />
+        <div class="mt-4 rounded-md border border-border bg-card p-5">
+          <p class="label mb-2">Venue</p>
+          <p class="font-medium">{venues.deAnza.name}</p>
+          <p class="text-[0.88rem] text-muted-foreground">{venues.deAnza.address}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-secondary">
+    <div class="mx-auto max-w-6xl px-5 py-16">
+      <h2 class="label mb-6">2026 schedule</h2>
+      <ol class="divide-y divide-border overflow-hidden rounded-md border border-border bg-card">
+        {upcomingQuads.map((q) => (
+          <li class="flex flex-wrap items-center gap-4 p-5">
+            <time datetime={q.date} class="w-36 shrink-0 font-mono text-[0.95rem] font-medium">{q.display}</time>
+            <p class="flex-1 text-[0.9rem] text-muted-foreground">{q.venue.name} &middot; {q.format}</p>
+            <span class="font-mono text-[0.72rem] uppercase tracking-wider text-muted-foreground">Registration soon</span>
+          </li>
+        ))}
+      </ol>
+      <p class="mt-4 text-[0.9rem] text-muted-foreground">
+        Want an email when entries open? <a href="/contact" class="text-primary underline underline-offset-2">Tell us</a>.
+      </p>
+    </div>
+  </section>
+</Base>

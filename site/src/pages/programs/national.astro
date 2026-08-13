@@ -1,0 +1,89 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import { nationalClasses } from "@/data/site";
+---
+<Base
+  title="National Program"
+  description="Free online chess classes for residents of Alaska, North Dakota, Idaho and Mississippi, the US states where chess communities are smallest and resources most limited."
+>
+  <PageHeader
+    kicker="Alaska, North Dakota, Idaho, Mississippi"
+    title="National program"
+    lede="Free introductory courses taught over video call into the states with the least chess."
+    crumbs={[{ href: "/", label: "Home" }, { href: "/programs", label: "Programs" }]}
+  />
+
+  <section class="mx-auto max-w-6xl px-5 py-16">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-7">
+        <h2 class="mb-4 text-2xl font-semibold">The gap we are aiming at</h2>
+        <p class="mb-4 max-w-[58ch] leading-relaxed text-muted-foreground">
+          Chess is popular in the United States, but support for learning it is
+          not spread evenly. There are over 76,000 registered players nationwide.
+          Alaska and North Dakota each have fewer than a hundred, far below what
+          their populations would suggest.
+        </p>
+        <p class="max-w-[58ch] leading-relaxed text-muted-foreground">
+          A child in one of those states can want to play and still have no club,
+          no coach and no tournament within driving distance. Since 2024 we have
+          taught free introductory courses into Alaska, North Dakota, Idaho and
+          Mississippi to start closing that.
+        </p>
+      </div>
+      <div class="lg:col-span-5">
+        <dl class="grid gap-px overflow-hidden rounded-md border border-border bg-border">
+          <div class="bg-card p-5">
+            <dt class="label mb-1">US Chess members nationally</dt>
+            <dd class="stat-figure font-heading text-3xl font-semibold">76,000+</dd>
+          </div>
+          <div class="bg-card p-5">
+            <dt class="label mb-1">In Alaska or North Dakota, each</dt>
+            <dd class="stat-figure font-heading text-3xl font-semibold text-primary">&lt; 100</dd>
+          </div>
+          <div class="bg-card p-5">
+            <dt class="label mb-1">Courses we have taught</dt>
+            <dd class="stat-figure font-heading text-3xl font-semibold">8</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-secondary">
+    <div class="mx-auto max-w-6xl px-5 py-16">
+      <h2 class="label mb-6">Courses taught</h2>
+      <div class="overflow-x-auto rounded-md border border-border bg-card">
+        <table class="w-full min-w-[44rem] text-left text-[0.92rem]">
+          <caption class="sr-only">National Program online chess courses by state</caption>
+          <thead>
+            <tr class="border-b border-border bg-secondary">
+              <th scope="col" class="label p-4">Dates</th>
+              <th scope="col" class="label p-4">State</th>
+              <th scope="col" class="label p-4">Coach</th>
+              <th scope="col" class="label p-4">Announcement</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            {nationalClasses.map((c) => (
+              <tr>
+                <td class="p-4 align-top">
+                  <span class="block font-mono text-[0.88rem] font-medium">{c.dates}</span>
+                  <span class="block font-mono text-[0.8rem] text-muted-foreground">{c.time}</span>
+                </td>
+                <td class="p-4 align-top">{c.state}</td>
+                <td class="p-4 align-top text-muted-foreground">{c.coach}</td>
+                <td class="p-4 align-top">
+                  <a href={c.flyer} target="_blank" rel="noopener noreferrer" class="font-medium text-primary hover:underline">Flyer</a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-[0.9rem] text-muted-foreground">
+        Live somewhere we have not reached? <a href="/contact" class="text-primary underline underline-offset-2">Tell us where</a>.
+      </p>
+    </div>
+  </section>
+</Base>

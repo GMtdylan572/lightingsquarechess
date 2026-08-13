@@ -1,0 +1,44 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import FaqAccordion from "@/components/FaqAccordion";
+import { quadFaq, org } from "@/data/site";
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: quadFaq.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a.join(" ").replace(/<[^>]+>/g, "") },
+  })),
+};
+---
+<Base
+  title="Monthly Quad FAQ"
+  description="Answers about the Monthly Quad Tournament: format, time control, US Chess membership, how players are grouped, pairings, unrated players, trophies and crosstables."
+>
+  <script is:inline set:html={JSON.stringify(faqJsonLd)} type="application/ld+json" />
+
+  <PageHeader
+    kicker="Monthly Quad Tournament"
+    title="Frequently asked questions"
+    lede="Written for players and parents. If something here is still unclear, email us and we will add it."
+    crumbs={[
+      { href: "/", label: "Home" },
+      { href: "/tournaments", label: "Tournaments" },
+      { href: "/quads", label: "Quads" },
+    ]}
+  />
+
+  <section class="mx-auto max-w-3xl px-5 py-16">
+    <FaqAccordion client:load items={quadFaq} />
+
+    <div class="mt-8 rounded-md border-l-2 border-primary bg-accent p-5">
+      <h2 class="mb-1 text-[1.05rem] font-semibold">Still stuck?</h2>
+      <p class="text-[0.94rem] text-muted-foreground">
+        Email <a href={`mailto:${org.email}`} class="text-primary underline underline-offset-2">{org.email}</a> and we will answer before the next event.
+      </p>
+    </div>
+  </section>
+</Base>

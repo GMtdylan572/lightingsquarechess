@@ -1,0 +1,75 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import { championship as c } from "@/data/site";
+const past = new Date(c.iso) < new Date();
+---
+<Base
+  title="Summer Championship"
+  description="The Lightning Square Summer Championship: Open, U1600 and U800 sections with a cash prize fund, plus an evening blitz, at the Domain Hotel in Sunnyvale."
+>
+  <PageHeader
+    kicker="Annual"
+    title="Summer Championship"
+    lede={`${c.date} at the ${c.venue.name}, Sunnyvale. Our largest event of the year.`}
+    crumbs={[{ href: "/", label: "Home" }, { href: "/tournaments", label: "Tournaments" }]}
+  />
+
+  {past && (
+    <div class="border-b border-border bg-accent">
+      <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-4 px-5 py-4">
+        <span class="rounded-sm bg-gold px-2 py-1 font-mono text-[0.65rem] uppercase tracking-wider text-gold-foreground">Concluded</span>
+        <p class="text-[0.92rem] text-muted-foreground">
+          The {new Date(c.iso).getFullYear()} championship has been played. Entry lists stay online below. Next year&rsquo;s date will be posted here once it is set.
+        </p>
+      </div>
+    </div>
+  )}
+
+  <section class="mx-auto max-w-6xl px-5 py-16">
+    <div class="grid gap-px overflow-hidden rounded-md border border-border bg-border md:grid-cols-2">
+      {c.sections.map((s) => (
+        <article class="bg-card p-6">
+          <p class="label mb-3">{s.name}</p>
+          <p class="mb-5 font-mono text-2xl font-medium">{s.start}</p>
+          <dl class="mb-5 space-y-2 text-[0.92rem]">
+            <div class="flex gap-3"><dt class="w-28 shrink-0 text-muted-foreground">Rounds</dt><dd>{s.rounds}</dd></div>
+            <div class="flex gap-3"><dt class="w-28 shrink-0 text-muted-foreground">Control</dt><dd class="font-mono">{s.control}</dd></div>
+            <div class="flex gap-3"><dt class="w-28 shrink-0 text-muted-foreground">Detail</dt><dd>{s.detail}</dd></div>
+          </dl>
+          <div class="rounded-sm bg-secondary p-4">
+            <p class="label mb-2">Prizes</p>
+            <dl class="space-y-1 text-[0.9rem]">
+              {s.prizes.map(([k, v]) => (
+                <div class="flex justify-between gap-4"><dt>{k}</dt><dd class="font-mono">{v}</dd></div>
+              ))}
+            </dl>
+          </div>
+          <div class="mt-5 flex flex-wrap gap-2">
+            <a href={s.entries} target="_blank" rel="noopener noreferrer"
+               class="inline-flex h-10 items-center rounded-sm border border-input px-4 text-[0.88rem] font-medium transition-colors hover:bg-accent">Entry list</a>
+            <a href={c.flyer} target="_blank" rel="noopener noreferrer"
+               class="inline-flex h-10 items-center rounded-sm border border-input px-4 text-[0.88rem] font-medium transition-colors hover:bg-accent">Flyer (PDF)</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-secondary">
+    <div class="mx-auto grid max-w-6xl gap-10 px-5 py-16 lg:grid-cols-2">
+      <div>
+        <p class="label mb-3">Venue</p>
+        <h2 class="mb-3 text-2xl font-semibold">{c.venue.name}</h2>
+        <p class="mb-5 text-muted-foreground">{c.venue.address}</p>
+        <p class="mb-5 max-w-[52ch] leading-relaxed text-muted-foreground">
+          Free parking on site. The playing hall is on the ground floor and is step-free from the car park.
+        </p>
+        <a href={`https://maps.google.com/?q=${encodeURIComponent(c.venue.address)}`} target="_blank" rel="noopener noreferrer"
+           class="inline-flex h-11 items-center rounded-sm border border-input px-5 text-[0.92rem] font-medium transition-colors hover:bg-accent">Open in Maps</a>
+      </div>
+      <img src="https://i.ibb.co/jDwLLct/Screenshot-2023-11-11-at-9-27-31-PM.jpg" alt="Players at a Lightning Square championship"
+           loading="lazy" width="800" height="600" class="aspect-[4/3] w-full rounded-md border border-border object-cover" />
+    </div>
+  </section>
+</Base>

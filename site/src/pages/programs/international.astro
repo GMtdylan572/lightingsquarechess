@@ -1,0 +1,76 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import { schools } from "@/data/site";
+
+const steps = [
+  ["A teacher gets in touch", "Every partnership so far started with one email from someone at a school with no chess programme."],
+  ["We ship equipment", "Chess sets, boards and clocks, sent to the school. Getting them there is often the slowest part."],
+  ["Weekly lessons over video", "One of our coaches teaches a live class each week, working around power cuts and unreliable connections."],
+  ["A local teacher runs the room", "Someone on the ground supervises practice between lessons. Without them none of this works."],
+  ["We step back", "Support continues until the club can run without us."],
+];
+---
+<Base
+  title="Club Bootstrap"
+  description="The Chess Club Bootstrap Initiative helps schools in Kenya, Nigeria, Malawi and South Africa start their first chess club with free online lessons, donated sets and ongoing support."
+>
+  <PageHeader
+    kicker="Kenya, Nigeria, Malawi, South Africa"
+    title="Club Bootstrap"
+    lede="Helping a school open its first chess club, and staying until it can run on its own."
+    crumbs={[{ href: "/", label: "Home" }, { href: "/programs", label: "Programs" }]}
+  />
+
+  <section class="mx-auto max-w-6xl px-5 py-16">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-6">
+        <h2 class="mb-5 text-2xl font-semibold">How it works</h2>
+        <ol class="divide-y divide-border overflow-hidden rounded-md border border-border bg-card">
+          {steps.map(([title, body], i) => (
+            <li class="flex gap-4 p-5">
+              <span class="font-mono text-[0.8rem] text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
+              <div>
+                <p class="mb-1 font-medium">{title}</p>
+                <p class="text-[0.9rem] leading-relaxed text-muted-foreground">{body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <div class="lg:col-span-6">
+        <img src="https://i.ibb.co/cQn2HMN/a9e225d8386d6ba887d760a2a1282c5b-2.jpg" alt="Students playing chess at a partner school"
+             loading="lazy" width="800" height="600"
+             class="aspect-[4/3] w-full rounded-md border border-border object-cover" />
+        <p class="mt-4 text-[0.9rem] leading-relaxed text-muted-foreground">
+          Seven institutions across four countries so far. Each has its own page
+          with photographs and what the students and teachers there said about it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-secondary">
+    <div class="mx-auto max-w-6xl px-5 py-16">
+      <h2 class="label mb-6">Partner schools</h2>
+      <ul class="grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+        {schools.map((s) => (
+          <li>
+            <a href={`/schools/${s.slug}`} class="group block h-full bg-card transition-colors hover:bg-accent">
+              <img src={s.cover} alt="" loading="lazy" width="600" height="400" class="aspect-[3/2] w-full object-cover" />
+              <div class="p-5">
+                <p class="label mb-1">{s.location}, {s.country}</p>
+                <h3 class="mb-2 text-[1.08rem] font-semibold group-hover:text-primary">{s.name}</h3>
+                <p class="text-[0.86rem] text-muted-foreground">Coach: {s.coach}</p>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-5 text-[0.9rem] text-muted-foreground">
+        Also partnered: <strong class="font-medium text-foreground">Christ Model Comprehensive High School</strong> and the
+        <strong class="font-medium text-foreground">Federal University of Technology Akure</strong>, both in Ondo State, Nigeria.
+      </p>
+    </div>
+  </section>
+</Base>
