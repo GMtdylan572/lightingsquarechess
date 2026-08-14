@@ -1,0 +1,63 @@
+---
+import { nav, org } from "@/data/site";
+const tournaments = nav[0].children!.slice(1);
+const programs = nav[1].children!.slice(1);
+---
+<footer class="mt-24 border-t border-border bg-board text-board-foreground board-texture">
+  <div class="mx-auto grid max-w-6xl gap-10 px-5 py-16 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="lg:pr-8">
+      <div class="mb-4 flex items-center gap-2.5">
+        <img src={org.logo} alt="" width="36" height="36" class="rounded-sm bg-white/5 p-1" />
+        <span class="font-heading text-[1.05rem] font-semibold text-white">Lightning Square</span>
+      </div>
+      <p class="text-[0.9rem] leading-relaxed text-board-foreground/65">
+        A youth-led nonprofit working on chess education. Founded {org.founded} in Northern California.
+        Every coach is a student. Every class is free.
+      </p>
+      <div class="mt-5 flex gap-2">
+        <a href={org.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+           class="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-white/15 text-board-foreground/70 transition-colors hover:border-white/40 hover:text-white">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z"/></svg>
+        </a>
+        <a href={`mailto:${org.email}`} aria-label="Email"
+           class="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-white/15 text-board-foreground/70 transition-colors hover:border-white/40 hover:text-white">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="label mb-4 text-board-foreground/50">Tournaments</h2>
+      <ul class="space-y-2">
+        {tournaments.map((t) => (
+          <li><a href={t.href} class="text-[0.9rem] text-board-foreground/75 hover:text-white hover:underline">{t.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="label mb-4 text-board-foreground/50">Programs</h2>
+      <ul class="space-y-2">
+        {programs.map((p) => (
+          <li><a href={p.href} class="text-[0.9rem] text-board-foreground/75 hover:text-white hover:underline">{p.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="label mb-4 text-board-foreground/50">Club</h2>
+      <ul class="space-y-2">
+        <li><a href="/schools" class="text-[0.9rem] text-board-foreground/75 hover:text-white hover:underline">Partner schools</a></li>
+        <li><a href="/about" class="text-[0.9rem] text-board-foreground/75 hover:text-white hover:underline">About</a></li>
+        <li><a href="/contact" class="text-[0.9rem] text-board-foreground/75 hover:text-white hover:underline">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mx-auto max-w-6xl px-5">
+    <div class="flex flex-wrap justify-between gap-4 border-t border-white/10 py-6 font-mono text-[0.75rem] text-board-foreground/50">
+      <span>&copy; {new Date().getFullYear()} {org.name}</span>
+      <a href={`mailto:${org.email}`} class="hover:text-white">{org.email}</a>
+    </div>
+  </div>
+</footer>

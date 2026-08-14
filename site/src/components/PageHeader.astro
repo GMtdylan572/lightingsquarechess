@@ -1,0 +1,28 @@
+---
+interface Props {
+  kicker?: string;
+  title: string;
+  lede?: string;
+  crumbs?: { href: string; label: string }[];
+}
+const { kicker, title, lede, crumbs = [] } = Astro.props;
+---
+<section class="board-texture border-b border-border bg-board text-board-foreground">
+  <div class="mx-auto max-w-6xl px-5 py-14 sm:py-16">
+    {crumbs.length > 0 && (
+      <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-2 font-mono text-[0.72rem] text-board-foreground/50">
+        {crumbs.map((c, i) => (
+          <>
+            <a href={c.href} class="hover:text-white hover:underline">{c.label}</a>
+            <span aria-hidden="true">/</span>
+          </>
+        ))}
+        <span class="text-board-foreground/80">{title}</span>
+      </nav>
+    )}
+    {kicker && <p class="label mb-3 text-gold">{kicker}</p>}
+    <h1 class="max-w-3xl text-4xl font-semibold text-white sm:text-5xl">{title}</h1>
+    {lede && <p class="mt-4 max-w-2xl text-[1.05rem] leading-relaxed text-board-foreground/70">{lede}</p>}
+    <slot />
+  </div>
+</section>

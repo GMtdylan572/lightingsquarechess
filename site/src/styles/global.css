@@ -1,0 +1,227 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* Type system.
+   Fraunces  — display only, used sparingly and set tight.
+   Plex Sans — body and UI. Institutional rather than startup-neutral.
+   Plex Mono — every number: ratings, scores, dates, time controls.
+               Chess records are tabular data and should read like it. */
+@import "@fontsource-variable/fraunces";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource/ibm-plex-mono/600.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-heading: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+
+    --color-board: var(--board);
+    --color-board-foreground: var(--board-foreground);
+    --color-gold: var(--gold);
+    --color-gold-foreground: var(--gold-foreground);
+    --color-rule: var(--rule);
+
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Tournament green and buff, the colours of a vinyl board, on warm paper.
+   Radius is deliberately small: records pages have corners, not pills. */
+:root {
+    --radius: 0.25rem;
+
+    --background: #FCFBF8;
+    --foreground: #14181A;
+    --card: #FFFFFF;
+    --card-foreground: #14181A;
+    --popover: #FFFFFF;
+    --popover-foreground: #14181A;
+
+    --primary: #1B5138;
+    --primary-foreground: #FFFFFF;
+    --secondary: #F1EFE7;
+    --secondary-foreground: #22292B;
+    --muted: #F1EFE7;
+    --muted-foreground: #57625D;
+    --accent: #ECF2ED;
+    --accent-foreground: #1B5138;
+    --destructive: #A8321C;
+
+    --border: #E2DED3;
+    --input: #D8D3C6;
+    --ring: #1B5138;
+
+    --board: #10281C;
+    --board-foreground: #E9F0EA;
+    --gold: #E8B04B;
+    --gold-foreground: #2A1F06;
+    --rule: #CFC9BA;
+
+    --chart-1: #1B5138;
+    --chart-2: #C9922B;
+    --chart-3: #3E7D5C;
+    --chart-4: #8A7A4E;
+    --chart-5: #5B6B62;
+
+    --sidebar: #F7F5EF;
+    --sidebar-foreground: #14181A;
+    --sidebar-primary: #1B5138;
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent: #ECF2ED;
+    --sidebar-accent-foreground: #1B5138;
+    --sidebar-border: #E2DED3;
+    --sidebar-ring: #1B5138;
+}
+
+.dark {
+    --background: #0B100D;
+    --foreground: #E9EDE8;
+    --card: #121815;
+    --card-foreground: #E9EDE8;
+    --popover: #121815;
+    --popover-foreground: #E9EDE8;
+
+    --primary: #4FB37E;
+    --primary-foreground: #08130D;
+    --secondary: #1A221E;
+    --secondary-foreground: #E9EDE8;
+    --muted: #1A221E;
+    --muted-foreground: #9BA79F;
+    --accent: #17251D;
+    --accent-foreground: #6DCB9B;
+    --destructive: #E0684E;
+
+    --border: #232E29;
+    --input: #2C3833;
+    --ring: #4FB37E;
+
+    --board: #08100C;
+    --board-foreground: #E9F0EA;
+    --gold: #E8B04B;
+    --gold-foreground: #2A1F06;
+    --rule: #2C3833;
+
+    --chart-1: #4FB37E;
+    --chart-2: #E8B04B;
+    --chart-3: #6DCB9B;
+    --chart-4: #B9A46A;
+    --chart-5: #8C9A92;
+
+    --sidebar: #101613;
+    --sidebar-foreground: #E9EDE8;
+    --sidebar-primary: #4FB37E;
+    --sidebar-primary-foreground: #08130D;
+    --sidebar-accent: #17251D;
+    --sidebar-accent-foreground: #6DCB9B;
+    --sidebar-border: #232E29;
+    --sidebar-ring: #4FB37E;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-size: 16.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+
+  h1, h2, h3 {
+    @apply font-heading;
+    font-variation-settings: "SOFT" 0, "WONK" 0, "opsz" 48;
+    letter-spacing: -0.021em;
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+
+  /* Numerals are data. Line them up. */
+  .tnum, table td, table th, time, .stat-figure {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  /* A label set in mono and letterspaced, the way a pairing sheet or a
+     scoresheet header is set. Replaces the usual coloured "eyebrow". */
+  .label {
+    @apply font-mono text-[0.7rem] font-medium uppercase tracking-[0.18em] text-muted-foreground;
+  }
+
+  /* Hairline rule used to open a section instead of a centred heading block. */
+  .rule-top {
+    border-top: 1px solid var(--rule);
+  }
+
+  /* Board texture, used only on solid dark panels where it reads as
+     intentional rather than as a transparency grid. */
+  .board-texture {
+    position: relative;
+    isolation: isolate;
+  }
+  .board-texture::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.055;
+    background-image:
+      linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%),
+      linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%);
+    background-size: 72px 72px;
+    background-position: 0 0, 36px 36px;
+  }
+}

@@ -1,0 +1,43 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import { onlineEvents, org } from "@/data/site";
+---
+<Base
+  title="Online Tournaments"
+  description="Free online Swiss tournaments at G/15+10 hosted by Lightning Square Chess Club on Chess.com and directed by our student tournament directors."
+>
+  <PageHeader
+    kicker="Free to enter"
+    title="Online tournaments"
+    lede="G/15+10 Swiss events on Chess.com, directed by our students and open to players anywhere."
+    crumbs={[{ href: "/", label: "Home" }, { href: "/tournaments", label: "Tournaments" }]}
+  />
+
+  <section class="mx-auto max-w-4xl px-5 py-16">
+    <div class="rounded-md border border-dashed border-input bg-card p-8 text-center">
+      <h2 class="mb-2 text-xl font-semibold">Nothing scheduled right now</h2>
+      <p class="mx-auto mb-5 max-w-[46ch] text-muted-foreground">
+        We run these a few times a year and announce them on Facebook. Past events are listed below.
+      </p>
+      <div class="flex flex-wrap justify-center gap-2">
+        <a href="/contact" class="inline-flex h-10 items-center rounded-sm bg-primary px-4 text-[0.9rem] font-medium text-primary-foreground hover:bg-primary/90">Get notified</a>
+        <a href={org.facebook} target="_blank" rel="noopener noreferrer" class="inline-flex h-10 items-center rounded-sm border border-input px-4 text-[0.9rem] font-medium hover:bg-accent">Follow on Facebook</a>
+      </div>
+    </div>
+
+    <h2 class="label mb-5 mt-14">Past events</h2>
+    <ol class="divide-y divide-border overflow-hidden rounded-md border border-border bg-card">
+      {onlineEvents.map((e) => (
+        <li class="flex flex-wrap items-center gap-4 p-5">
+          <span class="w-40 shrink-0 font-mono text-[0.9rem] font-medium">{e.date}</span>
+          <div class="min-w-[14rem] flex-1">
+            <p class="font-mono text-[0.85rem]">{e.format}</p>
+            <p class="text-[0.85rem] text-muted-foreground">Directed by {e.directors}</p>
+          </div>
+          <a href={e.results} target="_blank" rel="noopener noreferrer" class="text-[0.88rem] font-medium text-primary hover:underline">Results</a>
+        </li>
+      ))}
+    </ol>
+  </section>
+</Base>

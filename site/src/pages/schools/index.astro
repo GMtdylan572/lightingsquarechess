@@ -1,0 +1,45 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import { schools } from "@/data/site";
+---
+<Base
+  title="Partner Schools"
+  description="Schools and communities partnered with Lightning Square Chess through the Club Bootstrap Initiative, across Kenya, Nigeria, Malawi and South Africa."
+>
+  <PageHeader
+    kicker="Club Bootstrap"
+    title="Partner schools"
+    lede="Seven institutions across four countries, each running a chess club that did not exist before."
+    crumbs={[{ href: "/", label: "Home" }]}
+  />
+
+  <section class="mx-auto max-w-6xl px-5 py-16">
+    <ul class="divide-y divide-border">
+      {schools.map((s) => (
+        <li>
+          <a href={`/schools/${s.slug}`} class="group grid gap-6 py-8 sm:grid-cols-12">
+            <div class="sm:col-span-4 lg:col-span-3">
+              <img src={s.cover} alt="" loading="lazy" width="480" height="320"
+                   class="aspect-[3/2] w-full rounded-md border border-border object-cover" />
+            </div>
+            <div class="sm:col-span-8 lg:col-span-9">
+              <p class="label mb-1">{s.location}, {s.country} &middot; Since {s.since}</p>
+              <h2 class="mb-2 text-[1.35rem] font-semibold group-hover:text-primary">{s.name}</h2>
+              <p class="mb-3 max-w-[62ch] text-[0.95rem] leading-relaxed text-muted-foreground">{s.body[0]}</p>
+              <p class="font-mono text-[0.78rem] uppercase tracking-wider text-muted-foreground">Coach: {s.coach}</p>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="mt-8 rounded-md border border-border bg-card p-6">
+      <h2 class="mb-3 text-[1.08rem] font-semibold">Also partnered</h2>
+      <p class="text-[0.93rem] leading-relaxed text-muted-foreground">
+        <strong class="font-medium text-foreground">Christ Model Comprehensive High School</strong>, Akure, Ondo, Nigeria<br />
+        <strong class="font-medium text-foreground">Federal University of Technology Akure (FUTA)</strong>, Akure, Ondo, Nigeria
+      </p>
+    </div>
+  </section>
+</Base>

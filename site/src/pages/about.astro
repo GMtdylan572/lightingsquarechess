@@ -1,0 +1,65 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import { leadership, founders, advisors, org } from "@/data/site";
+import type { Person } from "@/data/site";
+
+const groups: { label: string; note: string; people: Person[] }[] = [
+  { label: "Leadership", note: "Runs the club day to day", people: leadership },
+  { label: "Co-founders", note: "Started it in 2022", people: founders },
+  { label: "Honorary advisors", note: "Adults who help us do this properly", people: advisors },
+];
+---
+<Base
+  title="About"
+  description="Lightning Square Chess is a youth-led nonprofit founded in 2022 by three Northern California chess players. Meet the students who run the tournaments and teach the classes."
+>
+  <PageHeader
+    kicker="Who we are"
+    title="A nonprofit run by high school students"
+    lede="Founded in 2022. The tournament directors are students, the coaches are students, and that is the reason everything we run is free."
+    crumbs={[{ href: "/", label: "Home" }]}
+  />
+
+  <section class="mx-auto max-w-6xl px-5 py-16">
+    <div class="grid gap-10 lg:grid-cols-12">
+      <div class="lg:col-span-4"><p class="label">Why the club exists</p></div>
+      <div class="lg:col-span-8">
+        <p class="max-w-[46ch] font-heading text-[1.55rem] leading-snug sm:text-[1.8rem]">
+          Chess rewards patience and planning. Access to good coaching rewards having money and living in the right place.
+        </p>
+        <p class="mt-6 max-w-[62ch] leading-relaxed text-muted-foreground">
+          {org.mission}
+        </p>
+        <p class="mt-4 max-w-[62ch] leading-relaxed text-muted-foreground">
+          In practice that means three things: rated tournaments and classes in the
+          Bay Area, free online instruction in states with almost no chess
+          infrastructure, and the Club Bootstrap Initiative, which helps schools
+          abroad open a club of their own.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {groups.map((g) => (
+    <section class="border-t border-border">
+      <div class="mx-auto max-w-6xl px-5 py-14">
+        <div class="mb-8 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+          <h2 class="label">{g.label}</h2>
+          <p class="text-[0.88rem] text-muted-foreground">{g.note}</p>
+        </div>
+        <ul class="grid gap-8 sm:grid-cols-3 lg:grid-cols-5">
+          {g.people.map((p) => (
+            <li>
+              <img src={p.photo} alt={`Portrait of ${p.name}`} loading="lazy" width="300" height="300"
+                   class="mb-3 aspect-square w-full rounded-md border border-border object-cover [object-position:50%_28%]" />
+              {p.role && <p class="label mb-1 text-primary">{p.role}</p>}
+              <p class="font-heading text-[1.02rem] font-semibold leading-tight">{p.name}</p>
+              {p.org && <p class="mt-0.5 text-[0.85rem] text-muted-foreground">{p.org}</p>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ))}
+</Base>

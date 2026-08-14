@@ -1,0 +1,82 @@
+---
+import "@/styles/global.css";
+import SiteNav from "@/components/SiteNav.astro";
+import SiteFooter from "@/components/SiteFooter.astro";
+import { org } from "@/data/site";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const fullTitle = title === org.name ? title : `${title} — ${org.short} Chess`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "NGO",
+  name: org.name,
+  alternateName: "Lightning Square Chess",
+  foundingDate: String(org.founded),
+  email: org.email,
+  logo: org.logo,
+  sameAs: [org.facebook],
+  description:
+    "A youth-led nonprofit bridging geographic and economic disparities in chess education.",
+  areaServed: [
+    "San Francisco Bay Area",
+    "United States",
+    "Kenya",
+    "Nigeria",
+    "Malawi",
+    "South Africa",
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={org.logo} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href={org.logo} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <script is:inline set:html={JSON.stringify(jsonLd)} type="application/ld+json" />
+
+    {/* Applied before first paint so the page never flashes the wrong theme. */}
+    <script is:inline>
+      try {
+        const saved = localStorage.getItem("lsc-theme");
+        const dark =
+          saved === "dark" ||
+          (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (dark) document.documentElement.classList.add("dark");
+      } catch (e) {}
+    </script>
+
+    {/* Analytics goes here. The old site had none, which is why no traffic
+        data exists. Paste a Plausible or GA4 snippet on the next line. */}
+  </head>
+
+  <body class="min-h-dvh">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-primary focus:px-4 focus:py-2 focus:font-medium focus:text-primary-foreground"
+    >
+      Skip to content
+    </a>
+
+    <SiteNav />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>
