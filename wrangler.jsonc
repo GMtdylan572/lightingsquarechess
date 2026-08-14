@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "lightingsquarechess",
+  "name": "lightningsquarechess",
   "compatibility_date": "2026-08-13",
   // Static-only: no Worker script, just the built Astro output in site/dist.
   "assets": {
