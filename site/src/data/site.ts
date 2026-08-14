@@ -11,6 +11,8 @@ export const org = {
   founded: 2022,
   email: "lightningsquarechess@gmail.com",
   facebook: "https://www.facebook.com/profile.php?id=100093236435369",
+  whatsapp: "https://chat.whatsapp.com/KCyeziNgkrY9oJdSyMVIfP",
+  chessCom: "https://www.chess.com/club/lightning-square-chess-club",
   logo: "https://i.ibb.co/Ld6nbrV/logo.png",
   mission:
     "Bridge geographic and economic disparities in chess education and create opportunities for children to learn and grow through chess.",
@@ -58,10 +60,10 @@ export const nav: Nav[] = [
     label: "Tournaments",
     href: "/tournaments",
     children: [
-      { href: "/tournaments", label: "All tournaments", note: "Schedule and full results archive" },
-      { href: "/quads", label: "Monthly Quads", note: "USCF-rated, G/25 d5" },
+      { href: "/tournaments", label: "All tournaments", note: "Schedule, championships and results archive" },
+      { href: "/quads", label: "Monthly Quads", note: "Our main event. USCF-rated, G/25 d5" },
       { href: "/quads/faq", label: "Quad FAQ", note: "Ratings, pairings, trophies" },
-      { href: "/championship", label: "Summer Championship", note: "Open, U1600, U800" },
+      { href: "/championship", label: "Championships", note: "Summer, Fall, Winter and Spring" },
       { href: "/online", label: "Online tournaments", note: "Free events on Chess.com" },
     ],
   },
@@ -69,14 +71,14 @@ export const nav: Nav[] = [
     label: "Programs",
     href: "/programs",
     children: [
-      { href: "/programs", label: "All programs", note: "How the three fit together" },
+      { href: "/programs", label: "All programs", note: "What we run now, and what we ran before" },
       { href: "/programs/bay-area", label: "Bay Area classes", note: "In person, Cupertino" },
       { href: "/programs/national", label: "National program", note: "Free classes, four states" },
-      { href: "/programs/international", label: "Club Bootstrap", note: "Seven schools, four countries" },
+      { href: "/programs/international", label: "Club Bootstrap", note: "Past programme. Not taking new schools" },
     ],
   },
   { label: "Partner schools", href: "/schools" },
-  { label: "About", href: "/about" },
+  { label: "About us", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -90,13 +92,41 @@ export type Upcoming = {
   format: string;
   register?: string;
   entries?: string;
+  /** Official US Chess event announcement (TLA). */
+  tla?: string;
 };
 
+/* Registration form and live entry sheet for each date, taken from the
+   official US Chess announcement for that event. Both open in a new tab. */
 export const upcomingQuads: Upcoming[] = [
-  { date: "2026-08-30", display: "August 30, 2026", name: "August Quads", venue: venues.deAnza, format: "G/25 d5" },
-  { date: "2026-09-27", display: "September 27, 2026", name: "September Quads", venue: venues.deAnza, format: "G/25 d5" },
-  { date: "2026-10-18", display: "October 18, 2026", name: "October Quads", venue: venues.deAnza, format: "G/25 d5" },
-  { date: "2026-11-15", display: "November 15, 2026", name: "November Quads", venue: venues.deAnza, format: "G/25 d5" },
+  {
+    date: "2026-08-30", display: "August 30, 2026", name: "August Quads",
+    venue: venues.deAnza, format: "G/25 d5",
+    register: "https://forms.gle/jph4aPqvfZq7mn3Q8",
+    entries: "https://docs.google.com/spreadsheets/d/1ZfmCFsGjjk7m0dOuNAoTywVIC0M0mneo4kK9cRAbHkw",
+    tla: "https://new.uschess.org/lightning-square-quads-aug-2026",
+  },
+  {
+    date: "2026-09-27", display: "September 27, 2026", name: "September Quads",
+    venue: venues.deAnza, format: "G/25 d5",
+    register: "https://forms.gle/Aqhnmig3hrrfhMbH8",
+    entries: "https://docs.google.com/spreadsheets/d/1ljbiGexQ0QQd22uTYYSYb8ufHrHkiHqBAY3lsa1UCOs",
+    tla: "https://new.uschess.org/lightning-square-quads-sept-2026",
+  },
+  {
+    date: "2026-10-18", display: "October 18, 2026", name: "October Quads",
+    venue: venues.deAnza, format: "G/25 d5",
+    register: "https://forms.gle/WUYnqwgjyybTiiPo9",
+    entries: "https://docs.google.com/spreadsheets/d/1Wh1-X-cYKdh-MhTP8OYs1WIoajitB3vKy2Oxw1g69cQ",
+    tla: "https://new.uschess.org/lightning-square-quads-oct-2026",
+  },
+  {
+    date: "2026-11-15", display: "November 15, 2026", name: "November Quads",
+    venue: venues.deAnza, format: "G/25 d5",
+    register: "https://forms.gle/A3wJMQbqo91p8KeX9",
+    entries: "https://docs.google.com/spreadsheets/d/1JSdkXXbLyXmLc2NHM4q4E6DxEYzWDwNNdfMGUQN6FwI",
+    tla: "https://new.uschess.org/lightning-square-quads-nov-2026",
+  },
 ];
 
 export type PastEvent = {
@@ -140,6 +170,43 @@ export const onlineEvents = [
   { date: "November 16, 2024", format: "G/15+10", directors: "Vicky Qin, Hanchi Yao, Serena Yuan", results: "https://www.chess.com/tournament/live/lightning-square-online-swiss-5195569" },
   { date: "April 28, 2024", format: "G/15+10", directors: "Vicky Qin, Hanchi Yao", results: "https://www.chess.com/tournament/live/lightning-square-online-tournament-4773070" },
   { date: "February 17, 2024", format: "G/15+10", directors: "Vicky Qin, Serena Yuan", results: "https://www.chess.com/tournament/live/president-day-online-chess-tournament-5478589" },
+];
+
+/* The championship series. Four a year, all on the Summer format: a rated
+   main tournament in the morning, an evening blitz. Only the Summer edition
+   has confirmed details so far; the other three are announced dates only. */
+export type ChampionshipEntry = {
+  name: string;
+  when: string;
+  status: "played" | "tbd";
+  note: string;
+};
+
+export const championshipSeries: ChampionshipEntry[] = [
+  {
+    name: "Summer Championship and Blitz",
+    when: "August 9, 2026",
+    status: "played",
+    note: "Domain Hotel, Sunnyvale. Open, U1600 and U800 plus an evening blitz. Full details below.",
+  },
+  {
+    name: "Fall Championship and Blitz",
+    when: "November 2026",
+    status: "tbd",
+    note: "Date, venue and entry to be announced. Same format as the Summer Championship.",
+  },
+  {
+    name: "Winter Championship and Blitz",
+    when: "March 2027",
+    status: "tbd",
+    note: "Date, venue and entry to be announced. Same format as the Summer Championship.",
+  },
+  {
+    name: "Spring Championship and Blitz",
+    when: "May 2027",
+    status: "tbd",
+    note: "Date, venue and entry to be announced. Same format as the Summer Championship.",
+  },
 ];
 
 export const championship = {

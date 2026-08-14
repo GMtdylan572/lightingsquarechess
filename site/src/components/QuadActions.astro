@@ -1,0 +1,67 @@
+---
+/**
+ * The three links a player needs for one quad date: the registration form,
+ * the live entry sheet, and the official US Chess announcement. All three
+ * are off-site, so all three open in a new tab.
+ *
+ * `size="sm"` is for list rows; the default is for the featured next event.
+ */
+import Bolt from "@/components/Bolt.astro";
+import type { Upcoming } from "@/data/site";
+
+interface Props {
+  event: Upcoming;
+  size?: "sm" | "md";
+  class?: string;
+}
+const { event, size = "md", class: cls = "" } = Astro.props;
+
+const h = size === "sm" ? "h-9 px-3 text-[0.84rem]" : "h-11 px-5 text-[0.92rem]";
+---
+<div class:list={["flex flex-wrap items-center gap-2", cls]}>
+  {event.register && (
+    <a
+      href={event.register}
+      target="_blank"
+      rel="noopener noreferrer"
+      class:list={[
+        "inline-flex items-center gap-1.5 rounded-sm bg-primary font-medium text-primary-foreground transition-colors hover:bg-primary/90",
+        h,
+      ]}
+    >
+      <Bolt size={size === "sm" ? 12 : 14} />
+      Register
+    </a>
+  )}
+  {event.entries && (
+    <a
+      href={event.entries}
+      target="_blank"
+      rel="noopener noreferrer"
+      class:list={[
+        "inline-flex items-center rounded-sm border border-input font-medium transition-colors hover:bg-accent",
+        h,
+      ]}
+    >
+      Live entries
+    </a>
+  )}
+  {event.tla && (
+    <a
+      href={event.tla}
+      target="_blank"
+      rel="noopener noreferrer"
+      class:list={[
+        "inline-flex items-center font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline",
+        size === "sm" ? "h-9 text-[0.84rem]" : "h-11 text-[0.92rem]",
+      ]}
+    >
+      US Chess listing
+    </a>
+  )}
+  {!event.register && (
+    <span class="font-mono text-[0.72rem] uppercase tracking-wider text-muted-foreground">
+      Registration soon
+    </span>
+  )}
+</div>

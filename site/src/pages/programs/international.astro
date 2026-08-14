@@ -4,11 +4,11 @@ import PageHeader from "@/components/PageHeader.astro";
 import { schools } from "@/data/site";
 
 const steps = [
-  ["A teacher gets in touch", "Every partnership so far started with one email from someone at a school with no chess programme."],
-  ["We ship equipment", "Chess sets, boards and clocks, sent to the school. Getting them there is often the slowest part."],
-  ["Weekly lessons over video", "One of our coaches teaches a live class each week, working around power cuts and unreliable connections."],
-  ["A local teacher runs the room", "Someone on the ground supervises practice between lessons. Without them none of this works."],
-  ["We step back", "Support continues until the club can run without us."],
+  ["A teacher got in touch", "Every partnership started with one email from someone at a school with no chess programme."],
+  ["We shipped equipment", "Chess sets, boards and clocks, sent to the school. Getting them there was often the slowest part."],
+  ["Weekly lessons over video", "One of our coaches taught a live class each week, working around power cuts and unreliable connections."],
+  ["A local teacher ran the room", "Someone on the ground supervised practice between lessons. Without them none of it would have worked."],
+  ["We stepped back", "Support continued until the club could run without us."],
 ];
 ---
 <Base
@@ -16,16 +16,30 @@ const steps = [
   description="The Chess Club Bootstrap Initiative helps schools in Kenya, Nigeria, Malawi and South Africa start their first chess club with free online lessons, donated sets and ongoing support."
 >
   <PageHeader
-    kicker="Kenya, Nigeria, Malawi, South Africa"
+    kicker="Past programme · Kenya, Nigeria, Malawi, South Africa"
     title="Club Bootstrap"
-    lede="Helping a school open its first chess club, and staying until it can run on its own."
+    lede="Helping a school open its first chess club, and staying until it could run on its own. Seven schools across four countries."
     crumbs={[{ href: "/", label: "Home" }, { href: "/programs", label: "Programs" }]}
   />
+
+  <div class="mx-auto mt-8 max-w-6xl px-5">
+    <div class="flex flex-wrap items-center gap-4 rounded-md border border-border bg-secondary px-5 py-4">
+      <span class="rounded-sm border border-input px-2 py-1 font-mono text-[0.65rem] uppercase tracking-wider text-muted-foreground">
+        Not currently running
+      </span>
+      <p class="text-[0.92rem] text-muted-foreground">
+        We are not taking on new schools at the moment — our focus is the monthly
+        quads and the Bay Area programme. This page is the record of what
+        Club Bootstrap did. For anything about an existing partner school,
+        <a href="/contact" class="text-primary underline underline-offset-2">email us</a>.
+      </p>
+    </div>
+  </div>
 
   <section class="mx-auto max-w-6xl px-5 py-16">
     <div class="grid gap-12 lg:grid-cols-12">
       <div class="lg:col-span-6">
-        <h2 class="mb-5 text-2xl font-semibold">How it works</h2>
+        <h2 class="mb-5 text-2xl font-semibold">How it worked</h2>
         <ol class="divide-y divide-border overflow-hidden rounded-md border border-border bg-card">
           {steps.map(([title, body], i) => (
             <li class="flex gap-4 p-5">

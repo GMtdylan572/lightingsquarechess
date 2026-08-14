@@ -6,14 +6,16 @@ const rows = [
   {
     href: "/programs/bay-area",
     label: "Bay Area",
-    title: "In-person classes and rated quads",
-    body: "A ten-week introductory course in Cupertino covering rules, notation, tactics and basic strategy, plus a monthly USCF-rated quad at the same address once players are ready to compete.",
+    status: "Running now",
+    title: "In-person classes and the monthly rated quads",
+    body: "A ten-week introductory course in Cupertino covering rules, notation, tactics and basic strategy, plus a monthly USCF-rated quad at the same address once players are ready to compete. This is the programme we put most of our time into.",
     photo: "https://i.ibb.co/Fq5BmC0n/bayarea-1s.jpg",
     facts: [["Since", "2023"], ["Cost", "Free"], ["Venue", "De Anza Learning Center"]],
   },
   {
     href: "/programs/national",
     label: "National",
+    status: "Running now",
     title: "Free online classes in four states",
     body: "US Chess has more than 76,000 members nationally. Alaska and North Dakota have fewer than a hundred each. We teach an introductory course into those states, and into Idaho and Mississippi, over video call.",
     photo: "https://i.ibb.co/d0j36SF9/25206877-7060296.jpg",
@@ -22,10 +24,11 @@ const rows = [
   {
     href: "/programs/international",
     label: "International",
+    status: "Past programme",
     title: "Club Bootstrap",
-    body: "A teacher writes to us from a school with no chess club. We ship sets, run weekly lessons over video, and support the club until it can run on its own. Seven schools across four countries so far.",
+    body: "For a year we helped schools abroad open their first chess club: shipping sets, running weekly lessons over video, and supporting the club until it could run on its own. Seven schools across four countries. We are not starting new ones at the moment, and the record of the work is kept here.",
     photo: "https://i.ibb.co/BVX6f9ys/2c20fafa-4eec-46bd-9870-b171db690b8f.jpg",
-    facts: [["Since", "2025"], ["Schools", "7"], ["Countries", "KE, NG, MW, ZA"]],
+    facts: [["Ran", "2025"], ["Schools", "7"], ["Countries", "KE, NG, MW, ZA"]],
   },
 ];
 ---
@@ -36,7 +39,7 @@ const rows = [
   <PageHeader
     kicker="What we run"
     title="Programs"
-    lede="Each one attacks a different reason a child who wants to play chess cannot."
+    lede="What we run today is the Bay Area programme in Cupertino — weekly classes and the monthly rated quads — plus free online courses into states with no chess scene. Club Bootstrap is kept here as a record."
     crumbs={[{ href: "/", label: "Home" }]}
   />
 
@@ -48,7 +51,15 @@ const rows = [
                class="aspect-[4/3] w-full rounded-md border border-border object-cover" />
         </div>
         <div class="lg:col-span-7">
-          <p class="label mb-2">{r.label}</p>
+          <div class="mb-2 flex flex-wrap items-center gap-3">
+            <p class="label">{r.label}</p>
+            <span class:list={[
+              "rounded-sm px-1.5 py-0.5 font-mono text-[0.62rem] uppercase tracking-wider",
+              r.status === "Running now"
+                ? "bg-accent text-accent-foreground"
+                : "border border-input text-muted-foreground",
+            ]}>{r.status}</span>
+          </div>
           <h2 class="mb-3 text-[1.6rem] font-semibold">{r.title}</h2>
           <p class="mb-6 max-w-[58ch] leading-relaxed text-muted-foreground">{r.body}</p>
           <dl class="mb-6 grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-3">

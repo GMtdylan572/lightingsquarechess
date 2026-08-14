@@ -10,19 +10,23 @@ import { onlineEvents, org } from "@/data/site";
   <PageHeader
     kicker="Free to enter"
     title="Online tournaments"
-    lede="G/15+10 Swiss events on Chess.com, directed by our students and open to players anywhere."
+    lede="G/15+10 Swiss events on Chess.com, directed by our students. We run these only occasionally now — the monthly quads in Cupertino are where our tournaments happen."
     crumbs={[{ href: "/", label: "Home" }, { href: "/tournaments", label: "Tournaments" }]}
   />
 
   <section class="mx-auto max-w-4xl px-5 py-16">
     <div class="rounded-md border border-dashed border-input bg-card p-8 text-center">
-      <h2 class="mb-2 text-xl font-semibold">Nothing scheduled right now</h2>
-      <p class="mx-auto mb-5 max-w-[46ch] text-muted-foreground">
-        We run these a few times a year and announce them on Facebook. Past events are listed below.
+      <h2 class="mb-2 text-xl font-semibold">Nothing scheduled online right now</h2>
+      <p class="mx-auto mb-5 max-w-[52ch] text-muted-foreground">
+        Our regular tournament is the USCF-rated monthly quad in Cupertino, and
+        registration for it is open. Online events return now and then; when they
+        do they are announced in the WhatsApp group and posted to our Chess.com
+        club.
       </p>
       <div class="flex flex-wrap justify-center gap-2">
-        <a href="/contact" class="inline-flex h-10 items-center rounded-sm bg-primary px-4 text-[0.9rem] font-medium text-primary-foreground hover:bg-primary/90">Get notified</a>
-        <a href={org.facebook} target="_blank" rel="noopener noreferrer" class="inline-flex h-10 items-center rounded-sm border border-input px-4 text-[0.9rem] font-medium hover:bg-accent">Follow on Facebook</a>
+        <a href="/quads" class="inline-flex h-10 items-center rounded-sm bg-primary px-4 text-[0.9rem] font-medium text-primary-foreground hover:bg-primary/90">See the monthly quads</a>
+        <a href={org.whatsapp} target="_blank" rel="noopener noreferrer" class="inline-flex h-10 items-center rounded-sm border border-input px-4 text-[0.9rem] font-medium hover:bg-accent">Join the WhatsApp group</a>
+        <a href={org.chessCom} target="_blank" rel="noopener noreferrer" class="inline-flex h-10 items-center rounded-sm border border-input px-4 text-[0.9rem] font-medium hover:bg-accent">Our Chess.com club</a>
       </div>
     </div>
 

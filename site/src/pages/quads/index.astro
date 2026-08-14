@@ -1,7 +1,12 @@
 ---
 import Base from "@/layouts/Base.astro";
 import PageHeader from "@/components/PageHeader.astro";
-import { upcomingQuads, venues } from "@/data/site";
+import QuadActions from "@/components/QuadActions.astro";
+import Bolt from "@/components/Bolt.astro";
+import { upcomingQuads, venues, org } from "@/data/site";
+
+const next = upcomingQuads[0];
+const later = upcomingQuads.slice(1);
 ---
 <Base
   title="Monthly Quads"
@@ -13,6 +18,26 @@ import { upcomingQuads, venues } from "@/data/site";
     lede="The friendliest way for a young player to get an official US Chess rating."
     crumbs={[{ href: "/", label: "Home" }, { href: "/tournaments", label: "Tournaments" }]}
   />
+
+  {/* The next date, with its two links, above everything else. This is the
+      single action the whole site is trying to produce. */}
+  <section class="border-b border-border bg-secondary">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-end justify-between gap-6 px-5 py-8">
+      <div>
+        <p class="bolt-rule label mb-2 max-w-xs text-primary">
+          <Bolt size={13} />
+          Next quad
+        </p>
+        <p class="font-heading text-[1.75rem] font-semibold leading-tight sm:text-[2.1rem]">
+          {next.display}
+        </p>
+        <p class="mt-1 text-[0.9rem] text-muted-foreground">
+          {next.venue.name} &middot; {next.format} &middot; USCF-rated
+        </p>
+      </div>
+      <QuadActions event={next} />
+    </div>
+  </section>
 
   <section class="mx-auto max-w-6xl px-5 py-16">
     <div class="grid gap-10 lg:grid-cols-12">
@@ -56,18 +81,21 @@ import { upcomingQuads, venues } from "@/data/site";
 
   <section class="border-t border-border bg-secondary">
     <div class="mx-auto max-w-6xl px-5 py-16">
-      <h2 class="label mb-6">2026 schedule</h2>
+      <h2 class="label mb-6">Rest of the 2026 schedule</h2>
       <ol class="divide-y divide-border overflow-hidden rounded-md border border-border bg-card">
-        {upcomingQuads.map((q) => (
+        {later.map((q) => (
           <li class="flex flex-wrap items-center gap-4 p-5">
             <time datetime={q.date} class="w-36 shrink-0 font-mono text-[0.95rem] font-medium">{q.display}</time>
-            <p class="flex-1 text-[0.9rem] text-muted-foreground">{q.venue.name} &middot; {q.format}</p>
-            <span class="font-mono text-[0.72rem] uppercase tracking-wider text-muted-foreground">Registration soon</span>
+            <p class="min-w-[10rem] flex-1 text-[0.9rem] text-muted-foreground">{q.venue.name} &middot; {q.format}</p>
+            <QuadActions event={q} size="sm" />
           </li>
         ))}
       </ol>
       <p class="mt-4 text-[0.9rem] text-muted-foreground">
-        Want an email when entries open? <a href="/contact" class="text-primary underline underline-offset-2">Tell us</a>.
+        Registration is open for every date above. Entry lists update live as
+        forms come in. For reminders, join the
+        <a href={org.whatsapp} target="_blank" rel="noopener noreferrer" class="text-primary underline underline-offset-2">WhatsApp group</a>
+        or <a href={`mailto:${org.email}`} class="text-primary underline underline-offset-2">email us</a>.
       </p>
     </div>
   </section>

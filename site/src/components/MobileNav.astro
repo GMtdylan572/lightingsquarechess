@@ -3,8 +3,10 @@
 // on all 18 pages cost ~210 KB just to open a menu. shadcn islands are kept
 // for the FAQ accordion and the results table, where the interactivity is
 // real. Everything here is a <dialog> plus 20 lines of script.
-import { nav } from "@/data/site";
+import { nav, upcomingQuads } from "@/data/site";
+import Bolt from "@/components/Bolt.astro";
 
+const nextQuad = upcomingQuads[0];
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const isActive = (href: string) =>
   href === "/" ? path === "/" : path === href || path.startsWith(href + "/");
@@ -69,10 +71,19 @@ const isActive = (href: string) =>
       ))
     }
     <a
-      href="/quads"
-      class="mt-4 inline-flex h-11 w-full items-center justify-center rounded-sm bg-primary px-4 font-medium text-primary-foreground"
+      href={nextQuad.register ?? "/quads"}
+      target={nextQuad.register ? "_blank" : undefined}
+      rel={nextQuad.register ? "noopener noreferrer" : undefined}
+      class="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-sm bg-primary px-4 font-medium text-primary-foreground"
     >
-      Play a quad
+      <Bolt size={15} />
+      Register for {nextQuad.name}
+    </a>
+    <a
+      href="/quads/faq"
+      class="mt-2 inline-flex h-11 w-full items-center justify-center rounded-sm border border-input px-4 font-medium"
+    >
+      Quad FAQ
     </a>
   </nav>
 </dialog>

@@ -1,4 +1,6 @@
 ---
+import Bolt from "@/components/Bolt.astro";
+
 interface Props {
   kicker?: string;
   title: string;
@@ -7,7 +9,8 @@ interface Props {
 }
 const { kicker, title, lede, crumbs = [] } = Astro.props;
 ---
-<section class="board-texture border-b border-border bg-board text-board-foreground">
+<section class="board-texture relative isolate overflow-hidden border-b border-border bg-board text-board-foreground">
+  <Bolt size={280} class="bolt-mark hidden sm:block" />
   <div class="mx-auto max-w-6xl px-5 py-14 sm:py-16">
     {crumbs.length > 0 && (
       <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-2 font-mono text-[0.72rem] text-board-foreground/50">
@@ -20,7 +23,12 @@ const { kicker, title, lede, crumbs = [] } = Astro.props;
         <span class="text-board-foreground/80">{title}</span>
       </nav>
     )}
-    {kicker && <p class="label mb-3 text-gold">{kicker}</p>}
+    {kicker && (
+      <p class="bolt-rule label mb-3 max-w-md text-gold">
+        <Bolt size={13} />
+        {kicker}
+      </p>
+    )}
     <h1 class="max-w-3xl text-4xl font-semibold text-white sm:text-5xl">{title}</h1>
     {lede && <p class="mt-4 max-w-2xl text-[1.05rem] leading-relaxed text-board-foreground/70">{lede}</p>}
     <slot />

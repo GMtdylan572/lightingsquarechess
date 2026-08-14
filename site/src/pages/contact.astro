@@ -1,7 +1,10 @@
 ---
 import Base from "@/layouts/Base.astro";
 import PageHeader from "@/components/PageHeader.astro";
-import { org } from "@/data/site";
+import Bolt from "@/components/Bolt.astro";
+import { org, upcomingQuads } from "@/data/site";
+
+const next = upcomingQuads[0];
 ---
 <Base
   title="Contact"
@@ -31,10 +34,10 @@ import { org } from "@/data/site";
         </p>
       </div>
       <div class="bg-card p-6">
-        <h2 class="mb-2 text-[1.08rem] font-semibold">Start a club at your school</h2>
+        <h2 class="mb-2 text-[1.08rem] font-semibold">Partner schools</h2>
         <p class="text-[0.92rem] leading-relaxed text-muted-foreground">
-          If you teach somewhere with no chess programme, Club Bootstrap provides
-          free online coaching and donated sets. <a href="/programs/international" class="text-primary underline underline-offset-2">How it works</a>.
+          For anything to do with an existing partner school, write to
+          <a href={`mailto:${org.email}`} class="break-all text-primary underline underline-offset-2">{org.email}</a>.
         </p>
       </div>
       <div class="bg-card p-6">
@@ -46,8 +49,34 @@ import { org } from "@/data/site";
       </div>
     </div>
 
+    {/* The thing we actually want from a visitor is an entry, so it is stated
+        here rather than left implied. */}
+    <div class="mt-10 rounded-md border-l-2 border-gold bg-secondary p-6">
+      <p class="bolt-rule label mb-3 max-w-[14rem] text-foreground">
+        <Bolt size={13} class="text-gold" />
+        Before you write
+      </p>
+      <h2 class="mb-2 text-[1.2rem] font-semibold">The monthly quad is the main thing we run</h2>
+      <p class="mb-5 max-w-[58ch] text-[0.94rem] leading-relaxed text-muted-foreground">
+        Registration is open for {next.display}, and for every date after it this
+        year. Join the WhatsApp group for reminders and results.
+      </p>
+      <div class="flex flex-wrap gap-2">
+        <a href={next.register} target="_blank" rel="noopener noreferrer"
+           class="inline-flex h-11 items-center gap-2 rounded-sm bg-primary px-5 text-[0.92rem] font-medium text-primary-foreground transition-colors hover:bg-primary/90">
+          <Bolt size={14} />
+          Register for {next.display.replace(", 2026", "")}
+        </a>
+        <a href={org.whatsapp} target="_blank" rel="noopener noreferrer"
+           class="inline-flex h-11 items-center rounded-sm border border-input px-5 text-[0.92rem] font-medium transition-colors hover:bg-accent">
+          Join the WhatsApp group
+        </a>
+      </div>
+    </div>
+
     <p class="mt-8 text-[0.92rem] text-muted-foreground">
-      We also post event announcements on <a href={org.facebook} target="_blank" rel="noopener noreferrer" class="text-primary underline underline-offset-2">Facebook</a>.
+      We also post announcements on <a href={org.facebook} target="_blank" rel="noopener noreferrer" class="text-primary underline underline-offset-2">Facebook</a>
+      and run occasional free events on our <a href={org.chessCom} target="_blank" rel="noopener noreferrer" class="text-primary underline underline-offset-2">Chess.com club</a>.
     </p>
   </section>
 </Base>
