@@ -1,0 +1,143 @@
+---
+/**
+ * The top three of one championship section.
+ *
+ * On phones the cards read straight down, 1-2-3. From `md` up they reorder
+ * into the familiar podium silhouette — second, first, third — with the
+ * winner raised. That is pure CSS `order` and margin, so this component
+ * ships no JavaScript.
+ */
+import type { Podium } from "@/data/site";
+
+interface Props {
+  name: string;
+  players: number;
+  games: number;
+  podium: Podium[];
+}
+const { name, players, games, podium } = Astro.props;
+
+const medals: Record<number, { tint: string; ink: string; label: string }> = {
+  1: { tint: "#E8B04B", ink: "#2A1F06", label: "Champion" },
+  2: { tint: "#AEB4B8", ink: "#1B1F21", label: "Runner-up" },
+  3: { tint: "#C08457", ink: "#241408", label: "Third" },
+};
+const ordinal = (n: number) => ["", "1st", "2nd", "3rd"][n];
+
+/* Two places can be waiting on the same tiebreak — U800 2nd and 3rd came out
+   of one three-way tie on 3.0. Printing that group twice reads as a bug, so
+   consecutive unresolved places sharing a tie group collapse into one slot. */
+type Slot = Podium & { places: number[] };
+const slots = podium.reduce<Slot[]>((acc, p) => {
+  const prev = acc[acc.length - 1];
+  const sameTie =
+    prev && !prev.name && !p.name &&
+    prev.tiedWith?.join("|") === p.tiedWith?.join("|");
+  if (sameTie) {
+    prev.places.push(p.place);
+    prev.prize = `${prev.prize} + ${p.prize}`;
+    return acc;
+  }
+  acc.push({ ...p, places: [p.place] });
+  return acc;
+}, []);
+
+/* The raised-winner-in-the-middle silhouette only works with three equal
+   columns. Once a slot spans two of them, fall back to plain 1-2-3 order. */
+const stepped = slots.length === 3;
+---
+
+<section class="mb-14 last:mb-0">
+  <header class="mb-6 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+    <h3 class="font-heading text-2xl font-semibold">{name}</h3>
+    <p class="font-mono text-[0.8rem] text-muted-foreground">
+      {players} players &middot; {games} games
+    </p>
+  </header>
+
+  <div class="flex flex-col gap-4 md:grid md:grid-cols-3 md:items-end md:gap-5">
+    {slots.map((p) => {
+      const m = medals[p.place];
+      const spans = p.places.length > 1;
+      const gain =
+        p.ratingBefore != null && p.ratingAfter != null
+          ? p.ratingAfter - p.ratingBefore
+          : null;
+      return (
+        <article
+          style={`--medal:${m.tint};--medal-ink:${m.ink}`}
+          class:list={[
+            "relative overflow-hidden rounded-md border border-border bg-card shadow-sm",
+            p.place === 1 && "order-1 md:shadow-md",
+            p.place === 1 && stepped && "md:order-2",
+            p.place === 2 && "order-2",
+            p.place === 2 && stepped && "md:order-1",
+            p.place === 3 && "order-3",
+            spans && "md:col-span-2",
+          ]}
+        >
+          {/* Medal bar. Thicker on the winner so the hierarchy survives greyscale. */}
+          <div
+            class:list={["w-full", p.place === 1 ? "h-1.5" : "h-1"]}
+            style="background:var(--medal)"
+          />
+
+          <div class:list={["p-6", p.place === 1 && "md:pb-8 md:pt-8"]}>
+            <div class="mb-4 flex items-center justify-between gap-3">
+              <span
+                class="inline-flex items-center rounded-sm px-2 py-1 font-mono text-[0.65rem] font-semibold uppercase tracking-wider"
+                style="background:var(--medal);color:var(--medal-ink)"
+              >
+                {p.places.map(ordinal).join(" & ")}
+                {!spans && <> &middot; {m.label}</>}
+              </span>
+              <span
+                class="font-mono text-sm font-semibold tabular-nums"
+                style="color:var(--medal)"
+                aria-label={`Prize ${p.prize}`}
+              >{p.prize}</span>
+            </div>
+
+            {p.name ? (
+              <p
+                class:list={[
+                  "font-heading font-semibold leading-tight",
+                  p.place === 1 ? "text-2xl md:text-[1.75rem]" : "text-xl",
+                ]}
+              >{p.name}</p>
+            ) : (
+              <div>
+                <p class="mb-2 text-[0.92rem] leading-snug text-muted-foreground">
+                  Tied on score &mdash; trophy order decided by the announced tiebreak:
+                </p>
+                <ul class="space-y-0.5">
+                  {p.tiedWith?.map((t) => (
+                    <li class="text-[0.95rem] font-medium leading-snug">{t}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <dl class="mt-5 space-y-1.5 border-t border-border pt-4 text-[0.85rem]">
+              <div class="flex justify-between gap-4">
+                <dt class="text-muted-foreground">Score</dt>
+                <dd class="font-mono font-medium tabular-nums">{p.score}</dd>
+              </div>
+              {gain !== null && (
+                <div class="flex justify-between gap-4">
+                  <dt class="text-muted-foreground">Rating</dt>
+                  <dd class="font-mono tabular-nums">
+                    {p.ratingBefore} &rarr; <span class="font-semibold">{p.ratingAfter}</span>
+                    <span class:list={["ml-1.5", gain > 0 ? "text-primary" : "text-muted-foreground"]}>
+                      {gain > 0 ? `+${gain}` : gain}
+                    </span>
+                  </dd>
+                </div>
+              )}
+            </dl>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+</section>

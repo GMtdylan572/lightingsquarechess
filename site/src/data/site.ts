@@ -96,6 +96,15 @@ export type Upcoming = {
   tla?: string;
 };
 
+/* The one flyer covers all four dates in the run. PNG is the on-page preview,
+   PDF is the download. Both come from the same Canva export — if the flyer is
+   replaced, re-render the PNG at 144dpi so the preview stays sharp. */
+export const quadsFlyer = {
+  pdf: "/quads-flyer-2026.pdf",
+  image: "/quads-flyer-2026.png",
+  alt: "Monthly Quads flyer: USCF rated, three rounds, De Anza Learning Center, Cupertino. August 30, September 27, October 18 and November 15, 2026.",
+};
+
 /* Registration form and live entry sheet for each date, taken from the
    official US Chess announcement for that event. Both open in a new tab. */
 export const upcomingQuads: Upcoming[] = [
@@ -238,6 +247,68 @@ export const championship = {
       entries: "https://docs.google.com/spreadsheets/d/1VKyYpFwCv5l_UNmQzZeQzqvwEG_cXPrtkEwqIg6Sdso",
     },
   ],
+};
+
+/* ------------------------------------------------- championship results */
+
+/**
+ * A finishing place on the podium.
+ *
+ * `name` is deliberately optional. Where several players tied on score the
+ * US Chess crosstable does NOT settle the trophy order — within a point group
+ * it sorts by post-event rating, which is why /quads/faq has a whole question
+ * about the crosstable not matching trophy placement. Leaving `name` unset
+ * renders an honest "decided on tiebreak" slot rather than guessing a child's
+ * name onto a prize. Fill it in from the TD's final standings.
+ */
+export type Podium = {
+  place: 1 | 2 | 3;
+  name?: string;
+  score: string;
+  ratingBefore?: number;
+  ratingAfter?: number;
+  prize: string;
+  /** Players who finished on this score, when more than one did. */
+  tiedWith?: string[];
+};
+
+export const championshipResults = {
+  year: 2026,
+  date: "August 9, 2026",
+  iso: "2026-08-09",
+  venue: venues.domainHotel,
+  crosstable: "https://ratings.uschess.org/event/202608090653",
+  rounds: 4,
+  control: "G/40 d5",
+  players: 46,
+  games: 87,
+  sections: [
+    {
+      name: "U1600",
+      players: 31,
+      games: 59,
+      podium: [
+        { place: 1, name: "Andrew W Peng", score: "4.0 / 4", ratingBefore: 1451, ratingAfter: 1477, prize: "$150" },
+        { place: 2, name: "Juncheng Jia", score: "3.5 / 4", ratingBefore: 1259, ratingAfter: 1297, prize: "$100" },
+        {
+          place: 3, score: "3.0 / 4", prize: "$50",
+          tiedWith: ["Mahat Aravind", "Hengrui Cai", "Isaac Zhou", "Bryan Yichang Sun", "Rihaan Joshi Choudhury"],
+        },
+      ] as Podium[],
+    },
+    {
+      name: "U800",
+      players: 15,
+      games: 28,
+      podium: [
+        { place: 1, name: "Nova Xie", score: "4.0 / 4", ratingBefore: 443, ratingAfter: 655, prize: "$100" },
+        { place: 2, score: "3.0 / 4", prize: "$75", tiedWith: ["Ilan Ram Kumar", "Jason Jin", "Nihira Tagarathi"] },
+        { place: 3, score: "3.0 / 4", prize: "$40", tiedWith: ["Ilan Ram Kumar", "Jason Jin", "Nihira Tagarathi"] },
+      ] as Podium[],
+    },
+  ],
+  /* Biggest rating gain of the day, across both sections. */
+  climber: { name: "Nova Xie", section: "U800", from: 443, to: 655 },
 };
 
 /* -------------------------------------------------------------- programs */

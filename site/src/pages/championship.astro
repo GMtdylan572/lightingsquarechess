@@ -1,12 +1,14 @@
 ---
 import Base from "@/layouts/Base.astro";
 import PageHeader from "@/components/PageHeader.astro";
-import { championship as c, championshipSeries, org } from "@/data/site";
+import Podium from "@/components/Podium.astro";
+import { championship as c, championshipSeries, championshipResults as r, org } from "@/data/site";
 const past = new Date(c.iso) < new Date();
+const resultsIn = r.iso === c.iso;
 ---
 <Base
   title="Championships"
-  description="The four Lightning Square championship weekends: Summer, Fall, Winter and Spring. Each pairs a rated main tournament with an evening blitz."
+  description="Results of the Lightning Square Summer Championship, plus the Fall, Winter and Spring editions. Each pairs a rated main tournament with an evening blitz."
 >
   <PageHeader
     kicker="Four a year"
@@ -15,8 +17,81 @@ const past = new Date(c.iso) < new Date();
     crumbs={[{ href: "/", label: "Home" }, { href: "/tournaments", label: "Tournaments" }]}
   />
 
-  <section class="border-b border-border bg-secondary">
-    <div class="mx-auto max-w-6xl px-5 py-12">
+  {past && resultsIn && (
+    <>
+      {/* The championship was played eight days ago. Who won is the news on
+          this page, so it comes before the schedule of what is next. */}
+      <section class="border-b border-border bg-board text-board-foreground">
+        <div class="mx-auto max-w-6xl px-5 py-14">
+          <p class="label mb-3 text-gold">Final standings &middot; {r.date}</p>
+          <h2 class="font-heading text-3xl font-semibold text-white sm:text-4xl">
+            Congratulations to our {r.year} champions
+          </h2>
+          <p class="mt-4 max-w-2xl leading-relaxed text-board-foreground/70">
+            {r.players} players across two sections, {r.games} rated games, and a
+            prize fund paid out on the day. Thank you to everyone who played,
+            directed and drove.
+          </p>
+
+          <dl class="mt-9 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-white/10 bg-white/10 sm:grid-cols-4">
+            {[
+              ["Players", r.players],
+              ["Games", r.games],
+              ["Rounds", r.rounds],
+              ["Control", r.control],
+            ].map(([k, v]) => (
+              <div class="bg-board px-4 py-4">
+                <dt class="label mb-1 text-board-foreground/50">{k}</dt>
+                <dd class="font-mono text-xl font-medium text-white">{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-6xl px-5 py-16">
+        {r.sections.map((s) => (
+          <Podium name={s.name} players={s.players} games={s.games} podium={s.podium} />
+        ))}
+
+        {/* A rating jump is the one number a young player and their parents
+            actually feel, so the biggest one gets its own line. */}
+        <aside class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 rounded-md border border-border bg-accent p-5">
+          <span class="label text-accent-foreground">Biggest rating gain</span>
+          <p class="text-[0.98rem]">
+            <span class="font-semibold">{r.climber.name}</span>
+            <span class="text-muted-foreground"> &middot; {r.climber.section} &middot; </span>
+            <span class="font-mono tabular-nums">{r.climber.from} &rarr; {r.climber.to}</span>
+            <span class="ml-1.5 font-mono font-semibold text-primary tabular-nums">
+              +{r.climber.to - r.climber.from}
+            </span>
+          </p>
+        </aside>
+
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a href={r.crosstable} target="_blank" rel="noopener noreferrer"
+             class="inline-flex h-11 items-center rounded-sm bg-primary px-5 text-[0.92rem] font-medium text-primary-foreground transition-opacity hover:opacity-90">
+            Full US Chess crosstable
+          </a>
+          <a href="/tournaments"
+             class="inline-flex h-11 items-center rounded-sm border border-input px-5 text-[0.92rem] font-medium transition-colors hover:bg-accent">
+            All results
+          </a>
+        </div>
+
+        <p class="mt-6 max-w-[68ch] text-[0.85rem] leading-relaxed text-muted-foreground">
+          Where players finished on the same score, the trophy order came from the
+          announced tiebreak. The US Chess crosstable sorts a point group by
+          post-event rating, so it will not always match the trophy order &mdash;
+          <a href="/quads/faq" class="text-primary underline underline-offset-2">the FAQ explains why</a>.
+        </p>
+      </section>
+    </>
+  )}
+
+  {/* --------------------------------------------------------- the series */}
+  <section class="border-y border-border bg-secondary">
+    <div class="mx-auto max-w-6xl px-5 py-14">
       <h2 class="label mb-5">The series</h2>
       <ol class="grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
         {championshipSeries.map((s) => (
@@ -33,9 +108,7 @@ const past = new Date(c.iso) < new Date();
               </span>
             </div>
             <p class="font-medium leading-snug">{s.name.replace(" and Blitz", "")}</p>
-            <p class="mt-1 text-[0.82rem] leading-snug text-muted-foreground">
-              + evening blitz
-            </p>
+            <p class="mt-1 text-[0.82rem] leading-snug text-muted-foreground">+ evening blitz</p>
           </li>
         ))}
       </ol>
@@ -47,24 +120,11 @@ const past = new Date(c.iso) < new Date();
     </div>
   </section>
 
-  <div class="mx-auto max-w-6xl px-5 pt-14">
-    <h2 class="text-2xl font-semibold sm:text-3xl">Summer Championship {new Date(c.iso).getFullYear()}</h2>
-    <p class="mt-2 text-muted-foreground">{c.date} at the {c.venue.name}, Sunnyvale.</p>
-  </div>
-
-  {past && (
-    <div class="mx-auto mt-6 max-w-6xl px-5">
-      <div class="flex flex-wrap items-center gap-4 rounded-md border border-border bg-accent px-5 py-4">
-        <span class="rounded-sm bg-gold px-2 py-1 font-mono text-[0.65rem] uppercase tracking-wider text-gold-foreground">Concluded</span>
-        <p class="text-[0.92rem] text-muted-foreground">
-          This one has been played. Entry lists stay online below. The next
-          championship is the Fall edition in November 2026.
-        </p>
-      </div>
-    </div>
-  )}
-
-  <section class="mx-auto max-w-6xl px-5 py-10">
+  {/* ------------------------------------------ format, prizes and venue */}
+  <section class="mx-auto max-w-6xl px-5 py-16">
+    <h2 class="label mb-6">
+      {past ? `Summer ${r.year} format and prize fund` : "Format and prize fund"}
+    </h2>
     <div class="grid gap-px overflow-hidden rounded-md border border-border bg-border md:grid-cols-2">
       {c.sections.map((s) => (
         <article class="bg-card p-6">
@@ -92,6 +152,12 @@ const past = new Date(c.iso) < new Date();
         </article>
       ))}
     </div>
+    {past && (
+      <p class="mt-4 text-[0.85rem] text-muted-foreground">
+        The Open section was advertised but did not draw enough entries to run;
+        U1600 played as the top section.
+      </p>
+    )}
   </section>
 
   <section class="border-t border-border bg-secondary">
