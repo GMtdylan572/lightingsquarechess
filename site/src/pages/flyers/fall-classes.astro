@@ -1,0 +1,172 @@
+---
+import Flyer from "@/layouts/Flyer.astro";
+import { fallClassFlyer as f, org, testimonials } from "@/data/site";
+import { qrSvg, shortUrl } from "@/lib/qr";
+
+const qr = await qrSvg(f.register);
+const short = shortUrl(f.register);
+/* A parent's words carry a flyer further than another feature list. */
+const quote = testimonials.find((t) => t.who === "Jet Manousos' Mother")!;
+---
+<Flyer title={`${f.term} Chess Classes`} draft={f.draft}>
+  {/* ------------------------------------------------------------ header */}
+  <header class="hd">
+    <div class="hd-mark">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="currentColor"/></svg>
+      <div>
+        <p class="hd-org">Lightning Square</p>
+        <p class="hd-sub label">Chess Club &middot; Est. {org.founded}</p>
+      </div>
+    </div>
+    <h1 class="hd-title">Free Chess Classes</h1>
+    <p class="hd-term mono">{f.term} &middot; Cupertino</p>
+  </header>
+
+  {/* --------------------------------------------------------- key facts */}
+  <section class="facts">
+    {[
+      ["Dates", f.dates],
+      ["Day &amp; time", f.day && f.time ? `${f.day}, ${f.time}` : null],
+      ["Sessions", `${f.sessions} weeks`],
+      ["Cost", f.cost],
+    ].map(([k, v]) => (
+      <div class="fact">
+        <p class="label fact-k" set:html={k} />
+        <p class="fact-v mono">{v ?? <span class="tbd">TBD</span>}</p>
+      </div>
+    ))}
+  </section>
+
+  {/* ------------------------------------------------------------- body */}
+  <section class="body">
+    <div class="col-main">
+      <h2 class="h-sec">Who it is for</h2>
+      <p class="lede">{f.ages}. {f.blurb}</p>
+
+      <h2 class="h-sec mt">What we cover</h2>
+      <ol class="outline">
+        {f.outline.map((item, i) => (
+          <li><span class="mono num">{String(i + 1).padStart(2, "0")}</span>{item}</li>
+        ))}
+      </ol>
+
+      <h2 class="h-sec mt">How to join</h2>
+      <ol class="steps">
+        {[
+          ["Scan", "Point a phone camera at the code and open the form."],
+          ["Sign up", "One short form per child. Places go in order received."],
+          ["Turn up", "Bring nothing but a pencil. We supply the boards."],
+        ].map(([k, v], i) => (
+          <li>
+            <span class="step-n mono">{i + 1}</span>
+            <span class="step-k">{k}</span>
+            <span class="step-v">{v}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <aside class="col-side">
+      <div class="box">
+        <p class="label box-k">Where</p>
+        <p class="box-name">{f.venue.name}</p>
+        <p class="box-addr">{f.venue.address}</p>
+      </div>
+
+      <div class="box">
+        <p class="label box-k">Coaches</p>
+        <p class="box-body">{f.coaches ?? <span class="tbd">TBD</span>}</p>
+      </div>
+
+      <blockquote class="quote">
+        <p class="quote-text">&ldquo;{quote.text}&rdquo;</p>
+        <footer class="quote-by">{quote.who} &middot; {quote.role}</footer>
+      </blockquote>
+
+      <div class="box reg">
+        <p class="label box-k">Register</p>
+        {qr ? (
+          <>
+            <div class="qr" set:html={qr} />
+            <p class="qr-url mono">{short}</p>
+          </>
+        ) : (
+          <div class="qr-empty">
+            <span class="tbd">TBD</span>
+            <p>Registration link pending</p>
+          </div>
+        )}
+      </div>
+    </aside>
+  </section>
+
+  {/* ------------------------------------------------------------ footer */}
+  <footer class="ft">
+    <p class="ft-main">Questions? <span class="mono">{org.email}</span></p>
+    <p class="ft-site mono">lightningsquarechess.org</p>
+  </footer>
+</Flyer>
+
+<style>
+  /* ---- header ---- */
+  .hd { background: var(--board); color: #fff; padding: 0.5in 0.55in 0.42in; }
+  .hd-mark { display: flex; align-items: center; gap: 9px; margin-bottom: 0.3in; }
+  .hd-mark svg { width: 22px; height: 22px; color: var(--gold); }
+  .hd-org { font-family: "Fraunces Variable", Georgia, serif; font-size: 13pt; font-weight: 600; line-height: 1; }
+  .hd-sub { color: rgb(255 255 255 / 0.5); margin-top: 3px; }
+  .hd-title { font-size: 40pt; letter-spacing: -0.015em; }
+  .hd-term { color: var(--gold); font-size: 12pt; font-weight: 500; margin-top: 9px; }
+
+  /* ---- key facts strip ---- */
+  .facts { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--rule); gap: 1px; border-bottom: 1px solid var(--rule); }
+  .fact { background: var(--paper); padding: 0.17in 0.2in; }
+  .fact:first-child { padding-left: 0.55in; }
+  .fact:last-child { padding-right: 0.55in; }
+  .fact-k { color: var(--muted); margin-bottom: 4px; }
+  .fact-v { font-size: 10.5pt; font-weight: 500; line-height: 1.25; }
+
+  /* ---- body ---- */
+  .body { flex: 1; display: grid; grid-template-columns: 1fr 2.5in; gap: 0.4in; padding: 0.38in 0.55in 0.2in; }
+  .h-sec { font-size: 15pt; margin-bottom: 7px; }
+  .h-sec.mt { margin-top: 0.26in; }
+  .lede { font-size: 10pt; line-height: 1.5; color: #2c3431; max-width: 42ch; }
+
+  .outline { list-style: none; }
+  .outline li { display: flex; gap: 10px; font-size: 9.5pt; line-height: 1.35; padding: 5.5px 0; border-bottom: 1px solid var(--rule); }
+  .outline li:last-child { border-bottom: 0; }
+  .num { color: var(--gold); font-weight: 600; font-size: 8.5pt; padding-top: 1px; }
+
+  /* ---- sidebar ---- */
+  .col-side { display: flex; flex-direction: column; gap: 0.15in; }
+  .box { border: 1px solid var(--rule); background: var(--card); padding: 0.16in 0.18in; }
+  .box-k { color: var(--muted); margin-bottom: 5px; }
+  .box-name { font-weight: 600; font-size: 10pt; }
+  .box-addr { font-size: 8.5pt; color: var(--muted); line-height: 1.35; margin-top: 2px; }
+  .box-body { font-size: 9.5pt; line-height: 1.4; }
+
+  .steps { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  .steps li { background: var(--card); padding: 0.14in 0.15in; display: flex; flex-direction: column; gap: 3px; }
+  .step-n { width: 15px; height: 15px; border-radius: 50%; background: var(--board); color: var(--gold);
+            font-size: 7.5pt; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+  .step-k { font-weight: 600; font-size: 9.5pt; }
+  .step-v { font-size: 8pt; line-height: 1.35; color: var(--muted); }
+
+  .quote { background: #eef3ee; border-left: 3px solid var(--board-soft); padding: 0.15in 0.17in; }
+  .quote-text { font-family: "Fraunces Variable", Georgia, serif; font-size: 9.5pt; line-height: 1.4; color: #22302a; }
+  .quote-by { font-family: "IBM Plex Mono", monospace; font-size: 7.5pt; color: var(--muted); margin-top: 7px; }
+
+  .reg { border: 2px solid var(--board); text-align: center; margin-top: auto; }
+  .reg .box-k { color: var(--board); }
+  .qr { width: 1.5in; height: 1.5in; margin: 6px auto 7px; }
+  .qr :global(svg) { width: 100%; height: 100%; display: block; }
+  .qr-url { font-size: 8pt; color: var(--muted); word-break: break-all; }
+  .qr-empty { padding: 0.3in 0; }
+  .qr-empty p { font-size: 8.5pt; color: var(--muted); margin-top: 7px; }
+
+  /* ---- footer ---- */
+  .ft { display: flex; justify-content: space-between; align-items: center; gap: 0.3in;
+        background: var(--board); color: #fff; padding: 0.16in 0.55in; }
+  .ft-main { font-size: 9.5pt; }
+  .ft-main .mono { color: var(--gold); }
+  .ft-site { font-size: 10pt; font-weight: 600; color: var(--gold); }
+</style>

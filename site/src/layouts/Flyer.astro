@@ -1,0 +1,127 @@
+---
+/**
+ * Print layout for a one-page flyer.
+ *
+ * Flyers are real pages on the site (`/flyers/…`) as well as the source the
+ * PDFs are rendered from, so a flyer is always shareable as a link and the
+ * printed sheet can never drift from the web version. `npm run flyers`
+ * drives Chrome over these same URLs.
+ *
+ * The sheet is US Letter. Sizes are in absolute units on purpose: this
+ * layout is measured in inches, not viewport widths.
+ */
+import "@fontsource-variable/fraunces";
+import "@fontsource/ibm-plex-sans/400.css";
+import "@fontsource/ibm-plex-sans/500.css";
+import "@fontsource/ibm-plex-sans/600.css";
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-mono/500.css";
+import "@fontsource/ibm-plex-mono/600.css";
+
+interface Props {
+  title: string;
+  /** Set false once every value on the sheet is confirmed. */
+  draft?: boolean;
+}
+const { title, draft = false } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{title} — Lightning Square Chess</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <div class="sheet">
+      {draft && <div class="draft-band">Draft — unconfirmed details are marked TBD</div>}
+      <slot />
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --board: #10281c;
+    --board-soft: #1b5138;
+    --gold: #e8b04b;
+    --paper: #fcfbf8;
+    --ink: #14181a;
+    --muted: #57625d;
+    --rule: #ded9cc;
+    --card: #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { background: #6b6b6b; }
+
+  body {
+    font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    color: var(--ink);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* One US Letter sheet. Chrome prints this edge to edge with
+     --no-margins, and on screen it floats on a grey desk. */
+  .sheet {
+    position: relative;
+    width: 8.5in;
+    height: 11in;
+    margin: 0 auto;
+    background: var(--paper);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media screen {
+    .sheet { margin: 24px auto; box-shadow: 0 8px 40px rgb(0 0 0 / 0.35); }
+  }
+
+  @page { size: 8.5in 11in; margin: 0; }
+
+  @media print {
+    html { background: none; }
+    .sheet { margin: 0; box-shadow: none; }
+  }
+
+  .draft-band {
+    position: absolute;
+    top: 0.62in;
+    right: -1.35in;
+    z-index: 10;
+    width: 5in;
+    transform: rotate(45deg);
+    background: #a8321c;
+    padding: 5px 0;
+    text-align: center;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 8.5pt;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #fff;
+  }
+
+  h1, h2, h3 { font-family: "Fraunces Variable", Georgia, serif; font-weight: 600; line-height: 1.08; }
+  .mono { font-family: "IBM Plex Mono", monospace; font-variant-numeric: tabular-nums; }
+
+  .label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 7.5pt;
+    font-weight: 600;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  .tbd {
+    background: #fbe9c9;
+    border-bottom: 1.5px solid #d9a03a;
+    padding: 0 4px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+</style>

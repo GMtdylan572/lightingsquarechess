@@ -15,5 +15,7 @@ export default defineConfig({
       plugins: [tailwindcss()],
     },
 
-  integrations: [react(), sitemap()],
+  // /flyers/* are print sheets rendered to PDF, not pages to be found in
+  // search results. They stay reachable by direct link.
+  integrations: [react(), sitemap({ filter: (page) => !page.includes("/flyers/") })],
 });

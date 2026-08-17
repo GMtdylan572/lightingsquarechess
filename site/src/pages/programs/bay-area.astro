@@ -1,7 +1,7 @@
 ---
 import Base from "@/layouts/Base.astro";
 import PageHeader from "@/components/PageHeader.astro";
-import { bayAreaCurrent as now, bayAreaPast as past } from "@/data/site";
+import { bayAreaCurrent as now, bayAreaPast as past, fallClassFlyer } from "@/data/site";
 
 const outline = [
   "Board setup, piece movement and capturing",
@@ -56,6 +56,21 @@ const outline = [
             Register
           </a>
         </div>
+        {/* Gated on `draft` so a sheet with unconfirmed dates on it can be
+            reviewed at /flyers/fall-classes without reaching parents here. */}
+        {!fallClassFlyer.draft && (
+          <a href="/fall-classes-flyer.pdf" target="_blank" rel="noopener noreferrer"
+             class="group mt-4 block overflow-hidden rounded-md border border-border bg-card transition-colors hover:border-primary">
+            <img src="/fall-classes-flyer.png" alt={`${fallClassFlyer.term} chess classes flyer`}
+                 loading="lazy" width="1275" height="1650"
+                 class="w-full border-b border-border bg-white object-contain" />
+            <span class="flex items-center justify-between gap-3 p-4 text-[0.88rem] font-medium">
+              {fallClassFlyer.term} flyer
+              <span class="font-mono text-[0.72rem] uppercase tracking-wider text-muted-foreground group-hover:text-primary">PDF</span>
+            </span>
+          </a>
+        )}
+
         <img src="https://i.ibb.co/V07PSyS0/bayarea-2s.jpg" alt="A Bay Area chess class in progress"
              loading="lazy" width="720" height="540"
              class="mt-4 aspect-[4/3] w-full rounded-md border border-border object-cover" />

@@ -311,6 +311,84 @@ export const championshipResults = {
   climber: { name: "Nova Xie", section: "U800", from: 443, to: 655 },
 };
 
+/* ---------------------------------------------------------------- flyers */
+
+/**
+ * Source of truth for the printable flyers under `/flyers`.
+ *
+ * `null` means "not confirmed yet" and prints as a highlighted TBD, so a
+ * draft can be reviewed for layout without anyone mistaking a placeholder
+ * for a real date. Fill every null in, then set `draft: false` and re-run
+ * `npm run flyers`.
+ */
+export const fallClassFlyer = {
+  draft: true,
+  term: "Fall 2026",
+  dates: null as string | null,
+  day: null as string | null,
+  time: null as string | null,
+  coaches: null as string | null,
+  register: null as string | null,
+  venue: venues.deAnza,
+  cost: "Free",
+  sessions: 10,
+  ages: "Beginners, ages 6 and up",
+  blurb:
+    "A ten-week introductory course taught by student coaches. No experience needed — players learn how the pieces move, how to read a game, and the tactics that decide most junior games. Every session ends with a played game.",
+  outline: [
+    "Board setup, piece movement and capturing",
+    "Special moves: castling, en passant, promotion",
+    "Check, checkmate and the object of the game",
+    "Algebraic notation and recording a game",
+    "Opening principles and simple strategy",
+    "Forks, pins, skewers and discovered attacks",
+    "Problem solving and practice games",
+  ],
+};
+
+export const championshipFlyer = {
+  draft: true,
+  edition: null as string | null,      // e.g. "2027 Summer Championship"
+  date: null as string | null,
+  /* The v9 flyer never printed a fee even though its prize fund assumed 60
+     paid entries. Parents asked. Print it this time. */
+  entryFee: null as string | null,
+  venue: venues.domainHotel,
+  note: "Prize fund is based on 60 paid entries. Actual amounts may change with final registration.",
+  perks: "Complimentary coffee, tea and whole fruit available",
+  sections: [
+    {
+      name: "Main Tournament",
+      start: "9:30 AM",
+      rounds: "4 rounds, Swiss",
+      control: "G/40 d5",
+      detail: "Sections: Open, U1600, U800",
+      schedule: [
+        ["Round 1", "9:30 AM"],
+        ["Round 2", "11:30 AM"],
+        ["Round 3", "2:00 PM"],
+        ["Round 4", "4:00 PM"],
+      ],
+      prizes: [
+        ["Open", "$200 / $150 / $100"],
+        ["U1600", "$150 / $100 / $50"],
+        ["U800", "$100 / $75 / $40"],
+      ],
+      register: null as string | null,
+    },
+    {
+      name: "Evening Blitz",
+      start: "6:30 PM",
+      rounds: "4 double rounds, Swiss",
+      control: "G/3 +2",
+      detail: "Rolling schedule, estimated finish 9:00 PM",
+      schedule: [],
+      prizes: [["Winner takes all", "$50"]],
+      register: null as string | null,
+    },
+  ],
+};
+
 /* -------------------------------------------------------------- programs */
 
 export const bayAreaCurrent = {
