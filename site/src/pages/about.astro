@@ -54,9 +54,12 @@ const groups: { label: string; note: string; people: Person[] }[] = [
           <h2 class="label">{g.label}</h2>
           <p class="text-[0.88rem] text-muted-foreground">{g.note}</p>
         </div>
-        {/* Portraits are the point of this page, so they are sized to be
-            looked at: three across at most, four-by-five like a real photo. */}
-        <ul class="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Keep the five current leaders together on wide screens; the other
+            groups retain the larger three-column portrait treatment. */}
+        <ul class:list={[
+          "grid gap-x-8 gap-y-10 sm:grid-cols-2",
+          g.label === "Leadership" ? "lg:grid-cols-5" : "lg:grid-cols-3",
+        ]}>
           {g.people.map((p) => (
             <li>
               <img src={p.photo} alt={`Portrait of ${p.name}`} loading="lazy" width="640" height="800"
