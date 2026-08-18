@@ -349,7 +349,7 @@ export const schools: School[] = [
     name: "Sweetwaters Girls Secondary School",
     location: "Nanyuki",
     country: "Kenya",
-    coach: "WCM Kally Wen and CM Luke Widjaja",
+    coach: "CM Luke Widjaja and WCM Kally Wen",
     since: "January 2025",
     cover: "https://i.ibb.co/kVyk5ks3/sweetwater-1s.jpg",
     photos: [
@@ -360,7 +360,7 @@ export const schools: School[] = [
     ],
     body: [
       "Sweetwaters Girls Secondary School sits in Laikipia Central Sub-County, ten kilometres from Nanyuki town and close to the Ol Pejeta Conservancy. Students there had wanted a chess club for years. The school had never been able to fund one.",
-      "Mr. Erick Okengo, a teacher at the school, wrote to us. Sweetwaters became the first partner under the Club Bootstrap Program. In January 2025, Coach Kally Wen and Coach Luke Widjaja worked with Mr. Okengo to open the Sweetwaters Girls Chess Club.",
+      "Mr. Erick Okengo, a teacher at the school, wrote to us. Sweetwaters became the first partner under the Club Bootstrap Program. In January 2025, Coach Luke Widjaja and Coach Kally Wen worked with Mr. Okengo to open the Sweetwaters Girls Chess Club.",
     ],
     quotes: [
       { text: "I wish to extend my heartfelt appreciation for the incredible impact your Bootstrap Program is having on our young students through the online chess training initiative. Your generous support, from providing expert coaching to supplying essential materials like chess boards and clocks, has opened up meaningful learning opportunities for the learners. Their passion for chess is growing steadily, and it's evident they are gaining both skills and confidence.", who: "Mr. Erick Okengo", role: "Teacher" },
