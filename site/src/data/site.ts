@@ -430,7 +430,7 @@ export const schools: School[] = [
       { text: "Coach is amazing, she makes classes easy to understand. Her understanding and unique way of explaining and lesson delivery is outstanding.", who: "Eric Mulumba", role: "Student" },
       { text: "I am so excited with the program as a girl child. It has given me hope of playing this game, which I never got a chance to learn or play in my community until I was introduced to this program.", who: "Marline", role: "Student" },
       { text: "It is a great program, which is helping me a lot and improving each week.", who: "Moses", role: "Student" },
-      { text: "She combines deep chess knowledge with a rare gift of communication, making even the most complex strategies easy to grasp. Despite the distance between the USA and Malawi, she manages to make each class feel personal, engaging, and unforgettable. Coach Kally is not only shaping us into better chess players but also into better thinkers.", who: "Lombani", role: "Student" },
+      { text: "Coach Kally is an extraordinary teacher and mentor. She combines deep chess knowledge with a rare gift of communication, making even the most complex strategies easy to grasp. Her patience, encouragement, and ability to inspire excellence in every student, especially me, make her one of the best coaches I have ever encountered. She creates an atmosphere where we all feel motivated to push beyond our limits. Despite the distance between the USA and Malawi, she manages to make each class feel personal, engaging, and unforgettable. Coach Kally is not only shaping us into better chess players but also into better thinkers.", who: "Lombani", role: "Student" },
     ],
   },
   {
@@ -609,11 +609,20 @@ export const schools: School[] = [
 
 export const testimonials = [
   { text: "Thanks again to you and the Lightning Square Chess team for organizing today's tournament. It was a great event with a lot of strong chess being played, and I was legitimately impressed with all the challengers.", who: "IM Mark Heimann", role: "Honorary Advisor" },
-  { text: "The class structure is well-planned, providing a perfect balance between theoretical knowledge and practical application through friendly matches. My son has not only improved his chess proficiency but also developed a genuine enthusiasm for the game, thanks to the inspiring and supportive environment created by these talented high school instructors.", who: "Iris Zhong", role: "Parent" },
+  { text: "The class structure is well-planned, providing a perfect balance between theoretical knowledge and practical application through friendly matches. All the kids including my son are highly motivated and intrigued by the puzzles taught in each class. My son has not only improved his chess proficiency but also developed a genuine enthusiasm for the game, thanks to the inspiring and supportive environment created by these talented high school instructors.", who: "Iris Zhong", role: "Parent" },
   { text: "The three coaches are professional, patient and caring. The classes are interactive and fun, and strategies are taught with a systematic approach. Not only did my boy hone his chess skills, but he also made friends with common interests.", who: "Maggie Tsai", role: "Parent" },
   { text: "Our son loves his weekly chess class. He excitedly tells us about what he learned after each class. He insisted that we sign up for a second session after he completed the first one, which we gladly did.", who: "Jet Manousos' Mother", role: "Parent" },
   { text: "The young coach teaches chess in a way that is engaging and fun for kids, using simple and relatable language that makes learning easy for young players. My daughter thoroughly enjoyed the classes and always looked forward to them.", who: "Maggie's Mother", role: "Parent" },
   { text: "The teaching curriculum is fully prepared and structured and easy for kids to follow. My son gained great interests in chess from the classes and will definitely continue learning from those awesome teachers.", who: "Rainier Huang's Mother", role: "Parent, 2025 Spring Class" },
+];
+
+/* -------------------------------------------------------------- patrons */
+
+/* Acknowledged on the old homepage. The logo is an inline SVG lifted from
+   that page; we have the artwork but not the patron's name recorded — fill
+   in `name` once confirmed and it will show as the caption and alt text. */
+export const patrons = [
+  { name: "", logo: "/patron-1.svg" },
 ];
 
 /* ------------------------------------------------------------------ FAQ */

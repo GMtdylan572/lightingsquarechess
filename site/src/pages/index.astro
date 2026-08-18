@@ -1,7 +1,7 @@
 ---
 import Base from "@/layouts/Base.astro";
 import Bolt from "@/components/Bolt.astro";
-import { upcomingQuads, testimonials, org } from "@/data/site";
+import { upcomingQuads, testimonials, patrons, org } from "@/data/site";
 
 const next = upcomingQuads[0];
 
@@ -244,6 +244,28 @@ const programs = [
           </figure>
         ))
       }
+    </div>
+  </section>
+
+  {/* Patrons, acknowledged on the old site and kept here. */}
+  <section class="border-t border-border bg-secondary">
+    <div class="mx-auto max-w-6xl px-5 py-12">
+      <p class="label mb-6">Lightning Square Chess Club thanks its generous patrons</p>
+      <ul class="flex flex-wrap items-center gap-10">
+        {patrons.map((pt) => (
+          <li>
+            <img
+              src={pt.logo}
+              alt={pt.name ? `${pt.name} logo` : "Patron logo"}
+              width="150"
+              height="107"
+              loading="lazy"
+              class="h-14 w-auto opacity-80 transition-opacity hover:opacity-100"
+            />
+            {pt.name && <p class="mt-2 text-[0.82rem] text-muted-foreground">{pt.name}</p>}
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
