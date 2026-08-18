@@ -265,11 +265,15 @@ export const championship = {
 /* -------------------------------------------------------------- programs */
 
 export const bayAreaCurrent = {
-  dates: "January 20 to April 28, 2026",
+  term: "Fall 2026",
+  dates: "September 8 to November 17, 2026",
   time: "6:30 to 7:30 PM",
   venue: venues.deAnza,
-  note: "No classes on February 17 and April 14. Coaches to be announced.",
-  register: "https://forms.gle/XKRHr1v4ChW3Jmgy9",
+  note: "Tuesdays. No class on October 13.",
+  cost: "$15 per class",
+  sessions: 10,
+  coaches: "High school chess players rated USCF 2000+",
+  register: "https://forms.gle/DMheqHTJ5Nrts6Fd9",
 };
 
 export const bayAreaPast = [
