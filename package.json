@@ -1,0 +1,13 @@
+{
+  "name": "lightningsquarechess-deploy",
+  "private": true,
+  "description": "Root tooling for deploying the built Astro site in site/dist to Cloudflare. The site itself lives in site/.",
+  "scripts": {
+    "build": "npm --prefix site ci && npm --prefix site run build",
+    "deploy": "npm run build && wrangler deploy",
+    "deploy:only": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.123.0"
+  }
+}
