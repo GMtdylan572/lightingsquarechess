@@ -1,8 +1,10 @@
 ---
-import { nav, org } from "@/data/site";
+import { nav, org, upcomingQuads } from "@/data/site";
 import MobileNav from "@/components/MobileNav.astro";
 import ThemeToggle from "@/components/ThemeToggle.astro";
+import Bolt from "@/components/Bolt.astro";
 
+const nextQuad = upcomingQuads[0];
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const isActive = (href: string) =>
   href === "/" ? path === "/" : path === href || path.startsWith(href + "/");
@@ -96,12 +98,43 @@ const isActive = (href: string) =>
     </nav>
 
     <div class="ml-auto flex items-center gap-2 lg:ml-0">
+      {/* The quad FAQ answers most of the questions we get, so it sits in the
+          top right corner where help links are looked for. */}
+      <a
+        href="/quads/faq"
+        class:list={[
+          "hidden h-9 items-center gap-1.5 rounded-sm border px-3 text-[0.85rem] font-medium transition-colors md:inline-flex",
+          isActive("/quads/faq")
+            ? "border-primary text-primary"
+            : "border-border text-muted-foreground hover:border-input hover:text-foreground",
+        ]}
+      >
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3" />
+          <path d="M12 17h.01" />
+        </svg>
+        Quad FAQ
+      </a>
       <ThemeToggle />
       <a
-        href="/quads"
-        class="hidden h-9 items-center rounded-sm bg-primary px-4 text-[0.88rem] font-medium text-primary-foreground transition-colors hover:bg-primary/90 sm:inline-flex"
+        href={nextQuad.register ?? "/quads"}
+        target={nextQuad.register ? "_blank" : undefined}
+        rel={nextQuad.register ? "noopener noreferrer" : undefined}
+        class="hidden h-9 items-center gap-1.5 rounded-sm bg-primary px-4 text-[0.88rem] font-medium text-primary-foreground transition-colors hover:bg-primary/90 sm:inline-flex"
       >
-        Play a quad
+        <Bolt size={13} />
+        Register for a quad
       </a>
       <MobileNav />
     </div>

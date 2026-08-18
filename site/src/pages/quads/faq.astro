@@ -2,7 +2,10 @@
 import Base from "@/layouts/Base.astro";
 import PageHeader from "@/components/PageHeader.astro";
 import FaqAccordion from "@/components/FaqAccordion";
-import { quadFaq, org } from "@/data/site";
+import QuadActions from "@/components/QuadActions.astro";
+import { quadFaq, org, upcomingQuads } from "@/data/site";
+
+const next = upcomingQuads[0];
 
 const faqJsonLd = {
   "@context": "https://schema.org",
@@ -37,8 +40,17 @@ const faqJsonLd = {
     <div class="mt-8 rounded-md border-l-2 border-primary bg-accent p-5">
       <h2 class="mb-1 text-[1.05rem] font-semibold">Still stuck?</h2>
       <p class="text-[0.94rem] text-muted-foreground">
-        Email <a href={`mailto:${org.email}`} class="text-primary underline underline-offset-2">{org.email}</a> and we will answer before the next event.
+        Email <a href={`mailto:${org.email}`} class="text-primary underline underline-offset-2">{org.email}</a> and we will answer before the next event,
+        or ask in the <a href={org.whatsapp} target="_blank" rel="noopener noreferrer" class="text-primary underline underline-offset-2">WhatsApp group</a>.
       </p>
+    </div>
+
+    <div class="mt-4 flex flex-wrap items-center gap-3 rounded-md border border-border bg-card p-5">
+      <div class="min-w-[12rem] flex-1">
+        <p class="label mb-1">Next quad</p>
+        <p class="font-medium">{next.display}</p>
+      </div>
+      <QuadActions event={next} size="sm" />
     </div>
   </section>
 </Base>

@@ -11,11 +11,11 @@ const groups: { label: string; note: string; people: Person[] }[] = [
 ];
 ---
 <Base
-  title="About"
-  description="Lightning Square Chess is a youth-led nonprofit founded in 2022 by three Northern California chess players. Meet the students who run the tournaments and teach the classes."
+  title="About us"
+  description="Lightning Square Chess is a youth-led nonprofit founded in 2022 by three Northern California chess players. Meet the students who direct the tournaments and teach the classes."
 >
   <PageHeader
-    kicker="Who we are"
+    kicker="About us"
     title="A nonprofit run by high school students"
     lede="Founded in 2022. The tournament directors are students, the coaches are students, and that is the reason everything we run is free."
     crumbs={[{ href: "/", label: "Home" }]}
@@ -32,10 +32,16 @@ const groups: { label: string; note: string; people: Person[] }[] = [
           {org.mission}
         </p>
         <p class="mt-4 max-w-[62ch] leading-relaxed text-muted-foreground">
-          In practice that means three things: rated tournaments and classes in the
-          Bay Area, free online instruction in states with almost no chess
-          infrastructure, and the Club Bootstrap Initiative, which helps schools
-          abroad open a club of their own.
+          Right now that means two things above all: the monthly USCF-rated quad
+          tournaments in Cupertino, and the Bay Area classes that get players
+          ready for them. Alongside those we still teach free online courses into
+          states with almost no chess infrastructure.
+        </p>
+        <p class="mt-4 max-w-[62ch] leading-relaxed text-muted-foreground">
+          The Club Bootstrap Initiative, which helped seven schools abroad open a
+          club of their own, is not taking new schools at the moment. Those
+          <a href="/schools" class="text-primary underline underline-offset-2">partner schools</a>
+          and what came of the work are documented here.
         </p>
       </div>
     </div>
@@ -48,14 +54,16 @@ const groups: { label: string; note: string; people: Person[] }[] = [
           <h2 class="label">{g.label}</h2>
           <p class="text-[0.88rem] text-muted-foreground">{g.note}</p>
         </div>
-        <ul class="grid gap-8 sm:grid-cols-3 lg:grid-cols-5">
+        {/* Portraits are the point of this page, so they are sized to be
+            looked at: three across at most, four-by-five like a real photo. */}
+        <ul class="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {g.people.map((p) => (
             <li>
-              <img src={p.photo} alt={`Portrait of ${p.name}`} loading="lazy" width="300" height="300"
-                   class="mb-3 aspect-square w-full rounded-md border border-border object-cover [object-position:50%_28%]" />
-              {p.role && <p class="label mb-1 text-primary">{p.role}</p>}
-              <p class="font-heading text-[1.02rem] font-semibold leading-tight">{p.name}</p>
-              {p.org && <p class="mt-0.5 text-[0.85rem] text-muted-foreground">{p.org}</p>}
+              <img src={p.photo} alt={`Portrait of ${p.name}`} loading="lazy" width="640" height="800"
+                   class="mb-4 aspect-[4/5] w-full rounded-md border border-border object-cover [object-position:50%_22%]" />
+              {p.role && <p class="label mb-1.5 text-primary">{p.role}</p>}
+              <p class="font-heading text-[1.35rem] font-semibold leading-tight">{p.name}</p>
+              {p.org && <p class="mt-1 text-[0.92rem] text-muted-foreground">{p.org}</p>}
             </li>
           ))}
         </ul>

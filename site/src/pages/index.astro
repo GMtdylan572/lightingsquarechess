@@ -1,17 +1,19 @@
 ---
 import Base from "@/layouts/Base.astro";
-import { upcomingQuads, pastQuads, testimonials, org } from "@/data/site";
+import Bolt from "@/components/Bolt.astro";
+import { upcomingQuads, testimonials, patrons, org } from "@/data/site";
 
 const next = upcomingQuads[0];
-const rest = upcomingQuads.slice(1);
 
+/* Ordered by what the club actually runs today. Club Bootstrap is listed
+   last and flagged as past work — it is not taking new schools. */
 const programs = [
   {
     href: "/programs/bay-area",
-    tag: "Cupertino",
-    title: "Weekly classes and monthly rated quads",
+    tag: "Cupertino · Running now",
+    title: "Bay Area classes and the monthly rated quads",
     body:
-      "Beginners learn the rules, notation and basic strategy over a ten-week term. Once they are ready, they play a rated quad at the same address.",
+      "Beginners learn the rules, notation and basic strategy over a ten-week term. Once they are ready, they play a USCF-rated quad at the same address. This is our main programme.",
     figure: "24",
     figureNote: "rated quads run since 2023",
     photo: "https://i.ibb.co/Fq5BmC0n/bayarea-1s.jpg",
@@ -28,10 +30,10 @@ const programs = [
   },
   {
     href: "/programs/international",
-    tag: "Kenya, Nigeria, Malawi, South Africa",
-    title: "Club Bootstrap: helping a school start its first club",
+    tag: "Past programme · Not taking new schools",
+    title: "Club Bootstrap, 2025",
     body:
-      "A teacher writes to us. We ship chess sets, run weekly lessons over video, and keep going until the club can run without us. Seven schools so far.",
+      "For a year we helped schools abroad open their first chess club: shipping sets, running weekly lessons over video, staying until the club could run itself. Seven schools across four countries. We are not starting new ones at the moment.",
     figure: "7",
     figureNote: "partner schools, four countries",
     photo: "https://i.ibb.co/BVX6f9ys/2c20fafa-4eec-46bd-9870-b171db690b8f.jpg",
@@ -41,7 +43,7 @@ const programs = [
 
 <Base
   title={org.name}
-  description="A youth-led nonprofit running USCF-rated chess tournaments in the Bay Area, free online classes in underserved US states, and school chess clubs in Kenya, Nigeria, Malawi and South Africa."
+  description="A youth-led nonprofit running monthly USCF-rated quad tournaments in Cupertino, weekly Bay Area chess classes, and free online classes in underserved US states. Registration for every 2026 quad is open."
 >
   {/* Hero. Photograph does the emotional work; the text states facts.
       No board texture here — a checkerboard over a photo reads as a
@@ -57,32 +59,47 @@ const programs = [
     >
     </div>
 
+    <Bolt size={420} class="bolt-mark hidden lg:block" />
+
     <div class="mx-auto max-w-6xl px-5 pb-16 pt-20 sm:pb-20 sm:pt-28">
-      <p class="label mb-5 text-gold">Cupertino, California &middot; Founded {org.founded}</p>
+      <p class="bolt-rule label mb-5 max-w-sm text-gold">
+        <Bolt size={13} />
+        Cupertino, California &middot; Founded {org.founded}
+      </p>
       <h1
         class="max-w-[19ch] text-[2.6rem] font-semibold leading-[1.04] text-white sm:text-6xl lg:text-[4.2rem]"
       >
         A chess club run by the students it teaches.
       </h1>
       <p class="mt-6 max-w-[54ch] text-[1.06rem] leading-relaxed text-white/72">
-        We direct USCF-rated tournaments in the Bay Area, teach free introductory
-        courses in four states with almost no chess infrastructure, and help
-        schools abroad open their first chess club. Nobody pays to attend
-        anything we run.
+        We direct USCF-rated tournaments in Cupertino every month, teach weekly
+        classes in the Bay Area, and run free introductory courses in states with
+        almost no chess infrastructure. Nobody pays to attend anything we run.
       </p>
 
       <div class="mt-9 flex flex-wrap gap-3">
         <a
-          href="/quads"
-          class="inline-flex h-12 items-center rounded-sm bg-gold px-6 font-medium text-gold-foreground transition-colors hover:bg-gold/90"
+          href={next.register}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex h-12 items-center gap-2 rounded-sm bg-gold px-6 font-medium text-gold-foreground transition-colors hover:bg-gold/90"
         >
-          Next quad: August 30
+          <Bolt size={15} />
+          Register: {next.display.replace(", 2026", "")}
         </a>
         <a
-          href="/tournaments"
+          href={next.entries}
+          target="_blank"
+          rel="noopener noreferrer"
           class="inline-flex h-12 items-center rounded-sm border border-white/25 px-6 font-medium text-white backdrop-blur-sm transition-colors hover:border-white/50 hover:bg-white/10"
         >
-          Results archive
+          Live entries
+        </a>
+        <a
+          href="/quads/faq"
+          class="inline-flex h-12 items-center rounded-sm px-2 font-medium text-white/70 transition-colors hover:text-white"
+        >
+          <span class="strike">Quad FAQ</span>
         </a>
       </div>
     </div>
@@ -91,11 +108,16 @@ const programs = [
   {/* Schedule strip, set like a fixtures list rather than a marketing banner. */}
   <section aria-labelledby="sched" class="border-b border-border bg-secondary">
     <div class="mx-auto max-w-6xl px-5 py-8">
-      <h2 id="sched" class="label mb-5">2026 quad schedule</h2>
+      <div class="mb-5 flex flex-wrap items-baseline justify-between gap-3">
+        <h2 id="sched" class="label">2026 quad schedule &middot; registration open</h2>
+        <a href="/quads" class="text-[0.88rem] font-medium text-primary hover:underline">
+          Format and details
+        </a>
+      </div>
       <ol class="grid gap-px overflow-hidden rounded-md bg-border sm:grid-cols-2 lg:grid-cols-4">
         {
           upcomingQuads.map((q, i) => (
-            <li class="bg-card p-4">
+            <li class="flex flex-col bg-card p-4">
               <div class="flex items-baseline justify-between gap-3">
                 <time datetime={q.date} class="font-mono text-[0.95rem] font-medium">
                   {q.display.replace(", 2026", "")}
@@ -109,6 +131,25 @@ const programs = [
               <p class="mt-1 text-[0.82rem] text-muted-foreground">
                 {q.venue.name} &middot; {q.format}
               </p>
+              <div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 pt-3 [border-top:1px_solid_var(--rule)]">
+                <a
+                  href={q.register}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1 text-[0.84rem] font-medium text-primary hover:underline"
+                >
+                  <Bolt size={11} />
+                  Register
+                </a>
+                <a
+                  href={q.entries}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-[0.84rem] text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+                >
+                  Live entries
+                </a>
+              </div>
             </li>
           ))
         }
@@ -121,7 +162,7 @@ const programs = [
     <div class="mb-12 max-w-2xl">
       <p class="label mb-3">What we run</p>
       <h2 class="text-3xl font-semibold sm:text-[2.6rem]">
-        Three programmes, built around who is missing from the board.
+        The tournaments come first. The teaching feeds them.
       </h2>
     </div>
 
@@ -206,28 +247,62 @@ const programs = [
     </div>
   </section>
 
-  {/* One CTA on the whole site, not one per page. */}
-  <section class="border-t border-border">
+  {/* Patrons, acknowledged on the old site and kept here. */}
+  <section class="border-t border-border bg-secondary">
+    <div class="mx-auto max-w-6xl px-5 py-12">
+      <p class="label mb-6">Lightning Square Chess Club thanks its generous patrons</p>
+      <ul class="flex flex-wrap items-center gap-10">
+        {patrons.map((pt) => (
+          <li>
+            <img
+              src={pt.logo}
+              alt={pt.name ? `${pt.name} logo` : "Patron logo"}
+              width="150"
+              height="107"
+              loading="lazy"
+              class="h-14 w-auto opacity-80 transition-opacity hover:opacity-100"
+            />
+            {pt.name && <p class="mt-2 text-[0.82rem] text-muted-foreground">{pt.name}</p>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {/* One CTA on the whole site, and it is the quad. */}
+  <section class="board-texture relative isolate overflow-hidden border-t border-border bg-board text-board-foreground">
+    <Bolt size={300} class="bolt-mark hidden sm:block" />
     <div class="mx-auto grid max-w-6xl gap-8 px-5 py-16 md:grid-cols-2">
       <div>
-        <h2 class="text-2xl font-semibold">Bring chess to your school</h2>
-        <p class="mt-3 max-w-[48ch] leading-relaxed text-muted-foreground">
-          Every partnership on this site started with one teacher sending an
-          email. We provide the coaching and the equipment.
+        <p class="bolt-rule label mb-3 max-w-[14rem] text-gold">
+          <Bolt size={13} />
+          Play with us
+        </p>
+        <h2 class="text-2xl font-semibold text-white sm:text-3xl">
+          Come to a quad. Three rated games, one afternoon.
+        </h2>
+        <p class="mt-3 max-w-[48ch] leading-relaxed text-board-foreground/70">
+          Every date through November is open for entry. Join the WhatsApp group
+          and you will hear about pairings, results and new events first.
         </p>
       </div>
       <div class="flex flex-wrap items-start gap-3 md:justify-end">
         <a
-          href="/contact"
-          class="inline-flex h-12 items-center rounded-sm bg-primary px-6 font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          href={next.register}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex h-12 items-center gap-2 rounded-sm bg-gold px-6 font-medium text-gold-foreground transition-colors hover:bg-gold/90"
         >
-          Get in touch
+          <Bolt size={15} />
+          Register for the next quad
         </a>
         <a
-          href="/programs/international"
-          class="inline-flex h-12 items-center rounded-sm border border-input px-6 font-medium transition-colors hover:bg-accent"
+          href={org.whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex h-12 items-center rounded-sm border border-white/25 px-6 font-medium text-white transition-colors hover:border-white/50 hover:bg-white/10"
         >
-          How Club Bootstrap works
+          Join the WhatsApp group
         </a>
       </div>
     </div>

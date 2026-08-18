@@ -1,0 +1,24 @@
+---
+/**
+ * The club's lightning bolt, as an inline SVG so it takes currentColor and
+ * costs no request. Decorative by default; pass a `title` to expose it.
+ */
+interface Props {
+  size?: number;
+  class?: string;
+  title?: string;
+}
+const { size = 16, class: cls = "", title } = Astro.props;
+---
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  class={cls}
+  role={title ? "img" : undefined}
+  aria-hidden={title ? undefined : "true"}
+>
+  {title && <title>{title}</title>}
+  <path d="M13.6 1.5 4.2 13.3a.6.6 0 0 0 .47.98h5.06l-1.4 8.06a.6.6 0 0 0 1.06.47l9.44-11.8a.6.6 0 0 0-.47-.98h-5.07l1.4-8.06a.6.6 0 0 0-1.06-.47Z" />
+</svg>

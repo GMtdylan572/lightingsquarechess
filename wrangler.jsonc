@@ -2,8 +2,19 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "lightningsquarechess",
   "compatibility_date": "2026-08-13",
+  // The Cloudflare account the lightningsquarechess.org zone lives on
+  // (Tdylan572@gmail.com). Pinned so a deploy cannot land on the wrong
+  // account when more than one is authorised.
+  "account_id": "7536fc6e5400ec4963afd2e8fd121b78",
   // Static-only: no Worker script, just the built Astro output in site/dist.
   "assets": {
     "directory": "./site/dist"
-  }
+  },
+  // Attaching the apex and www as custom domains makes Cloudflare create the
+  // DNS records and issue the certificate itself, which is also what finally
+  // gets the site onto HTTPS. This replaces the InfinityFree A record.
+  "routes": [
+    { "pattern": "lightningsquarechess.org", "custom_domain": true },
+    { "pattern": "www.lightningsquarechess.org", "custom_domain": true }
+  ]
 }

@@ -224,4 +224,65 @@
     background-size: 72px 72px;
     background-position: 0 0, 36px 36px;
   }
+
+  /* ------------------------------------------------------- lightning motif
+     The club is called Lightning Square, so the bolt is the identity, not a
+     decoration bolted on. Three restrained uses, all gold on dark:
+       .bolt-mark   an oversized watermark bolt in a dark panel's corner
+       .bolt-rule   a gold hairline that opens a section, bolt-tipped
+       .strike      a gold underline that flicks in on hover
+     Everything respects prefers-reduced-motion. */
+
+  .bolt-mark {
+    position: absolute;
+    right: -1.5rem;
+    top: 50%;
+    translate: 0 -50%;
+    z-index: -1;
+    color: var(--gold);
+    opacity: 0.07;
+    pointer-events: none;
+    rotate: 8deg;
+  }
+
+  .bolt-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--gold);
+  }
+  .bolt-rule::after {
+    content: "";
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--gold) 60%, transparent),
+      transparent
+    );
+  }
+
+  .strike {
+    position: relative;
+  }
+  .strike::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    height: 2px;
+    background: var(--gold);
+    scale: 0 1;
+    transform-origin: left;
+    transition: scale 0.22s ease;
+  }
+  .strike:hover::after,
+  .strike:focus-visible::after {
+    scale: 1 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .strike::after { transition: none; }
+  }
 }

@@ -1,32 +1,70 @@
 ---
 import Base from "@/layouts/Base.astro";
 import PageHeader from "@/components/PageHeader.astro";
-import { championship as c } from "@/data/site";
+import { championship as c, championshipSeries, org } from "@/data/site";
 const past = new Date(c.iso) < new Date();
 ---
 <Base
-  title="Summer Championship"
-  description="The Lightning Square Summer Championship: Open, U1600 and U800 sections with a cash prize fund, plus an evening blitz, at the Domain Hotel in Sunnyvale."
+  title="Championships"
+  description="The four Lightning Square championship weekends: Summer, Fall, Winter and Spring. Each pairs a rated main tournament with an evening blitz."
 >
   <PageHeader
-    kicker="Annual"
-    title="Summer Championship"
-    lede={`${c.date} at the ${c.venue.name}, Sunnyvale. Our largest event of the year.`}
+    kicker="Four a year"
+    title="Championships"
+    lede="A rated main tournament in the morning, a blitz in the evening. The Summer edition is documented in full below; the other three run the same format."
     crumbs={[{ href: "/", label: "Home" }, { href: "/tournaments", label: "Tournaments" }]}
   />
 
+  <section class="border-b border-border bg-secondary">
+    <div class="mx-auto max-w-6xl px-5 py-12">
+      <h2 class="label mb-5">The series</h2>
+      <ol class="grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+        {championshipSeries.map((s) => (
+          <li class="bg-card p-5">
+            <div class="mb-2 flex items-baseline justify-between gap-2">
+              <span class="font-mono text-[0.9rem] font-medium">{s.when}</span>
+              <span class:list={[
+                "rounded-sm px-1.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider",
+                s.status === "played"
+                  ? "bg-gold text-gold-foreground"
+                  : "border border-input text-muted-foreground",
+              ]}>
+                {s.status === "played" ? "Played" : "TBD"}
+              </span>
+            </div>
+            <p class="font-medium leading-snug">{s.name.replace(" and Blitz", "")}</p>
+            <p class="mt-1 text-[0.82rem] leading-snug text-muted-foreground">
+              + evening blitz
+            </p>
+          </li>
+        ))}
+      </ol>
+      <p class="mt-4 text-[0.9rem] text-muted-foreground">
+        More information on the Fall, Winter and Spring championships is coming.
+        It will be posted here and announced in the
+        <a href={org.whatsapp} target="_blank" rel="noopener noreferrer" class="text-primary underline underline-offset-2">WhatsApp group</a>.
+      </p>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-6xl px-5 pt-14">
+    <h2 class="text-2xl font-semibold sm:text-3xl">Summer Championship {new Date(c.iso).getFullYear()}</h2>
+    <p class="mt-2 text-muted-foreground">{c.date} at the {c.venue.name}, Sunnyvale.</p>
+  </div>
+
   {past && (
-    <div class="border-b border-border bg-accent">
-      <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-4 px-5 py-4">
+    <div class="mx-auto mt-6 max-w-6xl px-5">
+      <div class="flex flex-wrap items-center gap-4 rounded-md border border-border bg-accent px-5 py-4">
         <span class="rounded-sm bg-gold px-2 py-1 font-mono text-[0.65rem] uppercase tracking-wider text-gold-foreground">Concluded</span>
         <p class="text-[0.92rem] text-muted-foreground">
-          The {new Date(c.iso).getFullYear()} championship has been played. Entry lists stay online below. Next year&rsquo;s date will be posted here once it is set.
+          This one has been played. Entry lists stay online below. The next
+          championship is the Fall edition in November 2026.
         </p>
       </div>
     </div>
   )}
 
-  <section class="mx-auto max-w-6xl px-5 py-16">
+  <section class="mx-auto max-w-6xl px-5 py-10">
     <div class="grid gap-px overflow-hidden rounded-md border border-border bg-border md:grid-cols-2">
       {c.sections.map((s) => (
         <article class="bg-card p-6">

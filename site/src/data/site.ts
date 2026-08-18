@@ -11,6 +11,8 @@ export const org = {
   founded: 2022,
   email: "lightningsquarechess@gmail.com",
   facebook: "https://www.facebook.com/profile.php?id=100093236435369",
+  whatsapp: "https://chat.whatsapp.com/KCyeziNgkrY9oJdSyMVIfP",
+  chessCom: "https://www.chess.com/club/lightning-square-chess-club",
   logo: "https://i.ibb.co/Ld6nbrV/logo.png",
   mission:
     "Bridge geographic and economic disparities in chess education and create opportunities for children to learn and grow through chess.",
@@ -58,10 +60,10 @@ export const nav: Nav[] = [
     label: "Tournaments",
     href: "/tournaments",
     children: [
-      { href: "/tournaments", label: "All tournaments", note: "Schedule and full results archive" },
-      { href: "/quads", label: "Monthly Quads", note: "USCF-rated, G/25 d5" },
+      { href: "/tournaments", label: "All tournaments", note: "Schedule, championships and results archive" },
+      { href: "/quads", label: "Monthly Quads", note: "Our main event. USCF-rated, G/25 d5" },
       { href: "/quads/faq", label: "Quad FAQ", note: "Ratings, pairings, trophies" },
-      { href: "/championship", label: "Summer Championship", note: "Open, U1600, U800" },
+      { href: "/championship", label: "Championships", note: "Summer, Fall, Winter and Spring" },
       { href: "/online", label: "Online tournaments", note: "Free events on Chess.com" },
     ],
   },
@@ -69,14 +71,14 @@ export const nav: Nav[] = [
     label: "Programs",
     href: "/programs",
     children: [
-      { href: "/programs", label: "All programs", note: "How the three fit together" },
+      { href: "/programs", label: "All programs", note: "What we run now, and what we ran before" },
       { href: "/programs/bay-area", label: "Bay Area classes", note: "In person, Cupertino" },
       { href: "/programs/national", label: "National program", note: "Free classes, four states" },
-      { href: "/programs/international", label: "Club Bootstrap", note: "Seven schools, four countries" },
+      { href: "/programs/international", label: "Club Bootstrap", note: "Past programme. Not taking new schools" },
     ],
   },
   { label: "Partner schools", href: "/schools" },
-  { label: "About", href: "/about" },
+  { label: "About us", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -90,13 +92,41 @@ export type Upcoming = {
   format: string;
   register?: string;
   entries?: string;
+  /** Official US Chess event announcement (TLA). */
+  tla?: string;
 };
 
+/* Registration form and live entry sheet for each date, taken from the
+   official US Chess announcement for that event. Both open in a new tab. */
 export const upcomingQuads: Upcoming[] = [
-  { date: "2026-08-30", display: "August 30, 2026", name: "August Quads", venue: venues.deAnza, format: "G/25 d5" },
-  { date: "2026-09-27", display: "September 27, 2026", name: "September Quads", venue: venues.deAnza, format: "G/25 d5" },
-  { date: "2026-10-18", display: "October 18, 2026", name: "October Quads", venue: venues.deAnza, format: "G/25 d5" },
-  { date: "2026-11-15", display: "November 15, 2026", name: "November Quads", venue: venues.deAnza, format: "G/25 d5" },
+  {
+    date: "2026-08-30", display: "August 30, 2026", name: "August Quads",
+    venue: venues.deAnza, format: "G/25 d5",
+    register: "https://forms.gle/jph4aPqvfZq7mn3Q8",
+    entries: "https://docs.google.com/spreadsheets/d/1ZfmCFsGjjk7m0dOuNAoTywVIC0M0mneo4kK9cRAbHkw",
+    tla: "https://new.uschess.org/lightning-square-quads-aug-2026",
+  },
+  {
+    date: "2026-09-27", display: "September 27, 2026", name: "September Quads",
+    venue: venues.deAnza, format: "G/25 d5",
+    register: "https://forms.gle/Aqhnmig3hrrfhMbH8",
+    entries: "https://docs.google.com/spreadsheets/d/1ljbiGexQ0QQd22uTYYSYb8ufHrHkiHqBAY3lsa1UCOs",
+    tla: "https://new.uschess.org/lightning-square-quads-sept-2026",
+  },
+  {
+    date: "2026-10-18", display: "October 18, 2026", name: "October Quads",
+    venue: venues.deAnza, format: "G/25 d5",
+    register: "https://forms.gle/WUYnqwgjyybTiiPo9",
+    entries: "https://docs.google.com/spreadsheets/d/1Wh1-X-cYKdh-MhTP8OYs1WIoajitB3vKy2Oxw1g69cQ",
+    tla: "https://new.uschess.org/lightning-square-quads-oct-2026",
+  },
+  {
+    date: "2026-11-15", display: "November 15, 2026", name: "November Quads",
+    venue: venues.deAnza, format: "G/25 d5",
+    register: "https://forms.gle/A3wJMQbqo91p8KeX9",
+    entries: "https://docs.google.com/spreadsheets/d/1JSdkXXbLyXmLc2NHM4q4E6DxEYzWDwNNdfMGUQN6FwI",
+    tla: "https://new.uschess.org/lightning-square-quads-nov-2026",
+  },
 ];
 
 export type PastEvent = {
@@ -135,11 +165,89 @@ export const pastQuads: PastEvent[] = [
   { date: "October 2023", venue: venues.calabazas, results: "https://www.uschess.org/msa/XtblMain.php?202310299952-31519052" },
 ];
 
+/* One-off events from 2023, before the club settled into the monthly quad
+   rhythm. Kept so the record of what we have directed stays complete. */
+export type LegacyEvent = {
+  name: string;
+  date: string;
+  venue: { name: string; address: string };
+  format: string;
+  detail: string[];
+  results?: string;
+};
+
+export const legacyEvents: LegacyEvent[] = [
+  {
+    name: "Northern California High School Chess Championship",
+    date: "November 18, 2023",
+    venue: {
+      name: "Willow Glen Branch Library",
+      address: "1157 Minnesota Ave, San Jose, CA 95125",
+    },
+    format: "3-round Swiss, G/60 +30",
+    detail: [
+      "Open to every high school in Northern California. Each school fielded a team of three to four players including one alternate, and every player had to be currently enrolled at the school they represented.",
+      "Three players from each team played each round, with boards ordered by decreasing US Chess rating. Team scoring gave 1 point for a match score of 2 or more, half a point for 1.5, and nothing for 1 or below.",
+      "Prizes were $300 for the first place team and $200 for the second. Rounds ran at 10:00 AM, 2:00 PM and 6:30 PM, with a 30 minute forfeit time.",
+    ],
+  },
+  {
+    name: "Invitational Tournament",
+    date: "September 9, 2023",
+    venue: {
+      name: "Radisson Hotel Oakland Airport",
+      address: "8400 Edes Avenue, Oakland, CA 94621",
+    },
+    format: "3 rounds, G/75 d5",
+    detail: [
+      "An invitational held at the Radisson Hotel Oakland Airport, with rounds at 10:30 AM, 2:00 PM and 5:30 PM.",
+    ],
+    results: "https://www.uschess.org/msa/XtblMain.php?202309090002-16571968",
+  },
+];
+
 export const onlineEvents = [
   { date: "April 19, 2025", format: "G/15+10", directors: "Vicky Qin, Serena Yuan", results: "https://www.chess.com/tournament/live/lightning-square-chess-419-online-swiss-5599795" },
   { date: "November 16, 2024", format: "G/15+10", directors: "Vicky Qin, Hanchi Yao, Serena Yuan", results: "https://www.chess.com/tournament/live/lightning-square-online-swiss-5195569" },
   { date: "April 28, 2024", format: "G/15+10", directors: "Vicky Qin, Hanchi Yao", results: "https://www.chess.com/tournament/live/lightning-square-online-tournament-4773070" },
   { date: "February 17, 2024", format: "G/15+10", directors: "Vicky Qin, Serena Yuan", results: "https://www.chess.com/tournament/live/president-day-online-chess-tournament-5478589" },
+];
+
+/* The championship series. Four a year, all on the Summer format: a rated
+   main tournament in the morning, an evening blitz. Only the Summer edition
+   has confirmed details so far; the other three are announced dates only. */
+export type ChampionshipEntry = {
+  name: string;
+  when: string;
+  status: "played" | "tbd";
+  note: string;
+};
+
+export const championshipSeries: ChampionshipEntry[] = [
+  {
+    name: "Summer Championship and Blitz",
+    when: "August 9, 2026",
+    status: "played",
+    note: "Domain Hotel, Sunnyvale. Open, U1600 and U800 plus an evening blitz. Full details below.",
+  },
+  {
+    name: "Fall Championship and Blitz",
+    when: "November 2026",
+    status: "tbd",
+    note: "Date, venue and entry to be announced. Same format as the Summer Championship.",
+  },
+  {
+    name: "Winter Championship and Blitz",
+    when: "March 2027",
+    status: "tbd",
+    note: "Date, venue and entry to be announced. Same format as the Summer Championship.",
+  },
+  {
+    name: "Spring Championship and Blitz",
+    when: "May 2027",
+    status: "tbd",
+    note: "Date, venue and entry to be announced. Same format as the Summer Championship.",
+  },
 ];
 
 export const championship = {
@@ -241,6 +349,13 @@ export type School = {
   photos: string[];
   body: string[];
   quotes: { text: string; who: string; role?: string }[];
+  /* Some partners are several institutions under one coach. Each gets its
+     own write-up and its own quotes rather than being flattened together. */
+  sections?: {
+    name: string;
+    body: string;
+    quotes: { text: string; who: string; role?: string }[];
+  }[];
 };
 
 export const schools: School[] = [
@@ -315,7 +430,7 @@ export const schools: School[] = [
       { text: "Coach is amazing, she makes classes easy to understand. Her understanding and unique way of explaining and lesson delivery is outstanding.", who: "Eric Mulumba", role: "Student" },
       { text: "I am so excited with the program as a girl child. It has given me hope of playing this game, which I never got a chance to learn or play in my community until I was introduced to this program.", who: "Marline", role: "Student" },
       { text: "It is a great program, which is helping me a lot and improving each week.", who: "Moses", role: "Student" },
-      { text: "She combines deep chess knowledge with a rare gift of communication, making even the most complex strategies easy to grasp. Despite the distance between the USA and Malawi, she manages to make each class feel personal, engaging, and unforgettable. Coach Kally is not only shaping us into better chess players but also into better thinkers.", who: "Lombani", role: "Student" },
+      { text: "Coach Kally is an extraordinary teacher and mentor. She combines deep chess knowledge with a rare gift of communication, making even the most complex strategies easy to grasp. Her patience, encouragement, and ability to inspire excellence in every student, especially me, make her one of the best coaches I have ever encountered. She creates an atmosphere where we all feel motivated to push beyond our limits. Despite the distance between the USA and Malawi, she manages to make each class feel personal, engaging, and unforgettable. Coach Kally is not only shaping us into better chess players but also into better thinkers.", who: "Lombani", role: "Student" },
     ],
   },
   {
@@ -342,8 +457,7 @@ export const schools: School[] = [
       { text: "Coach Sean is a very good teacher, he keeps to time and takes time to explain what the students don't understand.", who: "Adebowale Mumtaaz", role: "Student" },
       { text: "He enabled us to understand chess better. His classes are usually interactive, fun and interesting. I always look forward to the class every Wednesday.", who: "Owoade Muhammed", role: "Student" },
     ],
-  },
-  {
+  },  {
     slug: "akure",
     name: "Akure Schools",
     location: "Akure, Ondo",
@@ -352,21 +466,141 @@ export const schools: School[] = [
     since: "2025",
     cover: "https://i.ibb.co/9mR3fLdL/IMG-20250622-WA0006.jpg",
     photos: [
+      "https://i.ibb.co/3y7k4FTW/1000102459.jpg",
+      "https://i.ibb.co/23Vk8MbB/Screenshot-20250323-191157-1.jpg",
+      "https://i.ibb.co/9mLRL6GB/Screenshot-20250323-191215-1-1.jpg",
+      "https://i.ibb.co/qYfDs6Fm/Screenshot-20250323-191237-1.jpg",
+      "https://i.ibb.co/fYGC4zkk/IMG-20250206-WA0035.jpg",
+      "https://i.ibb.co/rKDyLnvv/IMG-20250227-082832-013-1.jpg",
+      "https://i.ibb.co/JRgDqrGG/IMG-20250213-085828-276-1.jpg",
+      "https://i.ibb.co/GvDSSYBQ/1000145321-1.jpg",
+      "https://i.ibb.co/PGDKcqVj/1000102468.jpg",
+      "https://i.ibb.co/3yJMdn5W/1000102456-1.jpg",
+      "https://i.ibb.co/0R4J1dG9/Screenshot-20250324-090725.jpg",
+      "https://i.ibb.co/BHd1sN5W/IMG-20250227-WA0043.jpg",
+      "https://i.ibb.co/9kwjn8qt/IMG-20250214-WA0016.jpg",
+      "https://i.ibb.co/TG1Dt35/IMG-20250214-WA0015-1.jpg",
+      "https://i.ibb.co/TqBmC9V2/IMG-20250206-094919-686.jpg",
+      "https://i.ibb.co/MkyprMtK/IMG-20250206-094912-548-1.jpg",
+      "https://i.ibb.co/sd6T6kxp/1000108838.jpg",
+      "https://i.ibb.co/PzswmVvs/IMG-20250227-WA0028-1.jpg",
+      "https://i.ibb.co/WpFkjmRG/IMG-20250227-WA0027.jpg",
+      "https://i.ibb.co/rR0C51Pn/IMG-20250206-WA0021.jpg",
+      "https://i.ibb.co/1Jv9pLF9/IMG-20250719-WA0128-1.jpg",
+      "https://i.ibb.co/kgqrX0Lm/IMG-20250719-WA0119.jpg",
+      "https://i.ibb.co/HDh7CR24/IMG-20250719-WA0111-1.jpg",
+      "https://i.ibb.co/B5jV7M3s/IMG-20250719-WA0107.jpg",
+      "https://i.ibb.co/N2sMJh7f/IMG-20250719-WA0089-1.jpg",
+      "https://i.ibb.co/4n6wB4Q2/IMG-20250719-WA0073.jpg",
       "https://i.ibb.co/9mR3fLdL/IMG-20250622-WA0006.jpg",
       "https://i.ibb.co/yFh8LV2X/ff5a1f55-dc98-42ea-a767-411de95bfc29.jpg",
       "https://i.ibb.co/BVX6f9ys/2c20fafa-4eec-46bd-9870-b171db690b8f.jpg",
       "https://i.ibb.co/cQn2HMN/a9e225d8386d6ba887d760a2a1282c5b-2.jpg",
     ],
     body: [
-      "Three institutions in Ondo State: the Federal University of Technology Akure, Great Landmark College and Christ Model Comprehensive High School. Student interest was high. Equipment, trained coaches and competitions were not.",
-      "Coach Vincent worked with Mr. Dada Philip Olamide, our Regional Coordinator in Akure, to bring structured chess to all three.",
-      "At Great Landmark College, also known as Indomitable Genius Academy, Coach Vincent taught ten students from the basics up. With donated sets they could finally practise between lessons.",
+      "In Nigeria chess has been gaining popularity among students, but many schools struggle to support the game: limited equipment, a shortage of trained coaches, and minimal institutional backing.",
+      "Coach Vincent worked closely with Mr. Dada Philip Olamide, our Regional Coordinator in Akure and an advocate for educational equity and youth empowerment, who recognised the gap. At the Federal University of Technology Akure (FUTA), Great Landmark College and Christ Model Comprehensive High School, student interest was high but opportunities for regular practice and competition were scarce.",
+      "Coach Vincent found a natural alignment with the Club Bootstrap Program and brought structured chess activity and resources to all three.",
+    ],
+    sections: [
+      {
+        name: "Great Landmark College",
+        body: "At Great Landmark College, a private secondary school in Ijoka, Akure, Coach Vincent worked with 10 students, introducing them to chess basics and strategic play. With donated chess sets, students practised consistently under his guidance, developing focus and analytical skills. Coach Vincent's lively sessions kept students engaged and encouraged creative problem-solving.",
+        quotes: [
+          { text: "I am glad I participated in the Akure Chess Bootstrap program. Vincent did so well in the training. Looking forward to becoming a chess grandmaster someday.", who: "Ayeni Joseph Ife Oluwa", role: "Student" },
+          { text: "I like the way the classes were held. I particularly am excited doing the assignments and chess puzzles.", who: "Akintade Oluwatoyosi Yetunde", role: "Student" },
+          { text: "I thank The Lightning Square Chess club for their support.", who: "Olarewaju Samuel", role: "Student" },
+          { text: "I enjoyed how the sessions were delivered. It made chess really simple. Hope it continues next session.", who: "Afolabi Oluwadarasimi", role: "Student" },
+          { text: "Thank you Vincent! We are proud of you!", who: "Adeniyi Deborah", role: "Student" },
+          { text: "I love Chess! I am happy I participated in the program!", who: "Ajiboye Mayowa", role: "Student" },
+        ],
+      },
+      {
+        name: "Christ Model Comprehensive High School",
+        body: "At Christ Model Comprehensive High School, a private school in Akure, Coach Vincent coached 20 students through both foundational and advanced chess techniques. Using donated chess sets, he guided students in practising regularly and sharpening their strategic thinking. His interactive approach made lessons fun while enhancing critical thinking and decision-making.",
+        quotes: [
+          { text: "Thank you so much, Vincent. You are blessed!", who: "Adetogo Iyanu", role: "Student" },
+          { text: "Thank you for the fantastic opportunity.", who: "Adeyanju Precious", role: "Student" },
+          { text: "I love the program.", who: "Olashinde Favour", role: "Student" },
+          { text: "I learnt a lot. I will keep improving my chess skills.", who: "Adebiyi Marvelous", role: "Student" },
+          { text: "I will become a grandmaster someday!", who: "Ibitoye Jacob", role: "Student" },
+          { text: "I feel like a chess champion already. The bootstrap program opened my eyes to a lot of tactics in chess!", who: "Okoro Wisdom", role: "Student" },
+          { text: "I hope the program will continue when we resume by September!", who: "Ariyo Maxwell", role: "Student" },
+        ],
+      },
+      {
+        name: "Federal University of Technology, Akure (FUTA)",
+        body: "At FUTA, a technology-focused university in the Ondo State capital, Coach Vincent guided 10 students through chess fundamentals and advanced strategies. Using a chess clock and donated sets, he helped students practise regularly and sharpen their skills. His interactive sessions made learning fun while building critical thinking and decision-making abilities.",
+        quotes: [
+          { text: "Well detailed and comprehensive Chess program. I learned a lot.", who: "Adegoke Adeniyi", role: "Student" },
+          { text: "The lessons were delivered very effectively. Kudos to Vincent and his team!", who: "Godwin Olasehinde", role: "Student" },
+          { text: "Quite an experience! Everyone interested in Chess should begin their lessons with this bootstrap program. It is highly recommended!", who: "Unife Eruoghene", role: "Student" },
+          { text: "Thanks a lot to the organizers of this program. It is impactful.", who: "Alexander King", role: "Student" },
+          { text: "Chess teaches us so much and the Lightning Square Chess team makes it quite easier!", who: "Popoola Philip", role: "Student" },
+        ],
+      },
+      {
+        name: "Akure Chess Heights",
+        body: "The donated sets did not stay inside the schools. They were used to restart a monthly open tournament in the city, running simultaneously with events in other Nigerian states.",
+        quotes: [
+          { text: "I also want to bring to your notice, the promise we made earlier to keep the chess sets we received in the community. Last weekend, we were able to reintroduce a monthly Chess tournament known as Chess Heights in our city, since 2016. The tournament unites chess players from different parts of the state, competing in exciting tournament rounds, and the event happens simultaneously in different Nigerian states at the same time. The chess sets graciously sent by your organization was used for Akure Chess Heights Monthly Tournament.", who: "Mr. Dada Philip Olamide", role: "Regional Coordinator" },
+        ],
+      },
     ],
     quotes: [
-      { text: "The Lightning Square Club Bootstrap program provides a holistic chess education experience for resource-limited regions. It avails students the opportunity of learning the timeless game from well-experienced coaches, delivered online with adequate local support. Coach Vincent's methods are gentle and persuasive. He pushes the students to their best and gives them a lot of examples.", who: "Mr. Dada Philip Olamide", role: "Regional Coordinator" },
+      { text: "The Lightning Square Club Bootstrap program provides a holistic chess education experience for resource-limited regions. It avails students the opportunity of learning the timeless game from well-experienced coaches, delivered online with adequate local support for participants. I highly recommend the program to every chess club that wants to put the chess skills of their members on steroids.", who: "Mr. Dada Philip Olamide", role: "Regional Coordinator" },
+      { text: "Coach Vincent's methods are gentle and persuasive. He pushes the students to their best and gives them a lot of examples. The best way to learn chess, in my own opinion.", who: "Mr. Dada Philip Olamide", role: "Regional Coordinator" },
+    ],
+  },
+  {
+    slug: "indomitable",
+    name: "Indomitable Genius Academy",
+    location: "Ijoka, Akure, Ondo",
+    country: "Nigeria",
+    coach: "Vincent Qin",
+    since: "September 2025",
+    cover: "https://i.ibb.co/Kx3ZvXCV/IMG-20250930-WA0007.jpg",
+    photos: [
+      "https://i.ibb.co/Kx3ZvXCV/IMG-20250930-WA0007.jpg",
+      "https://i.ibb.co/mZ2PgG2/IMG-20250930-WA0008.jpg",
+      "https://i.ibb.co/kgd9q8z0/IMG-20250930-WA0009.jpg",
+      "https://i.ibb.co/qLxgT4ZV/IMG-20251003-WA0011.jpg",
+      "https://i.ibb.co/8Ddd2Y1w/IMG-20251003-WA0012.jpg",
+      "https://i.ibb.co/rG5wpVpK/IMG-20251003-WA0013.jpg",
+      "https://i.ibb.co/pjhDqLMY/IMG-20251003-WA0010.jpg",
+      "https://i.ibb.co/LDCnjPSH/IMG-20251023-WA0006.jpg",
+      "https://i.ibb.co/23S4w4hJ/IMG-20251023-WA0005.jpg",
+      "https://i.ibb.co/1YD43MyM/IMG-20251023-WA0003.jpg",
+      "https://i.ibb.co/43H3WkS/IMG-20251016-WA0006.jpg",
+      "https://i.ibb.co/VYsx4F49/IMG-20251113-WA0014.jpg",
+      "https://i.ibb.co/cXVzrccL/IMG-20251113-WA0017.jpg",
+      "https://i.ibb.co/PvtZNRBs/IMG-20251113-WA0015.jpg",
+      "https://i.ibb.co/pjf5XBw3/IMG-20251113-WA0013.jpg",
+      "https://i.ibb.co/fV7kxR8w/IMG-20251113-WA0018.jpg",
+      "https://i.ibb.co/w37nwHy/IMG-20251120-WA0023.jpg",
+      "https://i.ibb.co/twYTT0hK/IMG-20251120-WA0026.jpg",
+      "https://i.ibb.co/CKL0y7cv/IMG-20251120-WA0019.jpg",
+      "https://i.ibb.co/XxMJB7xP/IMG-20251120-WA0021.jpg",
+      "https://i.ibb.co/Gfw2F8jv/IMG-20251120-WA0027.jpg",
+      "https://i.ibb.co/cS3SWqC1/IMG-20251120-WA0028.jpg",
+    ],
+    body: [
+      "In Nigeria chess has been steadily gaining popularity among students, but many schools struggle to support the game due to limited equipment, a shortage of trained coaches, and minimal institutional backing.",
+      "Coach Vincent worked closely with Mr. Dada Philip Olamide, our Regional Coordinator and an advocate for educational equity and youth empowerment, who recognised this gap. At Indomitable Genius Academy, a private secondary school in Ijoka, Akure, student interest was high but opportunities for regular practice and competition were scarce.",
+      "Coach Vincent worked with the students from chess basics through to strategic play. With donated chess sets they could practise consistently between lessons, developing focus and analytical skills. His lively sessions kept students engaged and encouraged creative problem-solving, making chess accessible and enjoyable for everyone taking part.",
+    ],
+    quotes: [
+      { text: "The Lightning Square Club Bootstrap program provides a holistic chess education experience for resource-limited regions. It avails students the opportunity of learning the timeless game from well-experienced coaches, delivered online with adequate local support for participants. I highly recommend the program to every chess club that wants to put the chess skills of their members on steroids.", who: "Mr. Dada Philip Olamide", role: "Regional Coordinator" },
+      { text: "Coach Vincent's methods are gentle and persuasive. He pushes the students to their best and gives them a lot of examples. The best way to learn chess, in my own opinion.", who: "Mr. Dada Philip Olamide", role: "Regional Coordinator" },
       { text: "I am glad I participated in the Akure Chess Bootstrap program. Vincent did so well in the training. Looking forward to becoming a chess grandmaster someday.", who: "Ayeni Joseph Ife Oluwa", role: "Student" },
       { text: "I like the way the classes were held. I particularly am excited doing the assignments and chess puzzles.", who: "Akintade Oluwatoyosi Yetunde", role: "Student" },
+      { text: "I thank The Lightning Square Chess club for their support.", who: "Olarewaju Samuel", role: "Student" },
+      { text: "I enjoyed how the sessions were delivered. It made chess really simple. Hope it continues next session.", who: "Afolabi Oluwadarasimi", role: "Student" },
       { text: "Will there be a continuation? Because I will surely miss the classes.", who: "Ademola Ayomiposi", role: "Student" },
+      { text: "Thank you Vincent! We are proud of you!", who: "Adeniyi Deborah", role: "Student" },
+      { text: "I love Chess! I am happy I participated in the program!", who: "Ajiboye Mayowa", role: "Student" },
+      { text: "I enjoyed the chess sessions.", who: "Omo-ola Praise", role: "Student" },
+      { text: "I will keep practicing my chess!", who: "Awetolu Emmanuel", role: "Student" },
     ],
   },
 ];
@@ -375,11 +609,20 @@ export const schools: School[] = [
 
 export const testimonials = [
   { text: "Thanks again to you and the Lightning Square Chess team for organizing today's tournament. It was a great event with a lot of strong chess being played, and I was legitimately impressed with all the challengers.", who: "IM Mark Heimann", role: "Honorary Advisor" },
-  { text: "The class structure is well-planned, providing a perfect balance between theoretical knowledge and practical application through friendly matches. My son has not only improved his chess proficiency but also developed a genuine enthusiasm for the game, thanks to the inspiring and supportive environment created by these talented high school instructors.", who: "Iris Zhong", role: "Parent" },
+  { text: "The class structure is well-planned, providing a perfect balance between theoretical knowledge and practical application through friendly matches. All the kids including my son are highly motivated and intrigued by the puzzles taught in each class. My son has not only improved his chess proficiency but also developed a genuine enthusiasm for the game, thanks to the inspiring and supportive environment created by these talented high school instructors.", who: "Iris Zhong", role: "Parent" },
   { text: "The three coaches are professional, patient and caring. The classes are interactive and fun, and strategies are taught with a systematic approach. Not only did my boy hone his chess skills, but he also made friends with common interests.", who: "Maggie Tsai", role: "Parent" },
   { text: "Our son loves his weekly chess class. He excitedly tells us about what he learned after each class. He insisted that we sign up for a second session after he completed the first one, which we gladly did.", who: "Jet Manousos' Mother", role: "Parent" },
   { text: "The young coach teaches chess in a way that is engaging and fun for kids, using simple and relatable language that makes learning easy for young players. My daughter thoroughly enjoyed the classes and always looked forward to them.", who: "Maggie's Mother", role: "Parent" },
   { text: "The teaching curriculum is fully prepared and structured and easy for kids to follow. My son gained great interests in chess from the classes and will definitely continue learning from those awesome teachers.", who: "Rainier Huang's Mother", role: "Parent, 2025 Spring Class" },
+];
+
+/* -------------------------------------------------------------- patrons */
+
+/* Acknowledged on the old homepage. The logo is an inline SVG lifted from
+   that page; we have the artwork but not the patron's name recorded — fill
+   in `name` once confirmed and it will show as the caption and alt text. */
+export const patrons = [
+  { name: "", logo: "/patron-1.svg" },
 ];
 
 /* ------------------------------------------------------------------ FAQ */
