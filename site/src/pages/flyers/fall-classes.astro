@@ -1,47 +1,69 @@
 ---
 import Flyer from "@/layouts/Flyer.astro";
 import { fallClassFlyer as f, org, testimonials } from "@/data/site";
-import { qrSvg, shortUrl } from "@/lib/qr";
+import { qrSvg } from "@/lib/qr";
 
 const qr = await qrSvg(f.register);
-const short = shortUrl(f.register);
+const short = f.registerShort;
 /* A parent's words carry a flyer further than another feature list. */
 const quote = testimonials.find((t) => t.who === "Jet Manousos' Mother")!;
 ---
-<Flyer title={`${f.term} Chess Classes`} draft={f.draft}>
+<Flyer title={`${f.term} ${f.title}`} draft={f.draft}>
   {/* ------------------------------------------------------------ header */}
   <header class="hd">
+    <svg class="hd-bolt" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M13.6 1.5 4.2 13.3a.6.6 0 0 0 .47.98h5.06l-1.4 8.06a.6.6 0 0 0 1.06.47l9.44-11.8a.6.6 0 0 0-.47-.98h-5.07l1.4-8.06a.6.6 0 0 0-1.06-.47Z" fill="currentColor"/>
+    </svg>
+
     <div class="hd-mark">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="currentColor"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.6 1.5 4.2 13.3a.6.6 0 0 0 .47.98h5.06l-1.4 8.06a.6.6 0 0 0 1.06.47l9.44-11.8a.6.6 0 0 0-.47-.98h-5.07l1.4-8.06a.6.6 0 0 0-1.06-.47Z" fill="currentColor"/></svg>
       <div>
         <p class="hd-org">Lightning Square</p>
-        <p class="hd-sub label">Chess Club &middot; Est. {org.founded}</p>
+        <p class="hd-sub label">Chess Club &middot; Cupertino &middot; Est. {org.founded}</p>
       </div>
     </div>
-    <h1 class="hd-title">Free Chess Classes</h1>
-    <p class="hd-term mono">{f.term} &middot; Cupertino</p>
+
+    <p class="hd-kick label">{f.term} &middot; Free, ten weeks</p>
+    <h1 class="hd-title">Chess<br />Introduction<br />Classes</h1>
+    <p class="hd-lede">{f.ages}. No experience needed.</p>
   </header>
 
   {/* --------------------------------------------------------- key facts */}
   <section class="facts">
-    {[
-      ["Dates", f.dates],
-      ["Day &amp; time", f.day && f.time ? `${f.day}, ${f.time}` : null],
-      ["Sessions", `${f.sessions} weeks`],
-      ["Cost", f.cost],
-    ].map(([k, v]) => (
-      <div class="fact">
-        <p class="label fact-k" set:html={k} />
-        <p class="fact-v mono">{v ?? <span class="tbd">TBD</span>}</p>
-      </div>
-    ))}
+    <div class="fact">
+      <p class="label fact-k">When</p>
+      <p class="fact-v mono">{f.day}</p>
+      <p class="fact-v mono">{f.time}</p>
+    </div>
+    <div class="fact">
+      <p class="label fact-k">Dates</p>
+      <p class="fact-v mono">{f.dates}</p>
+      <p class="fact-note">{f.note}</p>
+    </div>
+    <div class="fact">
+      <p class="label fact-k">Where</p>
+      <p class="fact-v">{f.venue.name}</p>
+      <p class="fact-note">{f.venue.address}</p>
+    </div>
+    <div class="fact fact-cost">
+      <p class="label fact-k">Cost</p>
+      <p class="fact-v-lg">{f.cost}</p>
+      <p class="fact-note">Nobody pays to attend</p>
+    </div>
   </section>
 
   {/* ------------------------------------------------------------- body */}
   <section class="body">
     <div class="col-main">
-      <h2 class="h-sec">Who it is for</h2>
-      <p class="lede">{f.ages}. {f.blurb}</p>
+      <h2 class="h-sec">Who teaches it</h2>
+      <ul class="creds">
+        {f.coachCreds.map((c) => (
+          <li>
+            <svg class="cred-bolt" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.6 1.5 4.2 13.3a.6.6 0 0 0 .47.98h5.06l-1.4 8.06a.6.6 0 0 0 1.06.47l9.44-11.8a.6.6 0 0 0-.47-.98h-5.07l1.4-8.06a.6.6 0 0 0-1.06-.47Z" fill="currentColor"/></svg>
+            {c}
+          </li>
+        ))}
+      </ul>
 
       <h2 class="h-sec mt">What we cover</h2>
       <ol class="outline">
@@ -50,55 +72,54 @@ const quote = testimonials.find((t) => t.who === "Jet Manousos' Mother")!;
         ))}
       </ol>
 
-      <h2 class="h-sec mt">How to join</h2>
-      <ol class="steps">
-        {[
-          ["Scan", "Point a phone camera at the code and open the form."],
-          ["Sign up", "One short form per child. Places go in order received."],
-          ["Turn up", "Bring nothing but a pencil. We supply the boards."],
-        ].map(([k, v], i) => (
-          <li>
-            <span class="step-n mono">{i + 1}</span>
-            <span class="step-k">{k}</span>
-            <span class="step-v">{v}</span>
-          </li>
-        ))}
-      </ol>
-    </div>
-
-    <aside class="col-side">
-      <div class="box">
-        <p class="label box-k">Where</p>
-        <p class="box-name">{f.venue.name}</p>
-        <p class="box-addr">{f.venue.address}</p>
-      </div>
-
-      <div class="box">
-        <p class="label box-k">Coaches</p>
-        <p class="box-body">{f.coaches ?? <span class="tbd">TBD</span>}</p>
-      </div>
-
       <blockquote class="quote">
         <p class="quote-text">&ldquo;{quote.text}&rdquo;</p>
         <footer class="quote-by">{quote.who} &middot; {quote.role}</footer>
       </blockquote>
+    </div>
 
-      <div class="box reg">
-        <p class="label box-k">Register</p>
+    <aside class="col-side">
+      <div class="reg">
+        <p class="label reg-k">Sign up</p>
         {qr ? (
           <>
             <div class="qr" set:html={qr} />
+            <p class="qr-hint">Scan with a phone camera</p>
             <p class="qr-url mono">{short}</p>
           </>
         ) : (
-          <div class="qr-empty">
-            <span class="tbd">TBD</span>
-            <p>Registration link pending</p>
-          </div>
+          <div class="qr-empty"><span class="tbd">TBD</span></div>
         )}
       </div>
+
+      <ol class="steps">
+        {[
+          ["Scan", "Point a phone camera at the code."],
+          ["Sign up", "One short form per child."],
+          ["Turn up", "Bring a pencil. We supply the boards."],
+        ].map(([k, v], i) => (
+          <li>
+            <span class="step-n mono">{i + 1}</span>
+            <div>
+              <p class="step-k">{k}</p>
+              <p class="step-v">{v}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
     </aside>
   </section>
+
+  {/* Cross-promotion: most families who come to a class ask about playing
+      a rated game next. Tell them before they have to ask. */}
+  <aside class="also">
+    <svg class="also-bolt" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.6 1.5 4.2 13.3a.6.6 0 0 0 .47.98h5.06l-1.4 8.06a.6.6 0 0 0 1.06.47l9.44-11.8a.6.6 0 0 0-.47-.98h-5.07l1.4-8.06a.6.6 0 0 0-1.06-.47Z" fill="currentColor"/></svg>
+    <p>
+      <span class="also-k">Ready to play rated?</span>{" "}
+      We also run <strong>free monthly USCF-rated quads</strong> at the same venue &mdash;
+      three games in an afternoon. <span class="mono">lightningsquarechess.org/quads</span>
+    </p>
+  </aside>
 
   {/* ------------------------------------------------------------ footer */}
   <footer class="ft">
@@ -108,65 +129,104 @@ const quote = testimonials.find((t) => t.who === "Jet Manousos' Mother")!;
 </Flyer>
 
 <style>
-  /* ---- header ---- */
-  .hd { background: var(--board); color: #fff; padding: 0.5in 0.55in 0.42in; }
+  /* ---- header ----
+     A gold diagonal cuts the dark panel so the sheet opens on an angle
+     rather than another stacked rectangle. */
+  .hd {
+    position: relative;
+    overflow: hidden;
+    background: var(--board);
+    color: #fff;
+    padding: 0.42in 0.55in 0.4in;
+  }
+  .hd::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -0.34in;
+    height: 0.5in;
+    background: var(--gold);
+    transform: rotate(-1.6deg) scaleX(1.15);
+  }
+  .hd-bolt {
+    position: absolute;
+    right: -0.55in; top: 50%;
+    translate: 0 -50%;
+    width: 3.5in; height: 3.5in;
+    color: var(--gold);
+    opacity: 0.09;
+    rotate: 9deg;
+  }
   .hd-mark { display: flex; align-items: center; gap: 9px; margin-bottom: 0.3in; }
-  .hd-mark svg { width: 22px; height: 22px; color: var(--gold); }
+  .hd-mark svg { width: 21px; height: 21px; color: var(--gold); }
   .hd-org { font-family: "Fraunces Variable", Georgia, serif; font-size: 13pt; font-weight: 600; line-height: 1; }
   .hd-sub { color: rgb(255 255 255 / 0.5); margin-top: 3px; }
-  .hd-title { font-size: 40pt; letter-spacing: -0.015em; }
-  .hd-term { color: var(--gold); font-size: 12pt; font-weight: 500; margin-top: 9px; }
+  .hd-kick { color: var(--gold); margin-bottom: 8px; }
+  .hd-title { font-size: 40pt; line-height: 0.96; letter-spacing: -0.02em; }
+  .hd-lede { font-size: 10.5pt; color: rgb(255 255 255 / 0.72); margin-top: 11px; }
 
-  /* ---- key facts strip ---- */
-  .facts { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--rule); gap: 1px; border-bottom: 1px solid var(--rule); }
-  .fact { background: var(--paper); padding: 0.17in 0.2in; }
+  /* ---- key facts ---- */
+  .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--rule); border-bottom: 1px solid var(--rule); }
+  .fact { background: var(--paper); padding: 0.16in 0.16in 0.18in; }
   .fact:first-child { padding-left: 0.55in; }
   .fact:last-child { padding-right: 0.55in; }
-  .fact-k { color: var(--muted); margin-bottom: 4px; }
-  .fact-v { font-size: 10.5pt; font-weight: 500; line-height: 1.25; }
+  .fact-cost { background: #eef3ee; }
+  .fact-k { color: var(--muted); margin-bottom: 5px; }
+  .fact-v { font-size: 9.5pt; font-weight: 600; line-height: 1.28; }
+  .fact-v-lg { font-family: "Fraunces Variable", Georgia, serif; font-size: 17pt; font-weight: 600; color: var(--board-soft); line-height: 1; }
+  .fact-note { font-size: 7.5pt; color: var(--muted); margin-top: 3px; line-height: 1.3; }
 
   /* ---- body ---- */
-  .body { flex: 1; display: grid; grid-template-columns: 1fr 2.5in; gap: 0.4in; padding: 0.38in 0.55in 0.2in; }
-  .h-sec { font-size: 15pt; margin-bottom: 7px; }
-  .h-sec.mt { margin-top: 0.26in; }
-  .lede { font-size: 10pt; line-height: 1.5; color: #2c3431; max-width: 42ch; }
+  .body { flex: 1; display: grid; grid-template-columns: 1fr 2.35in; gap: 0.34in; padding: 0.3in 0.55in 0.16in; }
+  .h-sec { font-size: 14.5pt; margin-bottom: 8px; }
+  .h-sec.mt { margin-top: 0.2in; }
+
+  /* Coach credentials: the reason a parent picks this over anything else. */
+  .creds { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 5px 12px; }
+  .creds li { display: flex; gap: 6px; align-items: flex-start; font-size: 9pt; font-weight: 500; line-height: 1.3; }
+  .cred-bolt { width: 10px; height: 10px; flex: none; color: var(--gold); margin-top: 2px; }
 
   .outline { list-style: none; }
-  .outline li { display: flex; gap: 10px; font-size: 9.5pt; line-height: 1.35; padding: 5.5px 0; border-bottom: 1px solid var(--rule); }
+  .outline li { display: flex; gap: 10px; font-size: 8.8pt; line-height: 1.3; padding: 4.5px 0; border-bottom: 1px solid var(--rule); }
   .outline li:last-child { border-bottom: 0; }
-  .num { color: var(--gold); font-weight: 600; font-size: 8.5pt; padding-top: 1px; }
+  .num { color: var(--gold); font-weight: 600; font-size: 8pt; padding-top: 1px; }
+
+  .quote { margin-top: 0.18in; border-left: 3px solid var(--gold); padding: 2px 0 2px 0.14in; }
+  .quote-text { font-family: "Fraunces Variable", Georgia, serif; font-size: 9pt; line-height: 1.4; color: #22302a; }
+  .quote-by { font-family: "IBM Plex Mono", monospace; font-size: 7pt; color: var(--muted); margin-top: 5px; }
 
   /* ---- sidebar ---- */
-  .col-side { display: flex; flex-direction: column; gap: 0.15in; }
-  .box { border: 1px solid var(--rule); background: var(--card); padding: 0.16in 0.18in; }
-  .box-k { color: var(--muted); margin-bottom: 5px; }
-  .box-name { font-weight: 600; font-size: 10pt; }
-  .box-addr { font-size: 8.5pt; color: var(--muted); line-height: 1.35; margin-top: 2px; }
-  .box-body { font-size: 9.5pt; line-height: 1.4; }
-
-  .steps { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
-  .steps li { background: var(--card); padding: 0.14in 0.15in; display: flex; flex-direction: column; gap: 3px; }
-  .step-n { width: 15px; height: 15px; border-radius: 50%; background: var(--board); color: var(--gold);
-            font-size: 7.5pt; font-weight: 600; display: flex; align-items: center; justify-content: center; }
-  .step-k { font-weight: 600; font-size: 9.5pt; }
-  .step-v { font-size: 8pt; line-height: 1.35; color: var(--muted); }
-
-  .quote { background: #eef3ee; border-left: 3px solid var(--board-soft); padding: 0.15in 0.17in; }
-  .quote-text { font-family: "Fraunces Variable", Georgia, serif; font-size: 9.5pt; line-height: 1.4; color: #22302a; }
-  .quote-by { font-family: "IBM Plex Mono", monospace; font-size: 7.5pt; color: var(--muted); margin-top: 7px; }
-
-  .reg { border: 2px solid var(--board); text-align: center; margin-top: auto; }
-  .reg .box-k { color: var(--board); }
-  .qr { width: 1.5in; height: 1.5in; margin: 6px auto 7px; }
+  .col-side { display: flex; flex-direction: column; gap: 0.16in; }
+  .reg { border: 2px solid var(--board); background: var(--card); padding: 0.16in 0.14in 0.15in; text-align: center; }
+  .reg-k { color: var(--board); }
+  .qr { width: 1.55in; height: 1.55in; margin: 9px auto 8px; }
   .qr :global(svg) { width: 100%; height: 100%; display: block; }
-  .qr-url { font-size: 8pt; color: var(--muted); word-break: break-all; }
+  .qr-hint { font-size: 8pt; font-weight: 600; color: var(--ink); }
+  .qr-url { font-size: 6.5pt; color: var(--muted); word-break: break-all; margin-top: 4px; line-height: 1.3; }
   .qr-empty { padding: 0.3in 0; }
-  .qr-empty p { font-size: 8.5pt; color: var(--muted); margin-top: 7px; }
+
+  .steps { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .steps li { display: flex; gap: 8px; align-items: flex-start; }
+  .step-n { width: 15px; height: 15px; flex: none; border-radius: 50%; background: var(--board); color: var(--gold);
+            font-size: 7.5pt; font-weight: 600; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+  .step-k { font-weight: 600; font-size: 9pt; }
+  .step-v { font-size: 7.8pt; line-height: 1.3; color: var(--muted); margin-top: 1px; }
+
+  /* ---- cross-promo ---- */
+  .also {
+    display: flex; align-items: center; gap: 9px;
+    margin: 0 0.55in 0.16in;
+    background: #eef3ee; border-left: 3px solid var(--gold);
+    padding: 0.13in 0.16in;
+  }
+  .also-bolt { width: 15px; height: 15px; flex: none; color: var(--gold); }
+  .also p { font-size: 8.6pt; line-height: 1.4; }
+  .also-k { font-weight: 600; color: var(--board-soft); }
+  .also .mono { font-size: 8pt; color: var(--muted); }
 
   /* ---- footer ---- */
   .ft { display: flex; justify-content: space-between; align-items: center; gap: 0.3in;
-        background: var(--board); color: #fff; padding: 0.16in 0.55in; }
-  .ft-main { font-size: 9.5pt; }
+        background: var(--board); color: #fff; padding: 0.15in 0.55in; }
+  .ft-main { font-size: 9pt; }
   .ft-main .mono { color: var(--gold); }
   .ft-site { font-size: 10pt; font-weight: 600; color: var(--gold); }
 </style>

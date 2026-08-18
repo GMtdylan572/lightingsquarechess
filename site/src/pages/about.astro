@@ -34,12 +34,14 @@ const groups: { label: string; note: string; people: Person[] }[] = [
         <p class="mt-4 max-w-[62ch] leading-relaxed text-muted-foreground">
           Right now that means two things above all: the monthly USCF-rated quad
           tournaments in Cupertino, and the Bay Area classes that get players
-          ready for them. Alongside those we still teach free online courses into
-          states with almost no chess infrastructure.
+          ready for them.
         </p>
         <p class="mt-4 max-w-[62ch] leading-relaxed text-muted-foreground">
-          The Club Bootstrap Initiative, which helped seven schools abroad open a
-          club of their own, is not taking new schools at the moment. Those
+          Two earlier programs have finished but are kept on the site. The
+          <a href="/programs/national" class="text-primary underline underline-offset-2">national program</a>
+          taught eight free online courses into Alaska, North Dakota, Idaho and
+          Mississippi. The Club Bootstrap Initiative helped seven schools abroad
+          open a club of their own; those
           <a href="/schools" class="text-primary underline underline-offset-2">partner schools</a>
           and what came of the work are documented here.
         </p>
@@ -55,15 +57,24 @@ const groups: { label: string; note: string; people: Person[] }[] = [
           <p class="text-[0.88rem] text-muted-foreground">{g.note}</p>
         </div>
         {/* Portraits are the point of this page, so they are sized to be
-            looked at: three across at most, four-by-five like a real photo. */}
-        <ul class="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+            looked at: four-by-five like a real photo. The five officers sit
+            on one row from `lg` up so the leadership reads as one group;
+            the smaller groups stay at three across, which keeps their
+            portraits from ballooning. */}
+        <ul class:list={[
+          "grid gap-x-6 gap-y-10 sm:grid-cols-2",
+          g.people.length === 5 ? "lg:grid-cols-5" : "lg:grid-cols-3",
+        ]}>
           {g.people.map((p) => (
             <li>
               <img src={p.photo} alt={`Portrait of ${p.name}`} loading="lazy" width="640" height="800"
                    class="mb-4 aspect-[4/5] w-full rounded-md border border-border object-cover [object-position:50%_22%]" />
               {p.role && <p class="label mb-1.5 text-primary">{p.role}</p>}
-              <p class="font-heading text-[1.35rem] font-semibold leading-tight">{p.name}</p>
-              {p.org && <p class="mt-1 text-[0.92rem] text-muted-foreground">{p.org}</p>}
+              <p class:list={[
+                "font-heading font-semibold leading-tight",
+                g.people.length === 5 ? "text-[1.15rem]" : "text-[1.35rem]",
+              ]}>{p.name}</p>
+              {p.org && <p class="mt-1 text-[0.88rem] leading-snug text-muted-foreground">{p.org}</p>}
             </li>
           ))}
         </ul>

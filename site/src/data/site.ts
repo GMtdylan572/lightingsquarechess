@@ -322,19 +322,34 @@ export const championshipResults = {
  * `npm run flyers`.
  */
 export const fallClassFlyer = {
-  draft: true,
+  draft: false,
   term: "Fall 2026",
-  dates: null as string | null,
-  day: null as string | null,
-  time: null as string | null,
-  coaches: null as string | null,
-  register: null as string | null,
+  title: "Chess Introduction Classes",
+  /* Written by `npm run flyers` from /flyers/fall-classes. */
+  pdf: "/fall-classes-flyer.pdf",
+  image: "/fall-classes-flyer.png",
+  dates: "September 8 to November 17, 2026",
+  day: "Tuesdays",
+  time: "6:30 – 7:30 PM",
+  note: "No class on October 13",
+  register: "https://docs.google.com/forms/d/e/1FAIpQLScXIDrinF9ajR_-o-h7QNJEdOXQXU5fbMSPlHNprv0YEH-CGA/viewform",
+  /* Same form, short form. The full URL is 100 characters and unreadable
+     printed under a QR code; this is what goes on the sheet. */
+  registerShort: "forms.gle/DMheqHTJ5Nrts6Fd9",
   venue: venues.deAnza,
   cost: "Free",
   sessions: 10,
   ages: "Beginners, ages 6 and up",
   blurb:
     "A ten-week introductory course taught by student coaches. No experience needed — players learn how the pieces move, how to read a game, and the tactics that decide most junior games. Every session ends with a played game.",
+  /* The strongest thing on the club's own flyer: who is actually teaching.
+     It was buried in a bullet list there; here it leads. */
+  coachCreds: [
+    "High school chess players",
+    "USCF 2000+ rated",
+    "State and national tournament champions",
+    "3+ years teaching kids' chess",
+  ],
   outline: [
     "Board setup, piece movement and capturing",
     "Special moves: castling, en passant, promotion",
@@ -348,6 +363,9 @@ export const fallClassFlyer = {
 
 export const championshipFlyer = {
   draft: true,
+  /* Written by `npm run flyers` from /flyers/championship. */
+  pdf: "/championship-flyer.pdf",
+  image: "/championship-flyer.png",
   edition: null as string | null,      // e.g. "2027 Summer Championship"
   date: null as string | null,
   /* The v9 flyer never printed a fee even though its prize fund assumed 60
@@ -392,14 +410,15 @@ export const championshipFlyer = {
 /* -------------------------------------------------------------- programs */
 
 export const bayAreaCurrent = {
-  dates: "January 20 to April 28, 2026",
-  time: "6:30 to 7:30 PM",
+  dates: "September 8 to November 17, 2026",
+  time: "Tuesdays, 6:30 to 7:30 PM",
   venue: venues.deAnza,
-  note: "No classes on February 17 and April 14. Coaches to be announced.",
-  register: "https://forms.gle/XKRHr1v4ChW3Jmgy9",
+  note: "No class on October 13.",
+  register: fallClassFlyer.register,
 };
 
 export const bayAreaPast = [
+  { dates: "January 20 to April 28, 2026", note: "No classes on February 17 and April 14", venue: venues.deAnza, coaches: "" },
   { dates: "September 9 to November 18, 2025", note: "No classes on October 14", venue: venues.deAnza, coaches: "Hank, Serena, Luke, Vicky" },
   { dates: "January 7 to May 6, 2025", note: "", venue: venues.cupertinoLibrary, coaches: "Vicky Qin, Hanchi Yao, Serena Yuan. TA: Dylan Tang" },
   { dates: "September 3 to November 5, 2024", note: "", venue: venues.cupertinoLibrary, coaches: "Kally Wen, Vincent Qin, Wentao Wu. TAs: Hanchi Yao, Serena Yuan, Vicky Qin" },
@@ -408,6 +427,15 @@ export const bayAreaPast = [
   { dates: "September 28 to November 30, 2023", note: "Thursdays", venue: venues.cupertinoLibrary, coaches: "Kally Wen, Vincent Qin, Wentao Wu" },
   { dates: "April 25 to June 13, 2023", note: "Tuesdays", venue: { name: "Online", address: "" }, coaches: "Wentao Wu, Vincent Qin, Kally Wen" },
 ];
+
+/* The national program is no longer running. It stays on the site because
+   what it did still matters and the record is worth keeping — but it is
+   presented as history, not as something a family can sign up for. */
+export const nationalProgram = {
+  archived: true,
+  ran: "2024 to 2025",
+  states: ["Alaska", "North Dakota", "Idaho", "Mississippi"],
+};
 
 export const nationalClasses = [
   { dates: "June 19 to August 28, 2025", time: "5–6 PM CST", state: "North Dakota", coach: "WCM Kally Wen", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid02v72kPX7DU8EK6PfhkQKcNXdvumKrAnv5zGFkQ9QRaRYkEgRK9tXMMBCPoDmc1V7l&id=100093236435369" },

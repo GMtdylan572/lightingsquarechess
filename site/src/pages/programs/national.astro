@@ -1,23 +1,40 @@
 ---
 import Base from "@/layouts/Base.astro";
 import PageHeader from "@/components/PageHeader.astro";
-import { nationalClasses } from "@/data/site";
+import { nationalClasses, nationalProgram as np } from "@/data/site";
 ---
 <Base
-  title="National Program"
-  description="Free online chess classes for residents of Alaska, North Dakota, Idaho and Mississippi, the US states where chess communities are smallest and resources most limited."
+  title="National Program (archive)"
+  description="An archive of the Lightning Square national program: eight free online chess courses taught into Alaska, North Dakota, Idaho and Mississippi between 2024 and 2025. No longer running."
 >
   <PageHeader
-    kicker="Alaska, North Dakota, Idaho, Mississippi"
+    kicker={`Archive · ${np.ran}`}
     title="National program"
-    lede="Free introductory courses taught over video call into the states with the least chess."
+    lede="Eight free introductory courses, taught over video call into the four states with the least chess. This program has finished."
     crumbs={[{ href: "/", label: "Home" }, { href: "/programs", label: "Programs" }]}
   />
+
+  {np.archived && (
+    <div class="border-b border-border bg-accent">
+      <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-2 px-5 py-4">
+        <span class="rounded-sm border border-input px-2 py-1 font-mono text-[0.65rem] uppercase tracking-wider text-muted-foreground">
+          Not running
+        </span>
+        <p class="text-[0.92rem] text-muted-foreground">
+          The national program ran from {np.ran} and has now finished. The record
+          stays here. Our current programs are the{" "}
+          <a href="/programs/bay-area" class="text-primary underline underline-offset-2">Bay Area classes</a>{" "}
+          and the{" "}
+          <a href="/quads" class="text-primary underline underline-offset-2">monthly quads</a>.
+        </p>
+      </div>
+    </div>
+  )}
 
   <section class="mx-auto max-w-6xl px-5 py-16">
     <div class="grid gap-12 lg:grid-cols-12">
       <div class="lg:col-span-7">
-        <h2 class="mb-4 text-2xl font-semibold">The gap we are aiming at</h2>
+        <h2 class="mb-4 text-2xl font-semibold">The gap we aimed at</h2>
         <p class="mb-4 max-w-[58ch] leading-relaxed text-muted-foreground">
           Chess is popular in the United States, but support for learning it is
           not spread evenly. There are over 76,000 registered players nationwide.
@@ -26,9 +43,9 @@ import { nationalClasses } from "@/data/site";
         </p>
         <p class="max-w-[58ch] leading-relaxed text-muted-foreground">
           A child in one of those states can want to play and still have no club,
-          no coach and no tournament within driving distance. Since 2024 we have
-          taught free introductory courses into Alaska, North Dakota, Idaho and
-          Mississippi to start closing that.
+          no coach and no tournament within driving distance. Between {np.ran} we
+          taught free introductory courses into {np.states.slice(0, -1).join(", ")} and
+          {" "}{np.states.at(-1)} to start closing that.
         </p>
       </div>
       <div class="lg:col-span-5">
@@ -42,7 +59,7 @@ import { nationalClasses } from "@/data/site";
             <dd class="stat-figure font-heading text-3xl font-semibold text-primary">&lt; 100</dd>
           </div>
           <div class="bg-card p-5">
-            <dt class="label mb-1">Courses we have taught</dt>
+            <dt class="label mb-1">Courses taught</dt>
             <dd class="stat-figure font-heading text-3xl font-semibold">8</dd>
           </div>
         </dl>
@@ -82,7 +99,8 @@ import { nationalClasses } from "@/data/site";
         </table>
       </div>
       <p class="mt-4 text-[0.9rem] text-muted-foreground">
-        Live somewhere we have not reached? <a href="/contact" class="text-primary underline underline-offset-2">Tell us where</a>.
+        Interested in something like this running again?
+        <a href="/contact" class="text-primary underline underline-offset-2">Get in touch</a>.
       </p>
     </div>
   </section>
