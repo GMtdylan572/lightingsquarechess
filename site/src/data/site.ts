@@ -73,7 +73,7 @@ export const nav: Nav[] = [
     href: "/programs",
     children: [
       { href: "/programs", label: "All programs", note: "What we run now, and what we ran before" },
-      { href: "/programs/bay-area", label: "Bay Area classes", note: "In person, Bay Area" },
+      { href: "/programs/bay-area", label: "Bay Area classes", note: "In person, SFO and Bay Area" },
       { href: "/programs/national", label: "National program", note: "Past free classes in four states" },
       { href: "/programs/international", label: "Club Bootstrap", note: "Past programme. Not taking new schools" },
     ],
