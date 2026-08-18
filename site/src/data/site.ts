@@ -9,6 +9,7 @@ export const org = {
   name: "Lightning Square Chess Club",
   short: "Lightning Square",
   founded: 2022,
+  foundedIn: "San Jose, California",
   email: "lightningsquarechess@gmail.com",
   facebook: "https://www.facebook.com/profile.php?id=100093236435369",
   whatsapp: "https://chat.whatsapp.com/KCyeziNgkrY9oJdSyMVIfP",
@@ -277,8 +278,8 @@ export const bayAreaCurrent = {
 };
 
 export const bayAreaPast = [
+  { dates: "January 7 to May 6, 2026", note: "Wednesdays", venue: venues.cupertinoLibrary, coaches: "FM Dylan Tang, Vicky Qin, CM Luke Widjaja" },
   { dates: "September 9 to November 18, 2025", note: "No classes on October 14", venue: venues.deAnza, coaches: "Hank, Serena, Luke, Vicky" },
-  { dates: "January 7 to May 6, 2025", note: "", venue: venues.cupertinoLibrary, coaches: "Vicky Qin, Hanchi Yao, Serena Yuan. TA: Dylan Tang" },
   { dates: "September 3 to November 5, 2024", note: "", venue: venues.cupertinoLibrary, coaches: "Kally Wen, Vincent Qin, Wentao Wu. TAs: Hanchi Yao, Serena Yuan, Vicky Qin" },
   { dates: "April 2 to June 4, 2024", note: "Tuesdays", venue: venues.cupertinoLibrary, coaches: "Wentao Wu, Kally Wen, Vicky Qin" },
   { dates: "January 9 to March 19, 2024", note: "Tuesdays", venue: venues.cupertinoLibrary, coaches: "Vincent Qin, Wentao Wu, Kally Wen. TAs: Vicky Qin, Hanchi Yao" },

@@ -62,16 +62,25 @@ const past = new Date(c.iso) < new Date();
   </section>
 
   <section class="border-t border-border bg-secondary">
-    <div class="mx-auto grid max-w-6xl gap-10 px-5 py-16 lg:grid-cols-2">
-      <div>
+    <div class="mx-auto grid max-w-6xl gap-10 px-5 py-16 lg:grid-cols-12">
+      <div class="lg:col-span-4">
         <p class="label mb-3">Venue</p>
         <h2 class="mb-3 text-2xl font-semibold">{c.venue.name}</h2>
         <p class="mb-5 text-muted-foreground">{c.venue.address}</p>
         <a href={`https://maps.google.com/?q=${encodeURIComponent(c.venue.address)}`} target="_blank" rel="noopener noreferrer"
            class="inline-flex h-11 items-center rounded-sm border border-input px-5 text-[0.92rem] font-medium transition-colors hover:bg-accent">Open in Maps</a>
       </div>
-      <img src="https://i.ibb.co/jDwLLct/Screenshot-2023-11-11-at-9-27-31-PM.jpg" alt="Players at a Lightning Square championship"
-           loading="lazy" width="800" height="600" class="aspect-[4/3] w-full rounded-md border border-border object-cover" />
+      <div class="grid gap-4 sm:grid-cols-2 lg:col-span-8">
+        <img src="/championship-2026-action.jpg" alt="Players, families and tournament directors at the 2026 Summer Championship"
+             loading="lazy" width="1707" height="1280"
+             class="aspect-[16/9] w-full rounded-md border border-border object-cover sm:col-span-2" />
+        <img src="/championship-2026-winner.jpg" alt="A prize winner with Lightning Square tournament directors at the 2026 Summer Championship"
+             loading="lazy" width="1280" height="1707"
+             class="aspect-[4/3] w-full rounded-md border border-border object-cover [object-position:50%_42%]" />
+        <img src="/championship-2026-team.jpg" alt="The Lightning Square team at the 2026 Summer Championship"
+             loading="lazy" width="1280" height="1707"
+             class="aspect-[4/3] w-full rounded-md border border-border object-cover [object-position:50%_38%]" />
+      </div>
     </div>
   </section>
 </Base>

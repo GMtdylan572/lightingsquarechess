@@ -18,6 +18,7 @@ const jsonLd = {
   name: org.name,
   alternateName: "Lightning Square Chess",
   foundingDate: String(org.founded),
+  foundingLocation: { "@type": "Place", name: org.foundedIn },
   email: org.email,
   logo: org.logo,
   sameAs: [org.facebook],
