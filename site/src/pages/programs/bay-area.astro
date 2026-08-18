@@ -23,12 +23,12 @@ const outline = [
 ---
 <Base
   title="Bay Area Program"
-  description="Free in-person chess classes in Cupertino, California. A ten-week introductory course taught by student coaches. Current term, course outline and every past session since 2023."
+  description="In-person chess classes in Cupertino, California. A ten-week introductory course taught by student coaches, $15 per class. Current term, course outline and every past session since 2023."
 >
   <PageHeader
     kicker="Cupertino, California"
     title="Bay Area classes"
-    lede="A ten-week introductory course, taught by student coaches, free to families."
+    lede="A ten-week introductory course, taught by student coaches, $15 per class."
     crumbs={[{ href: "/", label: "Home" }, { href: "/programs", label: "Programs" }]}
   />
 
@@ -56,7 +56,7 @@ const outline = [
         <a href={now.register} target="_blank" rel="noopener noreferrer"
            class="inline-flex h-12 items-center gap-2 rounded-sm bg-gold px-6 font-medium text-gold-foreground transition-transform hover:-translate-y-0.5">
           <Bolt size={15} />
-          Register &mdash; free
+          Register
         </a>
         <a href={flyer.pdf} target="_blank" rel="noopener noreferrer"
            class="inline-flex h-12 items-center rounded-sm border border-white/25 px-5 font-medium text-white transition-colors hover:bg-white/10">
@@ -87,7 +87,7 @@ const outline = [
         <dl class="mt-10 flex flex-wrap gap-x-10 gap-y-5">
           {[
             ["Length", "10 weeks"],
-            ["Cost", "Free"],
+            ["Cost", "$15 / class"],
             ["Ages", "6 and up"],
             ["Coaches", "USCF 2000+"],
           ].map(([k, v]) => (
