@@ -303,7 +303,7 @@ export const nationalClasses = [
 export type Person = { name: string; role?: string; org?: string; photo: string };
 
 export const leadership: Person[] = [
-  { name: "Vicky Qin", role: "President", org: "Lynbrook High School", photo: "https://i.ibb.co/1Y8dLHd4/IMG-6256.jpg" },
+  { name: "Vicky Qin", role: "President", org: "Lynbrook High School", photo: "/team/vicky-qin.jpg" },
   { name: "WCM Serena Yuan", role: "Vice President", org: "Menlo School", photo: "https://i.ibb.co/21nLp0nv/71e990e79dc2f7d135f963a9cd29bcce-1.jpg" },
   { name: "NM Hanchi Yao", role: "Head Tournament Director", org: "Lynbrook High School", photo: "https://i.ibb.co/BHVjfbMN/Hank.jpg" },
   { name: "FM Dylan Tang", role: "Head of Coaching", org: "The Harker School", photo: "https://i.ibb.co/F4Vr0Q9w/2d7ee4b1c61905d8cdccb497eeb649ad.jpg" },
