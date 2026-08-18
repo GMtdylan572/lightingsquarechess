@@ -288,14 +288,14 @@ export const bayAreaPast = [
 ];
 
 export const nationalClasses = [
-  { dates: "June 19 to August 28, 2025", time: "5–6 PM CST", state: "North Dakota", coach: "WCM Kally Wen", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid0S7TtxHjqe8wS5JupYsmjWbf7GJhqfQGgRnd2QZbNTd7XaXhvc85soymzLNwUueUul&id=100093236435369" },
-  { dates: "October 2 to December 4, 2024", time: "6–7 PM CDT", state: "Mississippi", coach: "Vincent Qin", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid02zZvCtTCvWh3erRAieCHA6LZ7KzGUkwKma3HrE6VF7AgfVf6j3FofjQnQJXJhFWsol&id=100093236435369" },
-  { dates: "October 2 to November 20, 2024", time: "5:30–6:30 PM AKST", state: "Alaska", coach: "Wentao Wu", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid02v72kPX7DU8EK6PfhkQKcNXdvumKrAnv5zGFkQ9QRaRYkEgRK9tXMMBCPoDmc1V7l&id=100093236435369" },
-  { dates: "September 26 to December 12, 2024", time: "5–6 PM CST", state: "North Dakota", coach: "WCM Kally Wen", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid0cWrGx2eet3ZLoEnRqu4MnxCXoUtyeAMgozCedWZXd8FDeyk9Tm46PufvuLVQFrH8l&id=100093236435369" },
-  { dates: "April 18 to June 13, 2024", time: "5–6 PM CST", state: "North Dakota", coach: "WCM Kally Wen", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid0RHJX8uuEEJFKgwwhdybNFa3LYxk9cCMEWfe3AuDxf2CEAA33tx5mxzTzYqWWEANBl&id=100093236435369" },
+  { dates: "June 19 to August 28, 2025", time: "5–6 PM CST", state: "North Dakota", coach: "WCM Kally Wen", flyer: "/national-flyers/north-dakota-summer-2025.jpg" },
+  { dates: "October 2 to December 4, 2024", time: "6–7 PM CDT", state: "Mississippi", coach: "Vincent Qin", flyer: "/national-flyers/mississippi-fall-2024.jpg" },
+  { dates: "October 2 to November 20, 2024", time: "5:30–6:30 PM AKST", state: "Alaska", coach: "Wentao Wu", flyer: "/national-flyers/alaska-fall-2024.jpg" },
+  { dates: "September 26 to December 12, 2024", time: "5–6 PM CST", state: "North Dakota", coach: "WCM Kally Wen", flyer: "/national-flyers/north-dakota-fall-2024.jpg" },
+  { dates: "April 18 to June 13, 2024", time: "5–6 PM CST", state: "North Dakota", coach: "WCM Kally Wen", flyer: "/national-flyers/north-dakota-spring-2024.jpg" },
   { dates: "January 31 to April 3, 2024", time: "8–9 PM MST", state: "Idaho", coach: "Vincent Qin", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid0JH9f3xQHnKfo5tbV27W7EuiZPpEWhpMrrPYEVaZSKkuqfAF8Nzxfaz4V1V6dd4E4l&id=100093236435369" },
-  { dates: "January 29 to April 1, 2024", time: "6:30–7:30 PM AKST", state: "Alaska", coach: "Wentao (Sean) Wu", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid0gxUcz84zuTPqpVMG88xZ1Fi9kwfvRiYVDzQmjGQnAWTasDUYqQEUhWoDjMD5ma69l&id=100093236435369" },
-  { dates: "January 18 to March 28, 2024", time: "5–6 PM CST", state: "North Dakota", coach: "WCM Kally Wen", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid0keJxWwqievapDRJH7JRTLnNvqpktBd6BY9hGsQ8CyfLingfZ4BnXu291ZpRQn73Ql&id=100093236435369" },
+  { dates: "January 29 to April 1, 2024", time: "6:30–7:30 PM AKST", state: "Alaska", coach: "Wentao (Sean) Wu", flyer: "/national-flyers/alaska-winter-2024.jpg" },
+  { dates: "January 18 to March 28, 2024", time: "5–6 PM CST", state: "North Dakota", coach: "WCM Kally Wen", flyer: "/national-flyers/north-dakota-winter-2024.jpg" },
 ];
 
 /* --------------------------------------------------------------- people */
@@ -445,7 +445,7 @@ export const schools: School[] = [
     ],
   },  {
     slug: "akure",
-    name: "Akure Schools",
+    name: "Great Landmark College, Christ's Model Comprehensive High School, and Federal University of Technology Akure",
     location: "Akure, Ondo",
     country: "Nigeria",
     coach: "Vincent Qin",
@@ -485,7 +485,7 @@ export const schools: School[] = [
     ],
     body: [
       "In Nigeria chess has been gaining popularity among students, but many schools struggle to support the game: limited equipment, a shortage of trained coaches, and minimal institutional backing.",
-      "Coach Vincent worked closely with Mr. Dada Philip Olamide, our Regional Coordinator in Akure and an advocate for educational equity and youth empowerment, who recognised the gap. At the Federal University of Technology Akure (FUTA), Great Landmark College and Christ Model Comprehensive High School, student interest was high but opportunities for regular practice and competition were scarce.",
+      "Coach Vincent worked closely with Mr. Dada Philip Olamide, our Regional Coordinator in Akure and an advocate for educational equity and youth empowerment, who recognised the gap. At Great Landmark College, Christ's Model Comprehensive High School, and Federal University of Technology Akure, student interest was high but opportunities for regular practice and competition were scarce.",
       "Coach Vincent found a natural alignment with the Club Bootstrap Program and brought structured chess activity and resources to all three.",
     ],
     sections: [
@@ -502,8 +502,8 @@ export const schools: School[] = [
         ],
       },
       {
-        name: "Christ Model Comprehensive High School",
-        body: "At Christ Model Comprehensive High School, a private school in Akure, Coach Vincent coached 20 students through both foundational and advanced chess techniques. Using donated chess sets, he guided students in practising regularly and sharpening their strategic thinking. His interactive approach made lessons fun while enhancing critical thinking and decision-making.",
+        name: "Christ's Model Comprehensive High School",
+        body: "At Christ's Model Comprehensive High School, a private school in Akure, Coach Vincent coached 20 students through both foundational and advanced chess techniques. Using donated chess sets, he guided students in practising regularly and sharpening their strategic thinking. His interactive approach made lessons fun while enhancing critical thinking and decision-making.",
         quotes: [
           { text: "Thank you so much, Vincent. You are blessed!", who: "Adetogo Iyanu", role: "Student" },
           { text: "Thank you for the fantastic opportunity.", who: "Adeyanju Precious", role: "Student" },
@@ -515,7 +515,7 @@ export const schools: School[] = [
         ],
       },
       {
-        name: "Federal University of Technology, Akure (FUTA)",
+        name: "Federal University of Technology Akure",
         body: "At FUTA, a technology-focused university in the Ondo State capital, Coach Vincent guided 10 students through chess fundamentals and advanced strategies. Using a chess clock and donated sets, he helped students practise regularly and sharpen their skills. His interactive sessions made learning fun while building critical thinking and decision-making abilities.",
         quotes: [
           { text: "Well detailed and comprehensive Chess program. I learned a lot.", who: "Adegoke Adeniyi", role: "Student" },
