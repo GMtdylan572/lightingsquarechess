@@ -1,51 +1,19 @@
 ---
 import Base from "@/layouts/Base.astro";
 import PageHeader from "@/components/PageHeader.astro";
-import { championship as c, championshipSeries, org } from "@/data/site";
+import { championship as c } from "@/data/site";
 const past = new Date(c.iso) < new Date();
 ---
 <Base
-  title="Championships"
-  description="The four Lightning Square championship weekends: Summer, Fall, Winter and Spring. Each pairs a rated main tournament with an evening blitz."
+  title="Summer Championship 2026"
+  description="Details and entry lists for the Lightning Square Summer Championship and Evening Blitz held August 9, 2026 in Sunnyvale."
 >
   <PageHeader
-    kicker="Four a year"
-    title="Championships"
-    lede="A rated main tournament in the morning, a blitz in the evening. The Summer edition is documented in full below; the other three run the same format."
+    kicker="August 9, 2026 · Sunnyvale"
+    title="Summer Championship"
+    lede="The documented 2026 championship paired a rated main tournament with an evening blitz."
     crumbs={[{ href: "/", label: "Home" }, { href: "/tournaments", label: "Tournaments" }]}
   />
-
-  <section class="border-b border-border bg-secondary">
-    <div class="mx-auto max-w-6xl px-5 py-12">
-      <h2 class="label mb-5">The series</h2>
-      <ol class="grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-        {championshipSeries.map((s) => (
-          <li class="bg-card p-5">
-            <div class="mb-2 flex items-baseline justify-between gap-2">
-              <span class="font-mono text-[0.9rem] font-medium">{s.when}</span>
-              <span class:list={[
-                "rounded-sm px-1.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider",
-                s.status === "played"
-                  ? "bg-gold text-gold-foreground"
-                  : "border border-input text-muted-foreground",
-              ]}>
-                {s.status === "played" ? "Played" : "TBD"}
-              </span>
-            </div>
-            <p class="font-medium leading-snug">{s.name.replace(" and Blitz", "")}</p>
-            <p class="mt-1 text-[0.82rem] leading-snug text-muted-foreground">
-              + evening blitz
-            </p>
-          </li>
-        ))}
-      </ol>
-      <p class="mt-4 text-[0.9rem] text-muted-foreground">
-        More information on the Fall, Winter and Spring championships is coming.
-        It will be posted here and announced in the
-        <a href={org.whatsapp} target="_blank" rel="noopener noreferrer" class="text-primary underline underline-offset-2">WhatsApp group</a>.
-      </p>
-    </div>
-  </section>
 
   <div class="mx-auto max-w-6xl px-5 pt-14">
     <h2 class="text-2xl font-semibold sm:text-3xl">Summer Championship {new Date(c.iso).getFullYear()}</h2>
@@ -57,8 +25,7 @@ const past = new Date(c.iso) < new Date();
       <div class="flex flex-wrap items-center gap-4 rounded-md border border-border bg-accent px-5 py-4">
         <span class="rounded-sm bg-gold px-2 py-1 font-mono text-[0.65rem] uppercase tracking-wider text-gold-foreground">Concluded</span>
         <p class="text-[0.92rem] text-muted-foreground">
-          This one has been played. Entry lists stay online below. The next
-          championship is the Fall edition in November 2026.
+          This event has been played. Its entry lists and flyer remain online below.
         </p>
       </div>
     </div>
@@ -100,9 +67,6 @@ const past = new Date(c.iso) < new Date();
         <p class="label mb-3">Venue</p>
         <h2 class="mb-3 text-2xl font-semibold">{c.venue.name}</h2>
         <p class="mb-5 text-muted-foreground">{c.venue.address}</p>
-        <p class="mb-5 max-w-[52ch] leading-relaxed text-muted-foreground">
-          Free parking on site. The playing hall is on the ground floor and is step-free from the car park.
-        </p>
         <a href={`https://maps.google.com/?q=${encodeURIComponent(c.venue.address)}`} target="_blank" rel="noopener noreferrer"
            class="inline-flex h-11 items-center rounded-sm border border-input px-5 text-[0.92rem] font-medium transition-colors hover:bg-accent">Open in Maps</a>
       </div>

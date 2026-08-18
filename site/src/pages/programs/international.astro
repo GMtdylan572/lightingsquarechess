@@ -4,21 +4,21 @@ import PageHeader from "@/components/PageHeader.astro";
 import { schools } from "@/data/site";
 
 const steps = [
-  ["A teacher got in touch", "Every partnership started with one email from someone at a school with no chess programme."],
-  ["We shipped equipment", "Chess sets, boards and clocks, sent to the school. Getting them there was often the slowest part."],
-  ["Weekly lessons over video", "One of our coaches taught a live class each week, working around power cuts and unreliable connections."],
-  ["A local teacher ran the room", "Someone on the ground supervised practice between lessons. Without them none of it would have worked."],
-  ["We stepped back", "Support continued until the club could run without us."],
+  ["Local partners", "We worked with teachers and regional coordinators who organized students and supported lessons locally."],
+  ["Donated equipment", "The programme supplied chess sets and other equipment to help new clubs get started."],
+  ["Online lessons", "Lightning Square coaches taught students remotely, adapting to local internet and power constraints."],
+  ["Practice at school", "Local partners helped students practise between the online sessions."],
+  ["Ongoing chess activity", "The goal was to leave each institution with the equipment and experience to keep playing."],
 ];
 ---
 <Base
   title="Club Bootstrap"
-  description="The Chess Club Bootstrap Initiative helps schools in Kenya, Nigeria, Malawi and South Africa start their first chess club with free online lessons, donated sets and ongoing support."
+  description="A record of Club Bootstrap partnerships in Kenya, Nigeria, Malawi and South Africa, with online lessons, donated equipment and local support."
 >
   <PageHeader
     kicker="Past programme · Kenya, Nigeria, Malawi, South Africa"
     title="Club Bootstrap"
-    lede="Helping a school open its first chess club, and staying until it could run on its own. Seven schools across four countries."
+    lede="Donated equipment, online lessons and local support for eight institutions across four countries."
     crumbs={[{ href: "/", label: "Home" }, { href: "/programs", label: "Programs" }]}
   />
 
@@ -57,8 +57,8 @@ const steps = [
              loading="lazy" width="800" height="600"
              class="aspect-[4/3] w-full rounded-md border border-border object-cover" />
         <p class="mt-4 text-[0.9rem] leading-relaxed text-muted-foreground">
-          Seven institutions across four countries so far. Each has its own page
-          with photographs and what the students and teachers there said about it.
+          Eight institutions across four countries took part. The pages below
+          preserve photographs and accounts from students, teachers and coordinators.
         </p>
       </div>
     </div>

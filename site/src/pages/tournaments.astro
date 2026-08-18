@@ -10,12 +10,12 @@ const next = upcomingQuads[0];
 ---
 <Base
   title="Tournaments"
-  description="Every Lightning Square tournament: the monthly USCF-rated quads, four championship weekends a year, and free online events. Full schedule plus a searchable results archive since 2023."
+  description="Lightning Square monthly USCF-rated quads, the 2026 Summer Championship, free online events and a searchable results archive since 2023."
 >
   <PageHeader
     kicker="Schedule and records"
     title="Tournaments"
-    lede="The monthly quads are what we run most and care about most. Four championship weekends sit on top of them, and the full results archive is at the bottom of this page."
+    lede="The monthly quads are the club's regular tournament series. This page also preserves the 2026 Summer Championship and the full results archive."
     crumbs={[{ href: "/", label: "Home" }]}
   />
 
@@ -82,13 +82,12 @@ const next = upcomingQuads[0];
     </div>
   </section>
 
-  {/* The four championship weekends. */}
+  {/* The documented 2026 championship. */}
   <section class="mx-auto max-w-6xl px-5 py-16">
-    <h2 class="label mb-2">Championships</h2>
+    <h2 class="label mb-2">Summer Championship</h2>
     <p class="mb-6 max-w-[62ch] text-muted-foreground">
-      Four a year, each a rated main tournament in the morning and a blitz in
-      the evening. Dates below are fixed; venues, sections and entry links are
-      published closer to each event.
+      On August 9, 2026, Lightning Square held a rated main tournament in the
+      morning and a blitz event in the evening at the Domain Hotel in Sunnyvale.
     </p>
     <ol class="divide-y divide-border overflow-hidden rounded-md border border-border bg-card">
       {championshipSeries.map((c) => (
@@ -98,19 +97,10 @@ const next = upcomingQuads[0];
             <p class="font-medium">{c.name}</p>
             <p class="text-[0.85rem] text-muted-foreground">{c.note}</p>
           </div>
-          {c.status === "played" ? (
-            <a href="/championship" class="text-[0.88rem] font-medium text-primary hover:underline">Details</a>
-          ) : (
-            <span class="font-mono text-[0.72rem] uppercase tracking-wider text-muted-foreground">TBD</span>
-          )}
+          <a href="/championship" class="text-[0.88rem] font-medium text-primary hover:underline">Details</a>
         </li>
       ))}
     </ol>
-    <p class="mt-4 text-[0.9rem] text-muted-foreground">
-      Announcements go out in the
-      <a href={org.whatsapp} target="_blank" rel="noopener noreferrer" class="text-primary underline underline-offset-2">WhatsApp group</a>
-      first.
-    </p>
   </section>
 
   {/* Online, deliberately last: we run these rarely now. */}

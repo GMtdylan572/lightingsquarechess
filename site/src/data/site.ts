@@ -63,7 +63,7 @@ export const nav: Nav[] = [
       { href: "/tournaments", label: "All tournaments", note: "Schedule, championships and results archive" },
       { href: "/quads", label: "Monthly Quads", note: "Our main event. USCF-rated, G/25 d5" },
       { href: "/quads/faq", label: "Quad FAQ", note: "Ratings, pairings, trophies" },
-      { href: "/championship", label: "Championships", note: "Summer, Fall, Winter and Spring" },
+      { href: "/championship", label: "Championship", note: "Summer 2026 event details and entry lists" },
       { href: "/online", label: "Online tournaments", note: "Free events on Chess.com" },
     ],
   },
@@ -73,7 +73,7 @@ export const nav: Nav[] = [
     children: [
       { href: "/programs", label: "All programs", note: "What we run now, and what we ran before" },
       { href: "/programs/bay-area", label: "Bay Area classes", note: "In person, Cupertino" },
-      { href: "/programs/national", label: "National program", note: "Free classes, four states" },
+      { href: "/programs/national", label: "National program", note: "Past free classes in four states" },
       { href: "/programs/international", label: "Club Bootstrap", note: "Past programme. Not taking new schools" },
     ],
   },
@@ -213,9 +213,8 @@ export const onlineEvents = [
   { date: "February 17, 2024", format: "G/15+10", directors: "Vicky Qin, Serena Yuan", results: "https://www.chess.com/tournament/live/president-day-online-chess-tournament-5478589" },
 ];
 
-/* The championship series. Four a year, all on the Summer format: a rated
-   main tournament in the morning, an evening blitz. Only the Summer edition
-   has confirmed details so far; the other three are announced dates only. */
+/* The documented 2026 championship. Do not add future editions until their
+   dates and formats have been announced by the club. */
 export type ChampionshipEntry = {
   name: string;
   when: string;
@@ -229,24 +228,6 @@ export const championshipSeries: ChampionshipEntry[] = [
     when: "August 9, 2026",
     status: "played",
     note: "Domain Hotel, Sunnyvale. Open, U1600 and U800 plus an evening blitz. Full details below.",
-  },
-  {
-    name: "Fall Championship and Blitz",
-    when: "November 2026",
-    status: "tbd",
-    note: "Date, venue and entry to be announced. Same format as the Summer Championship.",
-  },
-  {
-    name: "Winter Championship and Blitz",
-    when: "March 2027",
-    status: "tbd",
-    note: "Date, venue and entry to be announced. Same format as the Summer Championship.",
-  },
-  {
-    name: "Spring Championship and Blitz",
-    when: "May 2027",
-    status: "tbd",
-    note: "Date, venue and entry to be announced. Same format as the Summer Championship.",
   },
 ];
 
@@ -302,12 +283,12 @@ export const bayAreaPast = [
 ];
 
 export const nationalClasses = [
-  { dates: "June 19 to August 28, 2025", time: "5–6 PM CST", state: "North Dakota", coach: "WCM Kally Wen", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid02v72kPX7DU8EK6PfhkQKcNXdvumKrAnv5zGFkQ9QRaRYkEgRK9tXMMBCPoDmc1V7l&id=100093236435369" },
+  { dates: "June 19 to August 28, 2025", time: "5–6 PM CST", state: "North Dakota", coach: "WCM Kally Wen", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid0S7TtxHjqe8wS5JupYsmjWbf7GJhqfQGgRnd2QZbNTd7XaXhvc85soymzLNwUueUul&id=100093236435369" },
   { dates: "October 2 to December 4, 2024", time: "6–7 PM CDT", state: "Mississippi", coach: "Vincent Qin", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid02zZvCtTCvWh3erRAieCHA6LZ7KzGUkwKma3HrE6VF7AgfVf6j3FofjQnQJXJhFWsol&id=100093236435369" },
-  { dates: "October 2 to November 20, 2024", time: "5:30–6:30 PM AKST", state: "Alaska", coach: "Wentao Wu", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid0JH9f3xQHnKfo5tbV27W7EuiZPpEWhpMrrPYEVaZSKkuqfAF8Nzxfaz4V1V6dd4E4l&id=100093236435369" },
-  { dates: "September 26 to December 12, 2024", time: "5–6 PM CST", state: "North Dakota", coach: "WCM Kally Wen", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid0RHJX8uuEEJFKgwwhdybNFa3LYxk9cCMEWfe3AuDxf2CEAA33tx5mxzTzYqWWEANBl&id=100093236435369" },
-  { dates: "April 18 to June 13, 2024", time: "5–6 PM CST", state: "North Dakota", coach: "WCM Kally Wen", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid0S7TtxHjqe8wS5JupYsmjWbf7GJhqfQGgRnd2QZbNTd7XaXhvc85soymzLNwUueUul&id=100093236435369" },
-  { dates: "January 31 to April 3, 2024", time: "8–9 PM MST", state: "Idaho", coach: "Vincent Qin", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid0cWrGx2eet3ZLoEnRqu4MnxCXoUtyeAMgozCedWZXd8FDeyk9Tm46PufvuLVQFrH8l&id=100093236435369" },
+  { dates: "October 2 to November 20, 2024", time: "5:30–6:30 PM AKST", state: "Alaska", coach: "Wentao Wu", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid02v72kPX7DU8EK6PfhkQKcNXdvumKrAnv5zGFkQ9QRaRYkEgRK9tXMMBCPoDmc1V7l&id=100093236435369" },
+  { dates: "September 26 to December 12, 2024", time: "5–6 PM CST", state: "North Dakota", coach: "WCM Kally Wen", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid0cWrGx2eet3ZLoEnRqu4MnxCXoUtyeAMgozCedWZXd8FDeyk9Tm46PufvuLVQFrH8l&id=100093236435369" },
+  { dates: "April 18 to June 13, 2024", time: "5–6 PM CST", state: "North Dakota", coach: "WCM Kally Wen", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid0RHJX8uuEEJFKgwwhdybNFa3LYxk9cCMEWfe3AuDxf2CEAA33tx5mxzTzYqWWEANBl&id=100093236435369" },
+  { dates: "January 31 to April 3, 2024", time: "8–9 PM MST", state: "Idaho", coach: "Vincent Qin", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid0JH9f3xQHnKfo5tbV27W7EuiZPpEWhpMrrPYEVaZSKkuqfAF8Nzxfaz4V1V6dd4E4l&id=100093236435369" },
   { dates: "January 29 to April 1, 2024", time: "6:30–7:30 PM AKST", state: "Alaska", coach: "Wentao (Sean) Wu", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid0gxUcz84zuTPqpVMG88xZ1Fi9kwfvRiYVDzQmjGQnAWTasDUYqQEUhWoDjMD5ma69l&id=100093236435369" },
   { dates: "January 18 to March 28, 2024", time: "5–6 PM CST", state: "North Dakota", coach: "WCM Kally Wen", flyer: "https://www.facebook.com/permalink.php?story_fbid=pfbid0keJxWwqievapDRJH7JRTLnNvqpktBd6BY9hGsQ8CyfLingfZ4BnXu291ZpRQn73Ql&id=100093236435369" },
 ];
