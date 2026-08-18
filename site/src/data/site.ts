@@ -105,6 +105,10 @@ export const quadsFlyer = {
   alt: "Monthly Quads flyer: USCF rated, three rounds, De Anza Learning Center, Cupertino. August 30, September 27, October 18 and November 15, 2026.",
 };
 
+/* Entry fee for a monthly quad. Same for every date, so it lives here
+   rather than on each row. */
+export const quadEntryFee = "$15";
+
 /* Registration form and live entry sheet for each date, taken from the
    official US Chess announcement for that event. Both open in a new tab. */
 export const upcomingQuads: Upcoming[] = [
