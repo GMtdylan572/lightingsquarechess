@@ -4,7 +4,7 @@ import PageHeader from "@/components/PageHeader.astro";
 import QuadActions from "@/components/QuadActions.astro";
 import Bolt from "@/components/Bolt.astro";
 import ResultsArchive from "@/components/ResultsArchive";
-import { upcomingQuads, pastQuads, championshipSeries, org } from "@/data/site";
+import { upcomingQuads, pastQuads, championshipSeries, legacyEvents, org } from "@/data/site";
 
 const next = upcomingQuads[0];
 ---
@@ -130,9 +130,42 @@ const next = upcomingQuads[0];
     </div>
   </section>
 
+  {/* One-off events from 2023, kept so the record stays complete. */}
+  <section class="border-t border-border">
+    <div class="mx-auto max-w-6xl px-5 py-16">
+      <h2 class="label mb-2">Earlier events</h2>
+      <p class="mb-6 max-w-[62ch] text-muted-foreground">
+        Two one-off tournaments from 2023, before the club settled into the
+        monthly quad rhythm. Neither has run since.
+      </p>
+      <ul class="grid gap-px overflow-hidden rounded-md border border-border bg-border md:grid-cols-2">
+        {legacyEvents.map((e) => (
+          <li class="bg-card p-6">
+            <p class="label mb-2">{e.date}</p>
+            <h3 class="mb-1 text-[1.15rem] font-semibold">{e.name}</h3>
+            <p class="mb-4 font-mono text-[0.85rem] text-muted-foreground">{e.format}</p>
+            {e.detail.map((d) => (
+              <p class="mb-3 text-[0.92rem] leading-relaxed text-muted-foreground">{d}</p>
+            ))}
+            <p class="mt-4 text-[0.88rem]">
+              <span class="font-medium">{e.venue.name}</span><br />
+              <span class="text-muted-foreground">{e.venue.address}</span>
+            </p>
+            {e.results && (
+              <a href={e.results} target="_blank" rel="noopener noreferrer"
+                 class="mt-4 inline-flex h-10 items-center rounded-sm border border-input px-4 text-[0.88rem] font-medium transition-colors hover:bg-accent">
+                US Chess crosstable
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
   <section class="border-t border-border bg-secondary">
     <div class="mx-auto max-w-6xl px-5 py-16">
-      <h2 class="label mb-2">Archive</h2>
+      <h2 class="label mb-2">Quads archive</h2>
       <p class="mb-6 max-w-[60ch] text-muted-foreground">
         Every rated quad we have directed. Crosstables are hosted by US Chess and open in a new tab.
       </p>
