@@ -16,7 +16,7 @@ export const org = {
   chessCom: "https://www.chess.com/club/lightning-square-chess-club",
   logo: "https://i.ibb.co/Ld6nbrV/logo.png",
   mission:
-    "Bridge geographic and economic disparities in chess education and create opportunities for children to learn and grow through chess.",
+    "To broaden access to chess across communities and backgrounds, while empowering young students to learn, play, teach, and lead. We are committed to expanding opportunities for underrepresented players to participate, belong, and thrive in chess.",
 };
 
 export const venues = {
