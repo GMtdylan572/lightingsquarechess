@@ -268,7 +268,7 @@ export const championship = {
 export const bayAreaCurrent = {
   term: "Fall 2026",
   dates: "September 8 to November 17, 2026",
-  time: "6:30 to 7:30 PM",
+  time: "7:00 to 8:00 PM",
   venue: venues.deAnza,
   note: "Tuesdays. No class on October 13.",
   cost: "$15 per class",
