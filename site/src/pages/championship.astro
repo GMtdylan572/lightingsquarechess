@@ -116,14 +116,14 @@ const past = new Date(c.iso) < new Date();
            class="inline-flex h-11 items-center rounded-sm border border-input px-5 text-[0.92rem] font-medium transition-colors hover:bg-accent">Open in Maps</a>
       </div>
       <div class="grid gap-4 sm:grid-cols-2 lg:col-span-8">
-        <img src="/championship-2026-action.jpg" alt="Players, families and tournament directors at the 2026 Summer Championship"
-             loading="lazy" width="1707" height="1280"
-             class="aspect-[16/9] w-full rounded-md border border-border object-cover sm:col-span-2" />
-        <img src="/championship-2026-prize.jpg" alt="A young prize winner with two Lightning Square tournament directors at the 2026 Summer Championship"
-             loading="lazy" width="1281" height="960"
-             class="aspect-[4/3] w-full rounded-md border border-border object-cover" />
         <img src="/championship-2026-room.jpg" alt="Players competing across the tournament room at the 2026 Summer Championship"
              loading="lazy" width="1280" height="960"
+             class="aspect-[16/9] w-full rounded-md border border-border object-cover sm:col-span-2" />
+        <img src="/championship-2026-winner.jpg" alt="A prize winner with Lightning Square tournament directors at the 2026 Summer Championship"
+             loading="lazy" width="1280" height="1707"
+             class="aspect-[4/3] w-full rounded-md border border-border object-cover [object-position:50%_42%]" />
+        <img src="/championship-2026-action.jpg" alt="Players, families and tournament directors at the 2026 Summer Championship"
+             loading="lazy" width="1707" height="1280"
              class="aspect-[4/3] w-full rounded-md border border-border object-cover" />
       </div>
     </div>
@@ -134,10 +134,21 @@ const past = new Date(c.iso) < new Date();
 
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       window.setTimeout(() => {
-        const colors = ["#e8ad3f", "#155b3f", "#ffffff"];
-        confetti({ particleCount: 45, spread: 70, startVelocity: 28, origin: { x: 0.2, y: 0.35 }, colors });
-        confetti({ particleCount: 45, spread: 70, startVelocity: 28, origin: { x: 0.8, y: 0.35 }, colors });
-      }, 350);
+        const gold = ["#e8ad3f", "#f6d47a", "#ffffff"];
+        const green = ["#155b3f", "#2f8a65", "#ffffff"];
+
+        confetti({ particleCount: 90, angle: 60, spread: 85, startVelocity: 48, gravity: 0.9, scalar: 1.15, origin: { x: 0.08, y: 0.45 }, colors: gold });
+        confetti({ particleCount: 90, angle: 120, spread: 85, startVelocity: 48, gravity: 0.9, scalar: 1.15, origin: { x: 0.92, y: 0.45 }, colors: green });
+
+        window.setTimeout(() => {
+          confetti({ particleCount: 110, spread: 130, startVelocity: 42, gravity: 0.8, scalar: 1.2, origin: { x: 0.5, y: 0.28 }, colors: [...gold, ...green] });
+        }, 260);
+
+        window.setTimeout(() => {
+          confetti({ particleCount: 55, angle: 70, spread: 70, startVelocity: 38, origin: { x: 0.2, y: 0.35 }, colors: green });
+          confetti({ particleCount: 55, angle: 110, spread: 70, startVelocity: 38, origin: { x: 0.8, y: 0.35 }, colors: gold });
+        }, 560);
+      }, 300);
     }
   </script>
 </Base>
