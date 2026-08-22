@@ -3,6 +3,11 @@ import Base from "@/layouts/Base.astro";
 import PageHeader from "@/components/PageHeader.astro";
 import { championship as c } from "@/data/site";
 const past = new Date(c.iso) < new Date();
+const prizeWinnerCount = c.results.sections.reduce((total, section) => total + section.podium.length, 0);
+const prizePool = c.results.sections.reduce(
+  (total, section) => total + section.podium.reduce((sum, player) => sum + Number(player.prize.slice(1)), 0),
+  0,
+);
 ---
 <Base
   title="Summer Championship 2026"
@@ -32,42 +37,72 @@ const past = new Date(c.iso) < new Date();
   )}
 
   <section aria-labelledby="results-heading" class="mx-auto max-w-6xl px-5 pb-4 pt-12">
-    <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+    <div class="mb-8 flex flex-wrap items-end justify-between gap-5">
       <div>
         <p class="label mb-3 text-primary">Official results</p>
-        <h2 id="results-heading" class="text-3xl font-semibold sm:text-4xl">Championship podiums</h2>
+        <h2 id="results-heading" class="text-3xl font-semibold sm:text-4xl">Meet the prize winners</h2>
       </div>
-      <p class="max-w-md text-[0.92rem] text-muted-foreground">
-        Final scores from the official US Chess rated event records.
-      </p>
+      <div class="max-w-md">
+        <p class="font-mono text-sm font-semibold text-foreground">{prizeWinnerCount} players · ${prizePool} awarded</p>
+        <p class="mt-1 text-[0.92rem] text-muted-foreground">
+          Final scores from the official US Chess rated event records.
+        </p>
+      </div>
     </div>
 
-    <div class="grid gap-5 lg:grid-cols-3">
+    <div class="grid gap-5 lg:grid-cols-2">
       {c.results.sections.map((section) => (
-        <article class="overflow-hidden rounded-md border border-border bg-card">
-          <div class="flex items-center justify-between gap-4 border-b border-border px-5 py-4">
-            <h3 class="text-xl font-semibold">{section.name}</h3>
+        <article class:list={[
+          "overflow-hidden rounded-md border border-border bg-card shadow-sm",
+          section.podium.length === 1 && "lg:col-span-2",
+        ]}>
+          <div class="flex items-center justify-between gap-4 border-b border-border bg-secondary/50 px-5 py-4">
+            <div class="flex items-center gap-3">
+              <span class="grid size-8 place-items-center rounded-sm bg-primary font-mono text-sm font-semibold text-primary-foreground" aria-hidden="true">
+                {section.podium.length === 1 ? "1" : "3"}
+              </span>
+              <div>
+                <h3 class="text-xl font-semibold">{section.name}</h3>
+                <p class="text-xs text-muted-foreground">{section.podium.length === 1 ? "Winner-take-all prize" : "First, second and third prizes"}</p>
+              </div>
+            </div>
             <a href={section.event} target="_blank" rel="noopener noreferrer"
                class="text-[0.8rem] font-medium text-primary underline-offset-4 hover:underline">
               US Chess record
             </a>
           </div>
-          <ol class="grid grid-cols-3 items-end gap-2 px-4 pb-4 pt-8">
+          <ol class:list={[
+            "grid items-end gap-3 p-4 sm:p-5",
+            section.podium.length === 1 ? "mx-auto max-w-sm grid-cols-1" : "grid-cols-1 sm:grid-cols-3",
+          ]}>
             {section.podium.map((player) => (
               <li class:list={[
-                "flex min-w-0 flex-col justify-end rounded-sm border border-border bg-secondary px-2 pb-3 text-center",
-                player.place === 1 ? "h-44 border-gold bg-gold/10" : player.place === 2 ? "h-36" : "h-28",
+                "relative flex min-w-0 flex-col overflow-hidden rounded-sm border bg-secondary p-4",
+                player.place === 1
+                  ? "border-gold bg-gold/10 sm:min-h-48"
+                  : player.place === 2
+                    ? "border-border sm:min-h-40"
+                    : "border-border sm:min-h-32",
               ]}>
-                <span class="mb-2 text-2xl" aria-hidden="true">
-                  {player.place === 1 ? "🥇" : player.place === 2 ? "🥈" : "🥉"}
-                </span>
-                <span class="text-[0.68rem] font-medium uppercase tracking-wider text-muted-foreground">
-                  {player.place === 1 ? "1st" : player.place === 2 ? "2nd" : "3rd"}
-                </span>
-                <strong class="mt-1 text-balance text-[0.88rem] leading-tight">{player.name}</strong>
+                <div class="mb-5 flex items-center justify-between gap-3">
+                  <span class:list={[
+                    "grid size-11 place-items-center rounded-full border font-mono text-base font-bold",
+                    player.place === 1 ? "border-gold bg-gold text-gold-foreground" : "border-border bg-card text-foreground",
+                  ]} aria-label={`${player.place === 1 ? "First" : player.place === 2 ? "Second" : "Third"} place`}>
+                    {player.place}
+                  </span>
+                  <span class="rounded-sm border border-border bg-card px-2.5 py-1 font-mono text-sm font-semibold text-primary">
+                    {player.prize}
+                  </span>
+                </div>
+                <strong class="mt-auto text-balance text-lg leading-tight">{player.name}</strong>
                 <span class="mt-2 font-mono text-[0.78rem] text-muted-foreground">
                   {player.score} {player.score === 1 ? "point" : "points"}
                 </span>
+                <span class:list={[
+                  "absolute inset-x-0 bottom-0 h-1",
+                  player.place === 1 ? "bg-gold" : player.place === 2 ? "bg-muted-foreground/55" : "bg-primary/55",
+                ]} aria-hidden="true"></span>
               </li>
             ))}
           </ol>
@@ -119,9 +154,11 @@ const past = new Date(c.iso) < new Date();
         <img src="/championship-2026-room.jpg" alt="Players competing across the tournament room at the 2026 Summer Championship"
              loading="lazy" width="1280" height="960"
              class="aspect-[16/9] w-full rounded-md border border-border object-cover sm:col-span-2" />
-        <img src="/championship-2026-winner.jpg" alt="A prize winner with Lightning Square tournament directors at the 2026 Summer Championship"
-             loading="lazy" width="1280" height="1707"
-             class="aspect-[4/3] w-full rounded-md border border-border object-cover [object-position:50%_42%]" />
+        <div class="aspect-[4/3] overflow-hidden rounded-md border border-border bg-card">
+          <img src="/championship-2026-directors.jpeg" alt="Student tournament directors working together at the 2026 Summer Championship"
+               loading="lazy" width="2000" height="1500"
+               class="h-full w-full origin-bottom scale-[1.45] object-cover" />
+        </div>
         <img src="/championship-2026-action.jpg" alt="Players, families and tournament directors at the 2026 Summer Championship"
              loading="lazy" width="1707" height="1280"
              class="aspect-[4/3] w-full rounded-md border border-border object-cover" />

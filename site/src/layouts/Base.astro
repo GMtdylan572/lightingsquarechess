@@ -11,6 +11,7 @@ interface Props {
 
 const { title, description } = Astro.props;
 const fullTitle = title === org.name ? title : `${title} — ${org.short} Chess`;
+const cloudflareAnalyticsToken = import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -62,8 +63,14 @@ const jsonLd = {
       } catch (e) {}
     </script>
 
-    {/* Analytics goes here. The old site had none, which is why no traffic
-        data exists. Paste a Plausible or GA4 snippet on the next line. */}
+    {cloudflareAnalyticsToken && (
+      <script
+        is:inline
+        type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: cloudflareAnalyticsToken })}
+      ></script>
+    )}
   </head>
 
   <body class="min-h-dvh">

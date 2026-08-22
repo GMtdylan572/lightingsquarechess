@@ -80,19 +80,24 @@ The build output in `dist/` is static files.
 Update `site:` in `astro.config.mjs` when the real domain is live; it drives
 the sitemap and canonical URLs.
 
+### Traffic analytics
+
+The shared layout includes Cloudflare Web Analytics on every page. Set
+`PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN` in the build environment to the site token
+shown under **Cloudflare Dashboard → Web Analytics → Manage site**. The beacon
+is omitted from local and production builds when the variable is unset.
+
 ## Still to do
 
-1. **Add analytics.** There is a marked comment in `src/layouts/Base.astro`.
-   The old site had none, which is why no traffic data exists for any period.
-2. **Registration links for the 2026 quads.** All four say "registration soon"
+1. **Registration links for the 2026 quads.** All four say "registration soon"
    because that is what the old site said. Add the Google Form URLs to
    `upcomingQuads` in `src/data/site.ts`.
-3. **Check the October / November 2024 crosstables.** Both rows point at the
+2. **Check the October / November 2024 crosstables.** Both rows point at the
    same US Chess link (`202410276222-31521472`). One is probably wrong. Marked
    with a comment in `src/data/site.ts`.
-4. **Get the photos off ImgBB.** Eight images were already dead 404s on the
+3. **Get the photos off ImgBB.** Eight images were already dead 404s on the
    live site when this was built; they have been swapped for surviving photos
    from the same schools. Everything is still on a free third-party host and
    will keep rotting. Move them into `public/` and commit them.
-5. **2027 Championship.** `championship.astro` shows a "concluded" banner
+4. **2027 Championship.** `championship.astro` shows a "concluded" banner
    automatically once the date in `src/data/site.ts` is in the past.
