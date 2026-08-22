@@ -45,76 +45,63 @@ const programs = [
   title={org.name}
   description="A youth-led nonprofit founded in San Jose that runs over-the-board USCF-rated tournaments and Bay Area chess classes, with past free programs in four states and four countries."
 >
-  {/* Hero. Photograph does the emotional work; the text states facts.
-      No board texture here — a checkerboard over a photo reads as a
-      transparency grid. It is reserved for solid dark panels. */}
-  <section class="relative isolate overflow-hidden bg-board">
-    <div class="absolute inset-0 -z-20 overflow-hidden bg-board">
+  {/* Clean split hero: copy and photograph stay separate so neither competes. */}
+  <section class="border-b border-border bg-white text-[#111814]">
+    <div class="mx-auto grid max-w-7xl items-center gap-10 px-5 py-12 sm:py-16 lg:grid-cols-[minmax(0,.82fr)_minmax(0,1.18fr)] lg:gap-14 lg:py-20">
+      <div class="max-w-xl">
+        <p class="bolt-rule label mb-5 max-w-sm text-primary">
+          <Bolt size={13} />
+          Founded {org.founded} in {org.foundedIn}
+        </p>
+        <h1
+          class="max-w-[18ch] text-[2.6rem] font-semibold leading-[1.04] text-[#111814] sm:text-6xl lg:text-[4.1rem]"
+        >
+          A chess club run by the students it teaches.
+        </h1>
+        <p class="mt-6 max-w-[54ch] text-[1.06rem] leading-relaxed text-[#4d5b53]">
+          We run over-the-board (OTB), USCF-rated tournaments serving San Francisco and the Bay Area, teach
+          classes in the Bay Area, and have run free introductory courses in four
+          states with small chess communities. We have also partnered with 8 public
+          schools in 4 different countries to bootstrap chess institutions.
+        </p>
+
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a
+            href={next.register}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex h-12 items-center gap-2 rounded-sm bg-primary px-6 font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            <Bolt size={15} />
+            Register: {next.display.replace(", 2026", "")}
+          </a>
+          <a
+            href={next.entries}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex h-12 items-center rounded-sm border border-[#bdc6c0] px-6 font-medium text-[#173729] transition-colors hover:border-[#173729] hover:bg-[#f1f5f2]"
+          >
+            Live entries
+          </a>
+          <a
+            href="/quads/faq"
+            class="inline-flex h-12 items-center rounded-sm px-2 font-medium text-[#526159] transition-colors hover:text-[#173729]"
+          >
+            <span class="strike">Quad FAQ</span>
+          </a>
+        </div>
+      </div>
+
+      <figure class="overflow-hidden rounded-md border border-[#d9dedb] bg-[#f6f7f6] p-2 shadow-sm sm:p-3">
       <img
         src="/home-hero-collage-hq.jpg"
-        alt=""
-        aria-hidden="true"
+        alt="Lightning Square students coaching classes, playing chess and running tournaments"
         width="3584"
         height="2560"
         fetchpriority="high"
-        class="h-full w-full object-cover object-center lg:object-contain"
+        class="h-auto w-full rounded-sm object-contain"
       />
-      <div class="absolute inset-y-0 left-0 hidden w-[10vw] items-center justify-center border-r border-white/10 bg-board/90 xl:flex">
-        <img src={org.logo} alt="" aria-hidden="true" width="104" height="104" class="w-20 opacity-75" />
-      </div>
-      <div class="absolute inset-y-0 right-0 hidden w-[10vw] items-center justify-center border-l border-white/10 bg-board/90 xl:flex">
-        <img src={org.logo} alt="" aria-hidden="true" width="104" height="104" class="w-20 opacity-75" />
-      </div>
-    </div>
-    <div
-      class="absolute inset-0 -z-10 bg-[linear-gradient(100deg,rgba(8,14,11,.88)_0%,rgba(8,14,11,.58)_58%,rgba(8,14,11,.26)_100%)]"
-    >
-    </div>
-
-    <Bolt size={420} class="bolt-mark hidden lg:block" />
-
-    <div class="mx-auto max-w-6xl px-5 pb-16 pt-20 sm:pb-20 sm:pt-28">
-      <p class="bolt-rule label mb-5 max-w-sm text-gold">
-        <Bolt size={13} />
-        Founded {org.founded} in {org.foundedIn}
-      </p>
-      <h1
-        class="max-w-[19ch] text-[2.6rem] font-semibold leading-[1.04] text-white sm:text-6xl lg:text-[4.2rem]"
-      >
-        A chess club run by the students it teaches.
-      </h1>
-      <p class="mt-6 max-w-[54ch] text-[1.06rem] leading-relaxed text-white/72">
-        We run over-the-board (OTB), USCF-rated tournaments serving San Francisco and the Bay Area, teach
-        classes in the Bay Area, and have run free introductory courses in four
-        states with small chess communities. We have also partnered with 8 public
-        schools in 4 different countries to bootstrap chess institutions.
-      </p>
-
-      <div class="mt-9 flex flex-wrap gap-3">
-        <a
-          href={next.register}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex h-12 items-center gap-2 rounded-sm bg-gold px-6 font-medium text-gold-foreground transition-colors hover:bg-gold/90"
-        >
-          <Bolt size={15} />
-          Register: {next.display.replace(", 2026", "")}
-        </a>
-        <a
-          href={next.entries}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex h-12 items-center rounded-sm border border-white/25 px-6 font-medium text-white backdrop-blur-sm transition-colors hover:border-white/50 hover:bg-white/10"
-        >
-          Live entries
-        </a>
-        <a
-          href="/quads/faq"
-          class="inline-flex h-12 items-center rounded-sm px-2 font-medium text-white/70 transition-colors hover:text-white"
-        >
-          <span class="strike">Quad FAQ</span>
-        </a>
-      </div>
+      </figure>
     </div>
   </section>
 
