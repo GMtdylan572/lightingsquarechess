@@ -56,9 +56,7 @@ const jsonLd = {
     <script is:inline>
       try {
         const saved = localStorage.getItem("lsc-theme");
-        const dark =
-          saved === "dark" ||
-          (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        const dark = saved === "dark";
         if (dark) document.documentElement.classList.add("dark");
       } catch (e) {}
     </script>
