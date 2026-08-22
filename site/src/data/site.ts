@@ -261,6 +261,38 @@ export const championship = {
       entries: "https://docs.google.com/spreadsheets/d/1VKyYpFwCv5l_UNmQzZeQzqvwEG_cXPrtkEwqIg6Sdso",
     },
   ],
+  results: {
+    note: "Official US Chess rated standings",
+    sections: [
+      {
+        name: "U1600",
+        event: "https://ratings.uschess.org/event/202608090653",
+        podium: [
+          { place: 1, name: "Andrew W. Peng", score: 4 },
+          { place: 2, name: "Juncheng Jia", score: 3.5 },
+          { place: 3, name: "Mahat Aravind", score: 3 },
+        ],
+      },
+      {
+        name: "U800",
+        event: "https://ratings.uschess.org/event/202608090653",
+        podium: [
+          { place: 1, name: "Nova Xie", score: 4 },
+          { place: 2, name: "Ilan Ram Kumar", score: 3 },
+          { place: 3, name: "Jason Jin", score: 3 },
+        ],
+      },
+      {
+        name: "Community Blitz",
+        event: "https://ratings.uschess.org/event/202608090663",
+        podium: [
+          { place: 1, name: "Eric Yuhan Li", score: 7 },
+          { place: 2, name: "Ethan Guo", score: 5.5 },
+          { place: 3, name: "Dylan Tang", score: 5 },
+        ],
+      },
+    ],
+  },
 };
 
 /* -------------------------------------------------------------- programs */

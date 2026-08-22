@@ -25,11 +25,56 @@ const past = new Date(c.iso) < new Date();
       <div class="flex flex-wrap items-center gap-4 rounded-md border border-border bg-accent px-5 py-4">
         <span class="rounded-sm bg-gold px-2 py-1 font-mono text-[0.65rem] uppercase tracking-wider text-gold-foreground">Concluded</span>
         <p class="text-[0.92rem] text-muted-foreground">
-          This event has been played. Its entry lists and flyer remain online below.
+          This event has been played. Official rated results, entry lists and the flyer remain online below.
         </p>
       </div>
     </div>
   )}
+
+  <section aria-labelledby="results-heading" class="mx-auto max-w-6xl px-5 pb-4 pt-12">
+    <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <p class="label mb-3 text-primary">Official results</p>
+        <h2 id="results-heading" class="text-3xl font-semibold sm:text-4xl">Championship podiums</h2>
+      </div>
+      <p class="max-w-md text-[0.92rem] text-muted-foreground">
+        Final scores from the official US Chess rated event records.
+      </p>
+    </div>
+
+    <div class="grid gap-5 lg:grid-cols-3">
+      {c.results.sections.map((section) => (
+        <article class="overflow-hidden rounded-md border border-border bg-card">
+          <div class="flex items-center justify-between gap-4 border-b border-border px-5 py-4">
+            <h3 class="text-xl font-semibold">{section.name}</h3>
+            <a href={section.event} target="_blank" rel="noopener noreferrer"
+               class="text-[0.8rem] font-medium text-primary underline-offset-4 hover:underline">
+              US Chess record
+            </a>
+          </div>
+          <ol class="grid grid-cols-3 items-end gap-2 px-4 pb-4 pt-8">
+            {section.podium.map((player) => (
+              <li class:list={[
+                "flex min-w-0 flex-col justify-end rounded-sm border border-border bg-secondary px-2 pb-3 text-center",
+                player.place === 1 ? "h-44 border-gold bg-gold/10" : player.place === 2 ? "h-36" : "h-28",
+              ]}>
+                <span class="mb-2 text-2xl" aria-hidden="true">
+                  {player.place === 1 ? "🥇" : player.place === 2 ? "🥈" : "🥉"}
+                </span>
+                <span class="text-[0.68rem] font-medium uppercase tracking-wider text-muted-foreground">
+                  {player.place === 1 ? "1st" : player.place === 2 ? "2nd" : "3rd"}
+                </span>
+                <strong class="mt-1 text-balance text-[0.88rem] leading-tight">{player.name}</strong>
+                <span class="mt-2 font-mono text-[0.78rem] text-muted-foreground">
+                  {player.score} {player.score === 1 ? "point" : "points"}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </article>
+      ))}
+    </div>
+  </section>
 
   <section class="mx-auto max-w-6xl px-5 py-10">
     <div class="grid gap-px overflow-hidden rounded-md border border-border bg-border md:grid-cols-2">
@@ -74,13 +119,25 @@ const past = new Date(c.iso) < new Date();
         <img src="/championship-2026-action.jpg" alt="Players, families and tournament directors at the 2026 Summer Championship"
              loading="lazy" width="1707" height="1280"
              class="aspect-[16/9] w-full rounded-md border border-border object-cover sm:col-span-2" />
-        <img src="/championship-2026-winner.jpg" alt="A prize winner with Lightning Square tournament directors at the 2026 Summer Championship"
-             loading="lazy" width="1280" height="1707"
-             class="aspect-[4/3] w-full rounded-md border border-border object-cover [object-position:50%_42%]" />
-        <img src="/championship-2026-team.jpg" alt="The Lightning Square team at the 2026 Summer Championship"
-             loading="lazy" width="1280" height="1707"
-             class="aspect-[4/3] w-full rounded-md border border-border object-cover [object-position:50%_38%]" />
+        <img src="/championship-2026-prize.jpg" alt="A young prize winner with two Lightning Square tournament directors at the 2026 Summer Championship"
+             loading="lazy" width="1281" height="960"
+             class="aspect-[4/3] w-full rounded-md border border-border object-cover" />
+        <img src="/championship-2026-room.jpg" alt="Players competing across the tournament room at the 2026 Summer Championship"
+             loading="lazy" width="1280" height="960"
+             class="aspect-[4/3] w-full rounded-md border border-border object-cover" />
       </div>
     </div>
   </section>
+
+  <script>
+    import confetti from "canvas-confetti";
+
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      window.setTimeout(() => {
+        const colors = ["#e8ad3f", "#155b3f", "#ffffff"];
+        confetti({ particleCount: 45, spread: 70, startVelocity: 28, origin: { x: 0.2, y: 0.35 }, colors });
+        confetti({ particleCount: 45, spread: 70, startVelocity: 28, origin: { x: 0.8, y: 0.35 }, colors });
+      }, 350);
+    }
+  </script>
 </Base>
