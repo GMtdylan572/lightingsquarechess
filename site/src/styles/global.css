@@ -73,33 +73,34 @@
    Radius is deliberately small: records pages have corners, not pills. */
 :root {
     --radius: 0.25rem;
+    color-scheme: light;
 
-    --background: #FCFBF8;
+    --background: #F7F2E7;
     --foreground: #14181A;
-    --card: #FFFFFF;
+    --card: #FFFCF6;
     --card-foreground: #14181A;
-    --popover: #FFFFFF;
+    --popover: #FFFCF6;
     --popover-foreground: #14181A;
 
     --primary: #1B5138;
     --primary-foreground: #FFFFFF;
-    --secondary: #F1EFE7;
+    --secondary: #EDE4D3;
     --secondary-foreground: #22292B;
-    --muted: #F1EFE7;
+    --muted: #EDE4D3;
     --muted-foreground: #57625D;
     --accent: #ECF2ED;
     --accent-foreground: #1B5138;
     --destructive: #A8321C;
 
-    --border: #E2DED3;
-    --input: #D8D3C6;
+    --border: #D8CDB9;
+    --input: #CBBEA4;
     --ring: #1B5138;
 
     --board: #10281C;
     --board-foreground: #E9F0EA;
     --gold: #E8B04B;
     --gold-foreground: #2A1F06;
-    --rule: #CFC9BA;
+    --rule: #C4B696;
 
     --chart-1: #1B5138;
     --chart-2: #C9922B;
@@ -107,13 +108,13 @@
     --chart-4: #8A7A4E;
     --chart-5: #5B6B62;
 
-    --sidebar: #F7F5EF;
+    --sidebar: #F2EBDD;
     --sidebar-foreground: #14181A;
     --sidebar-primary: #1B5138;
     --sidebar-primary-foreground: #FFFFFF;
     --sidebar-accent: #ECF2ED;
     --sidebar-accent-foreground: #1B5138;
-    --sidebar-border: #E2DED3;
+    --sidebar-border: #D8CDB9;
     --sidebar-ring: #1B5138;
 }
 
