@@ -3,9 +3,9 @@ import Base from "@/layouts/Base.astro";
 import PageHeader from "@/components/PageHeader.astro";
 import { championship as c } from "@/data/site";
 const past = new Date(c.iso) < new Date();
-const prizeWinnerCount = c.results.sections.reduce((total, section) => total + section.podium.length, 0);
+const podiumFinisherCount = c.results.sections.reduce((total, section) => total + section.podium.length, 0);
 const prizePool = c.results.sections.reduce(
-  (total, section) => total + section.podium.reduce((sum, player) => sum + Number(player.prize.slice(1)), 0),
+  (total, section) => total + section.podium.reduce((sum, player) => sum + ("prize" in player ? Number(player.prize.slice(1)) : 0), 0),
   0,
 );
 ---
@@ -40,10 +40,10 @@ const prizePool = c.results.sections.reduce(
     <div class="mb-8 flex flex-wrap items-end justify-between gap-5">
       <div>
         <p class="label mb-3 text-primary">Official results</p>
-        <h2 id="results-heading" class="text-3xl font-semibold sm:text-4xl">Meet the prize winners</h2>
+        <h2 id="results-heading" class="text-3xl font-semibold sm:text-4xl">Championship podiums</h2>
       </div>
       <div class="max-w-md">
-        <p class="font-mono text-sm font-semibold text-foreground">{prizeWinnerCount} players · ${prizePool} awarded</p>
+        <p class="font-mono text-sm font-semibold text-foreground">{podiumFinisherCount} podium finishers · ${prizePool} awarded</p>
         <p class="mt-1 text-[0.92rem] text-muted-foreground">
           Final scores from the official US Chess rated event records.
         </p>
@@ -54,16 +54,16 @@ const prizePool = c.results.sections.reduce(
       {c.results.sections.map((section) => (
         <article class:list={[
           "overflow-hidden rounded-md border border-border bg-card shadow-sm",
-          section.podium.length === 1 && "lg:col-span-2",
+          section.name === "Community Blitz" && "lg:col-span-2",
         ]}>
           <div class="flex items-center justify-between gap-4 border-b border-border bg-secondary/50 px-5 py-4">
             <div class="flex items-center gap-3">
               <span class="grid size-8 place-items-center rounded-sm bg-primary font-mono text-sm font-semibold text-primary-foreground" aria-hidden="true">
-                {section.podium.length === 1 ? "1" : "3"}
+                3
               </span>
               <div>
                 <h3 class="text-xl font-semibold">{section.name}</h3>
-                <p class="text-xs text-muted-foreground">{section.podium.length === 1 ? "Winner-take-all prize" : "First, second and third prizes"}</p>
+                <p class="text-xs text-muted-foreground">{section.name === "Community Blitz" ? "Three podium places · first-place prize" : "First, second and third prizes"}</p>
               </div>
             </div>
             <a href={section.event} target="_blank" rel="noopener noreferrer"
@@ -73,7 +73,7 @@ const prizePool = c.results.sections.reduce(
           </div>
           <ol class:list={[
             "grid items-end gap-3 p-4 sm:p-5",
-            section.podium.length === 1 ? "mx-auto max-w-sm grid-cols-1" : "grid-cols-1 sm:grid-cols-3",
+            "grid-cols-1 sm:grid-cols-3",
           ]}>
             {section.podium.map((player) => (
               <li class:list={[
@@ -91,9 +91,11 @@ const prizePool = c.results.sections.reduce(
                   ]} aria-label={`${player.place === 1 ? "First" : player.place === 2 ? "Second" : "Third"} place`}>
                     {player.place}
                   </span>
-                  <span class="rounded-sm border border-border bg-card px-2.5 py-1 font-mono text-sm font-semibold text-primary">
-                    {player.prize}
-                  </span>
+                  {"prize" in player && (
+                    <span class="rounded-sm border border-border bg-card px-2.5 py-1 font-mono text-sm font-semibold text-primary">
+                      {player.prize}
+                    </span>
+                  )}
                 </div>
                 <strong class="mt-auto text-balance text-lg leading-tight">{player.name}</strong>
                 <span class="mt-2 font-mono text-[0.78rem] text-muted-foreground">
@@ -174,17 +176,18 @@ const prizePool = c.results.sections.reduce(
         const gold = ["#e8ad3f", "#f6d47a", "#ffffff"];
         const green = ["#155b3f", "#2f8a65", "#ffffff"];
 
-        confetti({ particleCount: 90, angle: 60, spread: 85, startVelocity: 48, gravity: 0.9, scalar: 1.15, origin: { x: 0.08, y: 0.45 }, colors: gold });
-        confetti({ particleCount: 90, angle: 120, spread: 85, startVelocity: 48, gravity: 0.9, scalar: 1.15, origin: { x: 0.92, y: 0.45 }, colors: green });
+        confetti({ particleCount: 125, angle: 58, spread: 95, startVelocity: 54, gravity: 0.86, scalar: 1.2, origin: { x: 0.06, y: 0.5 }, colors: gold });
+        confetti({ particleCount: 125, angle: 122, spread: 95, startVelocity: 54, gravity: 0.86, scalar: 1.2, origin: { x: 0.94, y: 0.5 }, colors: green });
 
         window.setTimeout(() => {
-          confetti({ particleCount: 110, spread: 130, startVelocity: 42, gravity: 0.8, scalar: 1.2, origin: { x: 0.5, y: 0.28 }, colors: [...gold, ...green] });
-        }, 260);
+          confetti({ particleCount: 165, spread: 155, startVelocity: 49, gravity: 0.76, scalar: 1.25, origin: { x: 0.5, y: 0.25 }, colors: [...gold, ...green] });
+        }, 240);
 
         window.setTimeout(() => {
-          confetti({ particleCount: 55, angle: 70, spread: 70, startVelocity: 38, origin: { x: 0.2, y: 0.35 }, colors: green });
-          confetti({ particleCount: 55, angle: 110, spread: 70, startVelocity: 38, origin: { x: 0.8, y: 0.35 }, colors: gold });
-        }, 560);
+          confetti({ particleCount: 80, angle: 68, spread: 82, startVelocity: 44, gravity: 0.82, scalar: 1.15, origin: { x: 0.18, y: 0.38 }, colors: green });
+          confetti({ particleCount: 80, angle: 112, spread: 82, startVelocity: 44, gravity: 0.82, scalar: 1.15, origin: { x: 0.82, y: 0.38 }, colors: gold });
+          confetti({ particleCount: 70, spread: 110, startVelocity: 36, gravity: 0.7, scalar: 1.05, origin: { x: 0.5, y: 0.08 }, colors: [...gold, ...green] });
+        }, 540);
       }, 300);
     }
   </script>

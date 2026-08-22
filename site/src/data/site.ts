@@ -287,6 +287,8 @@ export const championship = {
         event: "https://ratings.uschess.org/event/202608090663",
         podium: [
           { place: 1, name: "Eric Yuhan Li", score: 7, prize: "$50" },
+          { place: 2, name: "Ethan Guo", score: 5.5 },
+          { place: 3, name: "Dylan Tang", score: 5 },
         ],
       },
     ],
