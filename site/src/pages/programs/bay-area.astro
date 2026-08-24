@@ -3,19 +3,19 @@ import Base from "@/layouts/Base.astro";
 import PageHeader from "@/components/PageHeader.astro";
 import { bayAreaCurrent as now, bayAreaPast as past } from "@/data/site";
 
-/* Ten sessions, one per class, written for players around USCF 600: the rules
-   are known, the games are still decided by hanging a piece. */
+/* Ten sessions, one per class, for developing players rated USCF 500–700,
+   with the bulk of the course devoted to middlegame and endgame decisions. */
 const outline = [
-  "Board vision: spotting undefended pieces and checking every move for a one-move answer",
-  "Counting captures: when a trade wins material, when it quietly loses it",
-  "Forks and double attacks, built around the knight fork",
-  "Pins and skewers: making them, and getting out of them",
-  "Discovered attacks and discovered check",
-  "Checkmate patterns: back rank, smothered mate, and the two-rook roller",
-  "Finishing the game: king and queen, then king and rook, against a lone king",
-  "Pawn endgames: the opposition, the square rule, and escorting a passed pawn",
-  "Opening principles: centre, development, king safety, and the traps that punish ignoring them",
-  "Putting it together: a full game with clocks and notation, then a review of it",
+  "Middlegame thinking: forcing moves, candidate moves, and a blunder check before every decision",
+  "Piece activity: improving the worst-placed piece and finding useful squares",
+  "Open files and outposts: putting rooks and knights where they have lasting influence",
+  "Pawn structures: isolated, doubled, and backward pawns—and the plans each structure suggests",
+  "King safety: recognizing when to attack, when to defend, and when to simplify",
+  "Calculation: building short, accurate variations from checks, captures, and threats",
+  "Trading with a purpose: exchanges, simplification, and choosing the right endgame",
+  "King and pawn endings: opposition, the square rule, and creating a passed pawn",
+  "Practical rook endings: active rooks, cutting off the king, and playing behind passed pawns",
+  "Endgame workshop: essential mates, clock management, and a complete-game review",
 ];
 ---
 <Base
@@ -25,7 +25,7 @@ const outline = [
   <PageHeader
     kicker="Fall 2026 · San Francisco and Bay Area"
     title="Bay Area classes"
-    lede="A ten-session course for players rated around USCF 600, taught by high school chess players rated USCF 2000+, $15 per class."
+    lede="A ten-session middlegame and endgame course for players rated USCF 500–700, taught by high school chess players rated USCF 2000+, $15 per class."
     crumbs={[{ href: "/", label: "Home" }, { href: "/programs", label: "Programs" }]}
   />
 
@@ -34,12 +34,11 @@ const outline = [
       <div class="lg:col-span-7">
         <h2 class="mb-4 text-2xl font-semibold">What the course covers</h2>
         <p class="mb-6 max-w-[58ch] leading-relaxed text-muted-foreground">
-          The course assumes you already know how the pieces move. It is built for
-          players rated roughly USCF 400 to 800, and for unrated players who
-          already play regularly. At this level games are decided by hanging a
-          piece and by missing a one-move tactic, so that is where we start,
-          and we finish on the endgames and opening habits that decide the rest.
-          Every session ends with a played game.
+          The course assumes you already know how the pieces move and is designed
+          for players rated USCF 500–700. Most sessions focus on practical
+          middlegame plans and the endgames that arise from them, with calculation
+          and blunder prevention built into every lesson. Every session ends with
+          a played game and guided review.
         </p>
         <ol class="divide-y divide-border overflow-hidden rounded-md border border-border bg-card">
           {outline.map((item, i) => (

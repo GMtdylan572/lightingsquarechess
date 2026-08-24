@@ -4,10 +4,10 @@ import PageHeader from "@/components/PageHeader.astro";
 import { leadership, founders, advisors, org } from "@/data/site";
 import type { Person } from "@/data/site";
 
-const groups: { label: string; note: string; people: Person[]; portraits: boolean }[] = [
-  { label: "Leadership", note: "Runs the club day to day", people: leadership, portraits: true },
-  { label: "Co-founders", note: "Started it in 2022", people: founders, portraits: false },
-  { label: "Honorary advisors", note: "Adults who help us do this properly", people: advisors, portraits: true },
+const groups: { label: string; note: string; people: Person[] }[] = [
+  { label: "Leadership", note: "Runs the club day to day", people: leadership },
+  { label: "Co-founders", note: "Started it in 2022", people: founders },
+  { label: "Honorary advisors", note: "Adults who help us do this properly", people: advisors },
 ];
 ---
 <Base
@@ -29,7 +29,7 @@ const groups: { label: string; note: string; people: Person[]; portraits: boolea
           <span class="h-px w-12 bg-gold" aria-hidden="true"></span>
         </div>
         <h2 id="mission-heading" class="mt-5 max-w-[24ch] font-heading text-[1.7rem] font-semibold leading-snug sm:text-[2rem]">
-          Chess rewards patience and planning. Access to good coaching rewards having money and living in the right place.
+          Breaking financial and location barriers, we make top chess coaching accessible to all.
         </h2>
       </div>
       <div class="lg:col-span-7 lg:border-l lg:border-border lg:pl-12">
@@ -66,11 +66,9 @@ const groups: { label: string; note: string; people: Person[]; portraits: boolea
           g.label === "Leadership" ? "lg:grid-cols-5" : "lg:grid-cols-3",
         ]}>
           {g.people.map((p) => (
-            <li class:list={[!g.portraits && "rounded-md border border-border bg-card p-5"]}>
-              {g.portraits && (
-                <img src={p.photo} alt={`Portrait of ${p.name}`} loading="lazy" width="640" height="800"
-                     class="mb-4 aspect-[4/5] w-full rounded-md border border-border object-cover [object-position:50%_22%]" />
-              )}
+            <li>
+              <img src={p.photo} alt={`Portrait of ${p.name}`} loading="lazy" width="640" height="800"
+                   class="mb-4 aspect-[4/5] w-full rounded-md border border-border object-cover [object-position:50%_22%]" />
               {p.role && <p class="label mb-1.5 text-primary">{p.role}</p>}
               <p class="font-heading text-[1.35rem] font-semibold leading-tight">{p.name}</p>
               {p.org && <p class="mt-1 text-[0.92rem] text-muted-foreground">{p.org}</p>}
