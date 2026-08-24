@@ -305,7 +305,7 @@ export const bayAreaCurrent = {
   note: "Tuesdays. No class on October 13.",
   cost: "$15 per class",
   sessions: 10,
-  coaches: "High school chess players rated USCF 2000+",
+  coaches: "Master-level players",
   register: "https://forms.gle/DMheqHTJ5Nrts6Fd9",
 };
 
