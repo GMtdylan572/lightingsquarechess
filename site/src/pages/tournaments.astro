@@ -127,7 +127,7 @@ const nextChampionships = upcomingChampionships.filter((e) => new Date(e.date) >
       </ol>
     )}
 
-    <h3 class="label mb-2">Played</h3>
+    <h3 class="label mb-2">Past championships</h3>
     <ol class="divide-y divide-border overflow-hidden rounded-md border border-border bg-card">
       {championshipSeries.map((c) => (
         <li class="flex flex-wrap items-center gap-4 p-5">
@@ -136,7 +136,7 @@ const nextChampionships = upcomingChampionships.filter((e) => new Date(e.date) >
             <p class="font-medium">{c.name}</p>
             <p class="text-[0.85rem] text-muted-foreground">{c.note}</p>
           </div>
-          <a href="/championship" class="text-[0.88rem] font-medium text-primary hover:underline">Details</a>
+          <a href="/championship/past" class="text-[0.88rem] font-medium text-primary hover:underline">Results</a>
         </li>
       ))}
     </ol>

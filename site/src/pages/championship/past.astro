@@ -1,9 +1,8 @@
 ---
 import Base from "@/layouts/Base.astro";
 import PageHeader from "@/components/PageHeader.astro";
-import { championship as c, upcomingChampionships } from "@/data/site";
+import { championship as c } from "@/data/site";
 const past = new Date(c.iso) < new Date();
-const nextUp = upcomingChampionships.filter((e) => new Date(e.date) >= new Date());
 const podiumFinisherCount = c.results.sections.reduce((total, section) => total + section.podium.length, 0);
 const prizePool = c.results.sections.reduce(
   (total, section) => total + section.podium.reduce((sum, player) => sum + ("prize" in player ? Number(player.prize.slice(1)) : 0), 0),
@@ -11,65 +10,21 @@ const prizePool = c.results.sections.reduce(
 );
 ---
 <Base
-  title="Championships"
-  description="Registration and live entry lists for the upcoming Lightning Square seasonal championships, plus full results from the Summer Championship held August 9, 2026 in Sunnyvale."
+  title="Past championships"
+  description="Results, podiums and entry lists from the Lightning Square Summer Championship and Evening Blitz held August 9, 2026 at the Domain Hotel in Sunnyvale."
 >
   <PageHeader
-    kicker="Seasonal championships"
-    title="Championships"
-    lede="Each championship pairs a rated Swiss main tournament with an evening blitz. Registration for the upcoming editions is open below; the 2026 results follow."
-    crumbs={[{ href: "/", label: "Home" }, { href: "/tournaments", label: "Tournaments" }]}
+    kicker="Championship archive"
+    title="Past championships"
+    lede="Every championship we have directed, with official US Chess results. One edition so far."
+    crumbs={[
+      { href: "/", label: "Home" },
+      { href: "/tournaments", label: "Tournaments" },
+      { href: "/championship", label: "Championships" },
+    ]}
   />
 
-  {nextUp.length > 0 && (
-    <section aria-labelledby="upcoming-heading" class="mx-auto max-w-6xl px-5 pt-14">
-      <p class="label mb-3 text-primary">Registration open</p>
-      <h2 id="upcoming-heading" class="text-3xl font-semibold sm:text-4xl">Upcoming championships</h2>
-      <p class="mt-2 max-w-[62ch] text-muted-foreground">
-        Each date runs a Swiss main tournament and a blitz event, entered separately.
-        Sections, time controls and the venue are announced closer to each date.
-      </p>
-
-      <ol class="mt-8 grid gap-px overflow-hidden rounded-md border border-border bg-border md:grid-cols-2">
-        {nextUp.map((e, i) => (
-          <li class="bg-card p-6">
-            <div class="mb-4 flex flex-wrap items-center gap-3">
-              <time datetime={e.date} class="font-mono text-[0.95rem] font-medium">{e.display}</time>
-              {i === 0 && (
-                <span class="rounded-sm bg-primary px-2 py-0.5 font-mono text-[0.62rem] uppercase tracking-wider text-primary-foreground">
-                  Next
-                </span>
-              )}
-            </div>
-            <h3 class="mb-5 text-xl font-semibold">{e.name}</h3>
-
-            <div class="space-y-4">
-              {[
-                { label: "Swiss main tournament", links: e.swiss },
-                { label: "Evening blitz", links: e.blitz },
-              ].map((part) => (
-                <div class="rounded-sm bg-secondary p-4">
-                  <p class="label mb-3">{part.label}</p>
-                  <div class="flex flex-wrap gap-2">
-                    <a href={part.links.register} target="_blank" rel="noopener noreferrer"
-                       class="inline-flex h-10 items-center rounded-sm bg-primary px-4 text-[0.88rem] font-medium text-primary-foreground transition-opacity hover:opacity-90">
-                      Register
-                    </a>
-                    <a href={part.links.entries} target="_blank" rel="noopener noreferrer"
-                       class="inline-flex h-10 items-center rounded-sm border border-input bg-card px-4 text-[0.88rem] font-medium transition-colors hover:bg-accent">
-                      Live entry list
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </li>
-        ))}
-      </ol>
-    </section>
-  )}
-
-  <div class="mx-auto max-w-6xl px-5 pt-16">
+  <div class="mx-auto max-w-6xl px-5 pt-14">
     <h2 class="text-2xl font-semibold sm:text-3xl">Summer Championship {new Date(c.iso).getFullYear()}</h2>
     <p class="mt-2 text-muted-foreground">{c.date} at the {c.venue.name}, Sunnyvale.</p>
   </div>
@@ -214,6 +169,20 @@ const prizePool = c.results.sections.reduce(
              loading="lazy" width="1707" height="1280"
              class="aspect-[4/3] w-full rounded-md border border-border object-cover" />
       </div>
+    </div>
+  </section>
+
+  <section class="border-t border-border">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-6 px-5 py-10">
+      <div>
+        <h2 class="text-xl font-semibold">Play the next one</h2>
+        <p class="mt-1 max-w-[58ch] text-[0.92rem] text-muted-foreground">
+          Registration is open for the upcoming seasonal championships.
+        </p>
+      </div>
+      <a href="/championship" class="inline-flex h-11 items-center rounded-sm bg-primary px-5 text-[0.92rem] font-medium text-primary-foreground transition-colors hover:bg-primary/90">
+        Upcoming championships
+      </a>
     </div>
   </section>
 

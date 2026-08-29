@@ -58,12 +58,26 @@ const isActive = (href: string) =>
           {item.children && (
             <div class="ml-3 border-l border-border pl-3">
               {item.children.slice(1).map((c) => (
-                <a
-                  href={c.href}
-                  class="block rounded-sm px-3 py-2 text-[0.92rem] text-muted-foreground hover:bg-accent hover:text-foreground"
-                >
-                  {c.label}
-                </a>
+                <div>
+                  <a
+                    href={c.href}
+                    class="block rounded-sm px-3 py-2 text-[0.92rem] text-muted-foreground hover:bg-accent hover:text-foreground"
+                  >
+                    {c.label}
+                  </a>
+                  {c.children && (
+                    <div class="ml-3 border-l border-border pl-3">
+                      {c.children.map((g) => (
+                        <a
+                          href={g.href}
+                          class="block rounded-sm px-3 py-2 text-[0.86rem] text-muted-foreground hover:bg-accent hover:text-foreground"
+                        >
+                          {g.label}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
           )}

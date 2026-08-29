@@ -64,17 +64,63 @@ const isActive = (href: string) =>
                 class="invisible absolute left-0 top-full w-72 translate-y-1 pt-2 opacity-0 transition-all group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100"
               >
                 <div class="rounded-md border border-border bg-popover p-1 shadow-lg">
-                  {item.children.map((c) => (
-                    <a
-                      href={c.href}
-                      class="block rounded-sm px-3 py-2.5 transition-colors hover:bg-accent"
-                    >
-                      <span class="block text-[0.88rem] font-medium">{c.label}</span>
-                      <span class="block text-[0.78rem] text-muted-foreground">
-                        {c.note}
-                      </span>
-                    </a>
-                  ))}
+                  {item.children.map((c) =>
+                    c.children ? (
+                      /* Third level: opens to the right on hover or keyboard focus. */
+                      <div class="group/sub relative">
+                        <a
+                          href={c.href}
+                          class="flex items-center gap-2 rounded-sm px-3 py-2.5 transition-colors hover:bg-accent group-focus-within/sub:bg-accent group-hover/sub:bg-accent"
+                        >
+                          <span class="min-w-0 flex-1">
+                            <span class="block text-[0.88rem] font-medium">{c.label}</span>
+                            <span class="block text-[0.78rem] text-muted-foreground">
+                              {c.note}
+                            </span>
+                          </span>
+                          <svg
+                            width="11"
+                            height="11"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                            class="shrink-0 text-muted-foreground"
+                          >
+                            <path d="m9 18 6-6-6-6" />
+                          </svg>
+                        </a>
+                        <div class="invisible absolute left-full top-0 w-72 translate-x-1 pl-2 opacity-0 transition-all group-focus-within/sub:visible group-focus-within/sub:translate-x-0 group-focus-within/sub:opacity-100 group-hover/sub:visible group-hover/sub:translate-x-0 group-hover/sub:opacity-100">
+                          <div class="rounded-md border border-border bg-popover p-1 shadow-lg">
+                            {c.children.map((g) => (
+                              <a
+                                href={g.href}
+                                class="block rounded-sm px-3 py-2.5 transition-colors hover:bg-accent"
+                              >
+                                <span class="block text-[0.88rem] font-medium">{g.label}</span>
+                                <span class="block text-[0.78rem] text-muted-foreground">
+                                  {g.note}
+                                </span>
+                              </a>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <a
+                        href={c.href}
+                        class="block rounded-sm px-3 py-2.5 transition-colors hover:bg-accent"
+                      >
+                        <span class="block text-[0.88rem] font-medium">{c.label}</span>
+                        <span class="block text-[0.78rem] text-muted-foreground">
+                          {c.note}
+                        </span>
+                      </a>
+                    )
+                  )}
                 </div>
               </div>
             </div>
