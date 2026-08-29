@@ -388,6 +388,9 @@ export const bayAreaCurrent = {
   dates: "September 8 to November 17, 2026",
   time: "7:00 to 8:00 PM",
   venue: venues.deAnza,
+  /* Who the course is pitched at. Pages read this rather than repeating the
+     range in prose, so a change of level is a one-line edit. */
+  ratings: "unrated to USCF 1000",
   note: "Tuesdays. No class on October 13.",
   cost: "$15 per class",
   sessions: 10,

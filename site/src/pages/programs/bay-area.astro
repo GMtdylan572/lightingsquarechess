@@ -3,8 +3,8 @@ import Base from "@/layouts/Base.astro";
 import PageHeader from "@/components/PageHeader.astro";
 import { bayAreaCurrent as now, bayAreaPast as past } from "@/data/site";
 
-/* Ten sessions, one per class, for developing players rated USCF 500–700,
-   with the bulk of the course devoted to middlegame and endgame decisions. */
+/* Ten sessions, one per class, for players from unrated to USCF 1000, with
+   the bulk of the course devoted to middlegame and endgame decisions. */
 const outline = [
   "Middlegame thinking: forcing moves, candidate moves, and a blunder check before every decision",
   "Piece activity: improving the worst-placed piece and finding useful squares",
@@ -25,7 +25,7 @@ const outline = [
   <PageHeader
     kicker="Fall 2026 · San Francisco and Bay Area"
     title="Bay Area classes"
-    lede="A ten-session middlegame and endgame course for players rated USCF 500–700, taught by master-level players, $15 per class."
+    lede={`A ten-session middlegame and endgame course for players from ${now.ratings}, taught by master-level players, $15 per class.`}
     crumbs={[{ href: "/", label: "Home" }, { href: "/programs", label: "Programs" }]}
   />
 
@@ -35,7 +35,7 @@ const outline = [
         <h2 class="mb-4 text-2xl font-semibold">What the course covers</h2>
         <p class="mb-6 max-w-[58ch] leading-relaxed text-muted-foreground">
           The course assumes you already know how the pieces move and is designed
-          for players rated USCF 500–700. Most sessions focus on practical
+          for players from {now.ratings}. Most sessions focus on practical
           middlegame plans and the endgames that arise from them, with calculation
           and blunder prevention built into every lesson. Every session ends with
           a played game and guided review.
@@ -54,7 +54,11 @@ const outline = [
         <div class="rounded-md border-2 border-primary bg-card p-6">
           <p class="label mb-3 text-primary">{now.term} · Enrolling now</p>
           <p class="mb-1 font-mono text-[1.05rem] font-medium">{now.dates}</p>
-          <p class="mb-4 font-mono text-[0.9rem] text-muted-foreground">{now.time}</p>
+          <p class="mb-3 font-mono text-[0.9rem] text-muted-foreground">{now.time}</p>
+          <p class="mb-4 text-[0.86rem]">
+            <span class="font-medium">Level:</span>{" "}
+            <span class="text-muted-foreground">{now.ratings}</span>
+          </p>
           <p class="mb-1 text-[0.92rem] font-medium">{now.venue.name}</p>
           <p class="mb-4 text-[0.86rem] text-muted-foreground">{now.venue.address}</p>
           <dl class="mb-5 grid grid-cols-2 gap-3 rounded-sm bg-secondary p-4">
