@@ -4,18 +4,19 @@ import PageHeader from "@/components/PageHeader.astro";
 import QuadActions from "@/components/QuadActions.astro";
 import Bolt from "@/components/Bolt.astro";
 import ResultsArchive from "@/components/ResultsArchive";
-import { upcomingQuads, pastQuads, championshipSeries, legacyEvents, org } from "@/data/site";
+import { upcomingQuads, pastQuads, championshipSeries, upcomingChampionships, legacyEvents, org } from "@/data/site";
 
 const next = upcomingQuads[0];
+const nextChampionships = upcomingChampionships.filter((e) => new Date(e.date) >= new Date());
 ---
 <Base
   title="Tournaments"
-  description="Lightning Square over-the-board USCF-rated quads, the 2026 Summer Championship, free online events and a searchable results archive since 2023."
+  description="Lightning Square over-the-board USCF-rated quads, seasonal championship dates and registration, free online events and a searchable results archive since 2023."
 >
   <PageHeader
     kicker="Schedule and records"
     title="Tournaments"
-    lede="Our monthly quads are over-the-board, USCF-rated tournaments. This page also preserves the 2026 Summer Championship and the full results archive."
+    lede="Our monthly quads are over-the-board, USCF-rated tournaments. This page also carries the seasonal championships, with registration and live entry lists, and the full results archive."
     crumbs={[{ href: "/", label: "Home" }]}
   />
 
@@ -83,13 +84,50 @@ const next = upcomingQuads[0];
     </div>
   </section>
 
-  {/* The documented 2026 championship. */}
+  {/* Seasonal championships: announced dates first, then the played edition. */}
   <section class="mx-auto max-w-6xl px-5 py-16">
-    <h2 class="label mb-2">Summer Championship</h2>
+    <h2 class="label mb-2">Seasonal championships</h2>
     <p class="mb-6 max-w-[62ch] text-muted-foreground">
-      On August 9, 2026, Lightning Square held a rated main tournament in the
-      morning and a blitz event in the evening at the Domain Hotel in Sunnyvale.
+      Each championship pairs a rated Swiss main tournament with an evening
+      blitz, entered separately. Registration forms open in a new tab; live
+      entry lists and full details sit on the championship page.
     </p>
+
+    {nextChampionships.length > 0 && (
+      <ol class="mb-10 divide-y divide-border overflow-hidden rounded-md border border-border bg-card">
+        {nextChampionships.map((e, i) => (
+          <li class="flex flex-wrap items-center gap-4 p-5">
+            <time datetime={e.date} class="w-36 shrink-0 font-mono text-[0.95rem] font-medium">{e.display}</time>
+            <div class="min-w-[13rem] flex-1">
+              <p class="flex items-center gap-2 font-medium">
+                {e.name}
+                {i === 0 && (
+                  <span class="rounded-sm bg-primary px-2 py-0.5 font-mono text-[0.62rem] uppercase tracking-wider text-primary-foreground">
+                    Next
+                  </span>
+                )}
+              </p>
+              <p class="text-[0.85rem] text-muted-foreground">Swiss main tournament &middot; evening blitz</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <a href={e.swiss.register} target="_blank" rel="noopener noreferrer"
+                 class="inline-flex h-10 items-center rounded-sm border border-input px-4 text-[0.85rem] font-medium transition-colors hover:bg-accent">
+                Swiss entry
+              </a>
+              <a href={e.blitz.register} target="_blank" rel="noopener noreferrer"
+                 class="inline-flex h-10 items-center rounded-sm border border-input px-4 text-[0.85rem] font-medium transition-colors hover:bg-accent">
+                Blitz entry
+              </a>
+              <a href="/championship" class="inline-flex h-10 items-center px-2 text-[0.85rem] font-medium text-primary hover:underline">
+                Details
+              </a>
+            </div>
+          </li>
+        ))}
+      </ol>
+    )}
+
+    <h3 class="label mb-2">Played</h3>
     <ol class="divide-y divide-border overflow-hidden rounded-md border border-border bg-card">
       {championshipSeries.map((c) => (
         <li class="flex flex-wrap items-center gap-4 p-5">

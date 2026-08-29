@@ -64,7 +64,7 @@ export const nav: Nav[] = [
       { href: "/tournaments", label: "All tournaments", note: "Schedule, championships and results archive" },
       { href: "/quads", label: "Monthly Quads", note: "Our main event. USCF-rated, G/25 d5" },
       { href: "/quads/faq", label: "Quad FAQ", note: "Ratings, pairings, trophies" },
-      { href: "/championship", label: "Championship", note: "Summer 2026 event details and entry lists" },
+      { href: "/championship", label: "Championships", note: "Seasonal championship dates, registration and results" },
       { href: "/online", label: "Online tournaments", note: "Free events on Chess.com" },
     ],
   },
@@ -214,8 +214,9 @@ export const onlineEvents = [
   { date: "February 17, 2024", format: "G/15+10", directors: "Vicky Qin, Serena Yuan", results: "https://www.chess.com/tournament/live/president-day-online-chess-tournament-5478589" },
 ];
 
-/* The documented 2026 championship. Do not add future editions until their
-   dates and formats have been announced by the club. */
+/* The championship series: the documented 2026 edition, then every announced
+   future date. Formats and venues for the future editions are not published
+   yet, so those carry only dates and registration links. */
 export type ChampionshipEntry = {
   name: string;
   when: string;
@@ -229,6 +230,75 @@ export const championshipSeries: ChampionshipEntry[] = [
     when: "August 9, 2026",
     status: "played",
     note: "Domain Hotel, Sunnyvale. Open, U1600 and U800 plus an evening blitz. Full details below.",
+  },
+];
+
+/* Announced future editions. Registration forms are linked by their public
+   /viewform URL; the club's own /edit links must never ship to the site. */
+export type UpcomingChampionship = {
+  date: string;          // ISO, used for sorting
+  display: string;
+  season: string;
+  name: string;
+  swiss: { register: string; entries: string };
+  blitz: { register: string; entries: string };
+};
+
+export const upcomingChampionships: UpcomingChampionship[] = [
+  {
+    date: "2026-11-22", display: "November 22, 2026", season: "Fall", name: "Fall Championship 2026",
+    swiss: {
+      register: "https://docs.google.com/forms/d/133QxwFMy79Vow1_XjP18E2JjJxdRWC1LbDc7SxMACoQ/viewform",
+      entries: "https://docs.google.com/spreadsheets/d/14GYjlDTISQZN1a6A4tYTAAgDmm6eOdyfU32iJ5DhFKI",
+    },
+    blitz: {
+      register: "https://docs.google.com/forms/d/1848R09iWUh0qzg0rquVCyYB7LAx_6OU1SOVlxDCY_lA/viewform",
+      entries: "https://docs.google.com/spreadsheets/d/1oHbH7vzXrXup2Xx3xyxcBAI81QUonSio4s8s4msWCeE",
+    },
+  },
+  {
+    date: "2027-03-14", display: "March 14, 2027", season: "Winter", name: "Winter Championship 2027",
+    swiss: {
+      register: "https://docs.google.com/forms/d/1RgfkRXerC4z5E922BlJ91LNIu6q3W7wjyPWGr1yhtUY/viewform",
+      entries: "https://docs.google.com/spreadsheets/d/1ouDmjKGEsVkApqPX2SpUIwg86sP_IT-KWztYgyaM0lU",
+    },
+    blitz: {
+      register: "https://docs.google.com/forms/d/1NQI-3-hAokLFfqYuSn80XMOjNYfVXNRBjgJpddDawLc/viewform",
+      entries: "https://docs.google.com/spreadsheets/d/1VQzkEr_oWH-rwjPwCG2048WnTnqhaQCN2AAAW3-AqDY",
+    },
+  },
+  {
+    date: "2027-05-16", display: "May 16, 2027", season: "Spring", name: "Spring Championship 2027",
+    swiss: {
+      register: "https://docs.google.com/forms/d/1KLvj4af_V7u2KMlob77LmlkU6wpP-uFjKqvLYk8Gvxs/viewform",
+      entries: "https://docs.google.com/spreadsheets/d/1mPU2JzVSn27q3N8u9eBiyy3LkpSTg5uIRtTrqAOhbWc",
+    },
+    blitz: {
+      register: "https://docs.google.com/forms/d/1sH8FukNkHEmJ3xi4ncpSbILPTLA-wMtlSSZJMWKP7MM/viewform",
+      entries: "https://docs.google.com/spreadsheets/d/1mk_3e5zNkt8uX5O5HstQEWBI-42AkUTW5q4Upzurz3g",
+    },
+  },
+  {
+    date: "2027-08-08", display: "August 8, 2027", season: "Summer", name: "Summer Championship 2027",
+    swiss: {
+      register: "https://docs.google.com/forms/d/1YYOPSwwpXzuQMUwYnAEkEtfe_DSb3MtQfqcLvB_1fM8/viewform",
+      entries: "https://docs.google.com/spreadsheets/d/1MOEjqKgJXc-subya703qB71lMJkSQ7sgD4gLRwPB_rA",
+    },
+    blitz: {
+      register: "https://docs.google.com/forms/d/1u-Vk7lpb5dToPtaTtaFDvSpcRckoxyGvK57M816VAEc/viewform",
+      entries: "https://docs.google.com/spreadsheets/d/1QI9mm9ZdXsESr3f2T-V3c20a6Ra2LonQj_Nk65jzeD4",
+    },
+  },
+  {
+    date: "2027-11-21", display: "November 21, 2027", season: "Fall", name: "Fall Championship 2027",
+    swiss: {
+      register: "https://docs.google.com/forms/d/1mTaaEzYhxyLG2Fs-3BatPGnKj2q9MF-udsU5CAtQwLI/viewform",
+      entries: "https://docs.google.com/spreadsheets/d/1XgTPDLL7avnfi5MOKK_kAk439byzCJYaNLqkZ4Tc32Y",
+    },
+    blitz: {
+      register: "https://docs.google.com/forms/d/1sSJQptf4BFL9MfSjZa-_VbkwU48ILv_B8Fm8mDpCj1Q/viewform",
+      entries: "https://docs.google.com/spreadsheets/d/1DfuUipgpkrp4vaDD8otmdNHb-OIEwU1ZIMG5EOJY1-0",
+    },
   },
 ];
 
