@@ -117,13 +117,6 @@ export type Upcoming = {
    official US Chess announcement for that event. Both open in a new tab. */
 export const upcomingQuads: Upcoming[] = [
   {
-    date: "2026-08-30", display: "August 30, 2026", name: "August Quads",
-    venue: venues.deAnza, format: "G/25 d5",
-    register: "https://forms.gle/jph4aPqvfZq7mn3Q8",
-    entries: "https://docs.google.com/spreadsheets/d/1ZfmCFsGjjk7m0dOuNAoTywVIC0M0mneo4kK9cRAbHkw",
-    tla: "https://new.uschess.org/lightning-square-quads-aug-2026",
-  },
-  {
     date: "2026-09-27", display: "September 27, 2026", name: "September Quads",
     venue: venues.deAnza, format: "G/25 d5",
     register: "https://forms.gle/Aqhnmig3hrrfhMbH8",
@@ -152,8 +145,29 @@ export type PastEvent = {
   results: string;
 };
 
+export const august2026QuadCelebration = {
+  date: "August 30, 2026",
+  entries: 52,
+  results: "https://ratings.uschess.org/event/202608300123",
+  winners: [
+    { section: "Quad 1", name: "Hengrui Cai", score: 2.5 },
+    { section: "Quad 2", name: "Jinchen Wang", score: 3 },
+    { section: "Quad 3", name: "Terence Cheng", score: 3 },
+    { section: "Quad 4", name: "Pranav Raman", score: 2.5 },
+    { section: "Quad 5", name: "Amrit Raman", score: 2 },
+    { section: "Quad 6", name: "Aria Ponde", score: 3 },
+    { section: "Quad 7", name: "Rishav Ravi", score: 3 },
+    { section: "Quad 8", name: "Srivatsa Dubbaka", score: 2.5 },
+    { section: "Quad 9", name: "Shengjun Sun", score: 3 },
+    { section: "Quad 10", name: "Jay Yan", score: 3 },
+    { section: "Quad 11", name: "Asher Wu", score: 3 },
+    { section: "Small Swiss", name: "Daniel Wu", score: 2.5 },
+  ],
+};
+
 /* Crosstables on uschess.org. Ordered newest first. */
 export const pastQuads: PastEvent[] = [
+  { date: "August 30, 2026", venue: venues.deAnza, results: august2026QuadCelebration.results },
   { date: "May 31, 2026", venue: venues.deAnza, results: "https://ratings.uschess.org/event/202605310073" },
   { date: "April 26, 2026", venue: venues.deAnza, results: "https://ratings.uschess.org/event/202604260143" },
   { date: "March 29, 2026", venue: venues.deAnza, results: "https://ratings.uschess.org/event/202603290133" },

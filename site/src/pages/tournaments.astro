@@ -4,7 +4,7 @@ import PageHeader from "@/components/PageHeader.astro";
 import QuadActions from "@/components/QuadActions.astro";
 import Bolt from "@/components/Bolt.astro";
 import ResultsArchive from "@/components/ResultsArchive";
-import { upcomingQuads, pastQuads, championshipSeries, upcomingChampionships, legacyEvents, org } from "@/data/site";
+import { august2026QuadCelebration, upcomingQuads, pastQuads, championshipSeries, upcomingChampionships, legacyEvents, org } from "@/data/site";
 
 const next = upcomingQuads[0];
 const nextChampionships = upcomingChampionships.filter((e) => new Date(e.date) >= new Date());
@@ -198,7 +198,166 @@ const nextChampionships = upcomingChampionships.filter((e) => new Date(e.date) >
       <p class="mb-6 max-w-[60ch] text-muted-foreground">
         Every rated quad we have directed. Crosstables are hosted by US Chess and open in a new tab.
       </p>
+
+      <article
+        id="august-2026-record"
+        aria-labelledby="record-heading"
+        class="record-celebration board-texture relative mb-10 overflow-hidden rounded-md border border-gold/70 bg-board px-5 py-8 text-board-foreground shadow-[0_18px_60px_rgba(16,40,28,.24)] sm:px-8 sm:py-10"
+      >
+        <div class="record-rays" aria-hidden="true"></div>
+        <svg class="record-burst record-burst-left" viewBox="0 0 120 120" aria-hidden="true">
+          <path d="M60 2 67 42 91 9 76 47 113 29 82 54 119 60 82 67 113 91 76 74 91 112 67 79 60 118 53 79 29 112 44 74 7 91 38 67 1 60 38 54 7 29 44 47 29 9 53 42Z" fill="currentColor" />
+        </svg>
+        <svg class="record-burst record-burst-right" viewBox="0 0 120 120" aria-hidden="true">
+          <path d="M60 2 67 42 91 9 76 47 113 29 82 54 119 60 82 67 113 91 76 74 91 112 67 79 60 118 53 79 29 112 44 74 7 91 38 67 1 60 38 54 7 29 44 47 29 9 53 42Z" fill="currentColor" />
+        </svg>
+
+        <div class="relative z-10">
+          <div class="mb-8 grid items-end gap-6 lg:grid-cols-[1fr_auto]">
+            <div>
+              <p class="mb-3 font-mono text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-gold">
+                New club record · {august2026QuadCelebration.date}
+              </p>
+              <h3 id="record-heading" class="max-w-[16ch] text-4xl font-semibold leading-[.98] text-white sm:text-6xl">
+                52 entries. One unforgettable quad.
+              </h3>
+              <p class="mt-5 max-w-[62ch] text-[1rem] leading-relaxed text-board-foreground/80">
+                Our biggest monthly quad ever filled 11 quads and a Small Swiss. Congratulations to every first-place finisher who made a record-breaking morning even better.
+              </p>
+            </div>
+            <div class="record-number" aria-label="52 registered entries">
+              <span class="block font-heading text-[5.5rem] font-semibold leading-[.75] text-gold sm:text-[7.5rem]">52</span>
+              <span class="mt-3 block font-mono text-[0.67rem] font-semibold uppercase tracking-[0.2em] text-white">Registered entries</span>
+            </div>
+          </div>
+
+          <ol class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {august2026QuadCelebration.winners.map((winner, i) => (
+              <li class="winner-card group flex min-w-0 items-center gap-3 rounded-sm border border-white/15 bg-white/[.075] px-3 py-3 backdrop-blur-sm">
+                <span class="grid size-9 shrink-0 place-items-center rounded-full border border-gold/70 bg-gold/15 font-mono text-xs font-semibold text-gold" aria-hidden="true">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div class="min-w-0 flex-1">
+                  <p class="truncate font-semibold text-white">{winner.name}</p>
+                  <p class="font-mono text-[0.68rem] uppercase tracking-wider text-board-foreground/65">{winner.section}</p>
+                </div>
+                <span class="shrink-0 font-mono text-xs text-gold">{winner.score} pts</span>
+              </li>
+            ))}
+          </ol>
+
+          <div class="mt-7 flex flex-wrap items-center justify-between gap-4 border-t border-white/15 pt-6">
+            <p class="font-heading text-xl font-semibold text-white">Congratulations, champions.</p>
+            <a
+              href={august2026QuadCelebration.results}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex min-h-11 items-center rounded-sm bg-gold px-5 py-2.5 font-medium text-gold-foreground transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+            >
+              See the official US Chess results
+            </a>
+          </div>
+        </div>
+      </article>
+
       <ResultsArchive client:load events={pastQuads} />
     </div>
   </section>
+
+  <style>
+    .record-celebration {
+      isolation: isolate;
+    }
+
+    .record-rays {
+      position: absolute;
+      inset: -45%;
+      z-index: -1;
+      opacity: 0.14;
+      background: repeating-conic-gradient(from 8deg, var(--gold) 0deg 7deg, transparent 7deg 18deg);
+      animation: record-spin 32s linear infinite;
+    }
+
+    .record-burst {
+      position: absolute;
+      width: 11rem;
+      color: var(--gold);
+      opacity: 0.11;
+      filter: drop-shadow(0 0 22px color-mix(in srgb, var(--gold) 55%, transparent));
+      animation: record-pulse 2.4s ease-in-out infinite alternate;
+    }
+
+    .record-burst-left { left: -3.5rem; top: -3.5rem; }
+    .record-burst-right { bottom: -4rem; right: -3rem; animation-delay: -1.2s; }
+
+    .record-number {
+      min-width: 11rem;
+      text-align: left;
+      text-shadow: 0 0 34px color-mix(in srgb, var(--gold) 35%, transparent);
+    }
+
+    .winner-card {
+      transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
+    }
+
+    .winner-card:hover {
+      border-color: color-mix(in srgb, var(--gold) 65%, transparent);
+      background: color-mix(in srgb, var(--gold) 11%, transparent);
+      transform: translateY(-2px);
+    }
+
+    @keyframes record-spin { to { transform: rotate(360deg); } }
+    @keyframes record-pulse { to { opacity: 0.2; transform: scale(1.08) rotate(8deg); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .record-rays,
+      .record-burst { animation: none; }
+      .winner-card { transition: none; }
+      .winner-card:hover { transform: none; }
+    }
+  </style>
+
+  <script>
+    import confetti from "canvas-confetti";
+
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const celebration = document.querySelector("#august-2026-record");
+      if (celebration) {
+        const observer = new IntersectionObserver((entries, currentObserver) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          currentObserver.disconnect();
+
+          const colors = ["#e8b04b", "#f7d98d", "#ffffff", "#4fb37e", "#1b5138"];
+          const launch = (originX, angle) => confetti({
+            particleCount: 130,
+            angle,
+            spread: 88,
+            startVelocity: 58,
+            gravity: 0.82,
+            scalar: 1.18,
+            origin: { x: originX, y: 0.7 },
+            colors,
+          });
+
+          launch(0.04, 58);
+          launch(0.96, 122);
+          window.setTimeout(() => confetti({
+            particleCount: 190,
+            spread: 165,
+            startVelocity: 50,
+            gravity: 0.72,
+            scalar: 1.22,
+            origin: { x: 0.5, y: 0.42 },
+            colors,
+          }), 260);
+          window.setTimeout(() => {
+            launch(0.14, 65);
+            launch(0.86, 115);
+          }, 560);
+        }, { threshold: 0.28 });
+
+        observer.observe(celebration);
+      }
+    }
+  </script>
 </Base>
