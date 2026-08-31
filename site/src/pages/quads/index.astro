@@ -3,7 +3,8 @@ import Base from "@/layouts/Base.astro";
 import PageHeader from "@/components/PageHeader.astro";
 import QuadActions from "@/components/QuadActions.astro";
 import Bolt from "@/components/Bolt.astro";
-import { upcomingQuads, venues, org } from "@/data/site";
+import ResultsArchive from "@/components/ResultsArchive";
+import { august2026QuadCelebration, upcomingQuads, pastQuads, venues, org } from "@/data/site";
 
 const next = upcomingQuads[0];
 const later = upcomingQuads.slice(1);
@@ -19,9 +20,16 @@ const later = upcomingQuads.slice(1);
     crumbs={[{ href: "/", label: "Home" }, { href: "/tournaments", label: "Tournaments" }]}
   />
 
+  <nav aria-label="Monthly quad sections" class="border-b border-border bg-card">
+    <div class="mx-auto flex max-w-6xl gap-2 px-5 py-4">
+      <a href="#upcoming" class="inline-flex min-h-11 items-center rounded-sm bg-primary px-5 font-medium text-primary-foreground">Upcoming quads</a>
+      <a href="#past" class="inline-flex min-h-11 items-center rounded-sm border border-input px-5 font-medium transition-colors hover:bg-accent">Past quads & results</a>
+    </div>
+  </nav>
+
   {/* The next date, with its two links, above everything else. This is the
       single action the whole site is trying to produce. */}
-  <section class="border-b border-border bg-secondary">
+  <section id="upcoming" class="scroll-mt-24 border-b border-border bg-secondary">
     <div class="mx-auto flex max-w-6xl flex-wrap items-end justify-between gap-6 px-5 py-8">
       <div>
         <p class="bolt-rule label mb-2 max-w-xs text-primary">
@@ -81,7 +89,7 @@ const later = upcomingQuads.slice(1);
 
   <section class="border-t border-border bg-secondary">
     <div class="mx-auto max-w-6xl px-5 py-16">
-      <h2 class="label mb-6">Rest of the 2026 schedule</h2>
+      <h2 class="label mb-6">More upcoming dates</h2>
       <ol class="divide-y divide-border overflow-hidden rounded-md border border-border bg-card">
         {later.map((q) => (
           <li class="flex flex-wrap items-center gap-4 p-5">
@@ -99,4 +107,81 @@ const later = upcomingQuads.slice(1);
       </p>
     </div>
   </section>
+
+  <section id="past" class="scroll-mt-24 border-t border-border bg-background">
+    <div class="mx-auto max-w-6xl px-5 py-16">
+      <div class="mb-7 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="label mb-2 text-primary">Past quads</p>
+          <h2 class="text-3xl font-semibold sm:text-4xl">Results archive</h2>
+        </div>
+        <p class="max-w-md text-[0.92rem] text-muted-foreground">Official US Chess crosstables from every rated Lightning Square quad.</p>
+      </div>
+
+      <article id="august-2026-record" class="record-card board-texture relative mb-10 overflow-hidden rounded-md border border-gold/70 bg-board p-5 text-board-foreground shadow-xl sm:p-8">
+        <div class="record-rays" aria-hidden="true"></div>
+        <div class="relative z-10">
+          <div class="mb-7 grid gap-5 sm:grid-cols-[1fr_auto] sm:items-end">
+            <div>
+              <p class="mb-2 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-gold">New club record · August 30, 2026</p>
+              <h3 class="max-w-[16ch] text-4xl font-semibold leading-none text-white sm:text-5xl">52 entries. One unforgettable quad.</h3>
+              <p class="mt-4 max-w-[60ch] text-board-foreground/75">Congratulations to all 12 first-place finishers from 11 quads and the Small Swiss.</p>
+            </div>
+            <div class="font-heading text-7xl font-semibold leading-none text-gold sm:text-8xl" aria-label="52 registered entries">52</div>
+          </div>
+
+          <ol class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {august2026QuadCelebration.winners.map((winner, i) => (
+              <li class="flex min-w-0 items-center gap-3 rounded-sm border border-white/15 bg-white/[.075] px-3 py-3 backdrop-blur-sm">
+                <span class="grid size-8 shrink-0 place-items-center rounded-full border border-gold/70 bg-gold/15 font-mono text-[0.68rem] font-semibold text-gold">{String(i + 1).padStart(2, "0")}</span>
+                <div class="min-w-0 flex-1">
+                  <p class="truncate font-semibold text-white">{winner.name}</p>
+                  <p class="font-mono text-[0.64rem] uppercase tracking-wider text-board-foreground/60">{winner.section}</p>
+                </div>
+                <span class="shrink-0 font-mono text-[0.7rem] text-gold">{winner.score} pts</span>
+              </li>
+            ))}
+          </ol>
+
+          <a href={august2026QuadCelebration.results} target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex min-h-11 items-center rounded-sm bg-gold px-5 py-2.5 font-medium text-gold-foreground transition-transform hover:-translate-y-0.5">
+            Official August 30 results
+          </a>
+        </div>
+      </article>
+
+      <ResultsArchive client:load events={pastQuads} />
+    </div>
+  </section>
+
+  <style>
+    .record-card { isolation: isolate; }
+    .record-rays {
+      position: absolute;
+      inset: -55%;
+      z-index: -1;
+      opacity: 0.15;
+      background: repeating-conic-gradient(from 8deg, var(--gold) 0deg 7deg, transparent 7deg 18deg);
+      animation: record-spin 30s linear infinite;
+    }
+    @keyframes record-spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .record-rays { animation: none; } }
+  </style>
+
+  <script>
+    import confetti from "canvas-confetti";
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const target = document.querySelector("#august-2026-record");
+      if (target) {
+        const observer = new IntersectionObserver((entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          observer.disconnect();
+          const colors = ["#e8b04b", "#ffffff", "#4fb37e", "#1b5138"];
+          confetti({ particleCount: 150, angle: 60, spread: 100, startVelocity: 58, origin: { x: 0.02, y: 0.65 }, colors });
+          confetti({ particleCount: 150, angle: 120, spread: 100, startVelocity: 58, origin: { x: 0.98, y: 0.65 }, colors });
+          setTimeout(() => confetti({ particleCount: 190, spread: 165, startVelocity: 50, origin: { x: 0.5, y: 0.4 }, colors }), 260);
+        }, { threshold: 0.2 });
+        observer.observe(target);
+      }
+    }
+  </script>
 </Base>
