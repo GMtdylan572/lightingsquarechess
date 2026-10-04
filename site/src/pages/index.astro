@@ -44,181 +44,114 @@ const programs = [
     photo: "https://i.ibb.co/BVX6f9ys/2c20fafa-4eec-46bd-9870-b171db690b8f.jpg",
   },
 ];
-
-/* Hero collage, Spark-style: photos that pop in one after another and then
-   drift. Positions are percentages of the collage box. */
-const heroPhotos = [
-  { src: "/championship-2026-winner.jpg", alt: "A Lightning Square championship winner", cls: "left-[30%] top-[2%] w-[40%]", ratio: "aspect-[3/4]", rot: "-2deg", speed: "0.10", d: ".1s" },
-  { src: "/fb/class-1.jpg", alt: "A Bay Area class at De Anza Learning Center", cls: "left-0 top-[30%] w-[30%]", ratio: "aspect-square", rot: "3deg", speed: "-0.06", d: ".25s" },
-  { src: "/championship-2026-room.jpg", alt: "The tournament room at the 2026 Summer Championship", cls: "right-0 top-[12%] w-[32%]", ratio: "aspect-[4/5]", rot: "2deg", speed: "0.16", d: ".4s" },
-  { src: "/fb/class-4.jpg", alt: "A student coach helping two young players", cls: "left-[8%] bottom-0 w-[30%]", ratio: "aspect-[4/5]", rot: "-3deg", speed: "0.04", d: ".55s" },
-  { src: "/championship-2026-prize.jpg", alt: "A young prize winner with two student directors", cls: "right-[6%] bottom-[2%] w-[38%]", ratio: "aspect-[4/3]", rot: "-1deg", speed: "0.12", d: ".7s" },
-];
-
-/* Photos the club has posted to its Facebook page. */
-const facebookPhotos = [
-  { src: "/fb/class-1.jpg", alt: "Players at a Lightning Square class" },
-  { src: "/fb/class-2.jpg", alt: "A class at De Anza Learning Center" },
-  { src: "/championship-2026-action.jpg", alt: "Players and directors at the 2026 Summer Championship" },
-  { src: "/fb/class-3.jpg", alt: "Young players at a chess class" },
-  { src: "/fb/fb-cover.jpg", alt: "Lightning Square Chess Club cover art" },
-  { src: "/fb/class-4.jpg", alt: "A student coach with two young players" },
-  { src: "/championship-2026-directors.jpeg", alt: "Student tournament directors at work" },
-  { src: "/fb/class-5.jpg", alt: "Students playing at a class" },
-  { src: "/championship-2026-team.jpg", alt: "The Lightning Square team" },
-];
-
-const ticker = [
-  "Monthly USCF-rated quads",
-  "Seasonal championships",
-  "Bay Area classes",
-  "All Girls Winter Chess Festival",
-  `Founded ${org.founded} in ${org.foundedIn}`,
-  "Run by students",
-];
-
-const arrow = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
 ---
 
 <Base
   title={org.name}
   description="A youth-led nonprofit founded in San Jose that runs monthly USCF-rated quads, seasonal championships and Bay Area chess classes, with past free programs in four states and four countries."
 >
-  {/* Hero: Spark's layout. Big light serif on the left, a collage of club
-      photos that pop in and drift on the right. */}
-  <section data-no-reveal class="relative overflow-hidden">
-    <div class="hero-grid" aria-hidden="true"></div>
-    <div class="mx-auto grid max-w-7xl items-center gap-12 px-5 pb-16 pt-10 sm:pt-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-10 lg:pb-24 lg:pt-20">
-      <div class="hero-in max-w-xl">
-        <p class="label mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card/70 px-3 py-1.5 text-primary backdrop-blur">
-          <Bolt size={13} class="flicker text-spark" />
+  {/* Clean split hero: copy and photograph stay separate so neither competes. */}
+  <section class="border-b border-border bg-background text-[#1d1d1f]">
+    <div class="mx-auto grid max-w-7xl items-center gap-10 px-5 py-12 sm:py-16 lg:grid-cols-[minmax(0,.82fr)_minmax(0,1.18fr)] lg:gap-14 lg:py-20">
+      <div class="max-w-xl">
+        <p class="bolt-rule label mb-5 max-w-sm text-primary">
+          <Bolt size={13} />
           Founded {org.founded} in {org.foundedIn}
         </p>
-        <h1 class="max-w-[16ch] text-[2.9rem] leading-[1.0] sm:text-[4.2rem] lg:text-[5rem]">
-          A chess club run by the <em class="hero-em">students</em> it teaches.
+        <h1
+          class="max-w-[18ch] text-[2.6rem] font-semibold leading-[1.04] text-[#1d1d1f] sm:text-6xl lg:text-[4.1rem]"
+        >
+          A chess club run by the students it teaches.
         </h1>
-        <p class="mt-7 max-w-[54ch] text-[1.06rem] leading-relaxed text-muted-foreground">
-          <strong class="font-semibold text-foreground">Our Mission:</strong>{" "}
+        <p class="mt-6 max-w-[54ch] text-[1.06rem] leading-relaxed text-[#6e6e73]">
+          <strong class="font-semibold text-[#1d1d1f]">Our Mission:</strong>{" "}
           We are a student-led nonprofit organization dedicated to broadening access to chess across
           communities and backgrounds while empowering young people to learn, play, teach, and lead. We are
           committed to expanding opportunities for underrepresented players to participate, belong, and thrive in chess.
         </p>
 
-        <div class="mt-9 flex flex-wrap items-center gap-3">
+        <div class="mt-9 flex flex-wrap gap-3">
           <a
             href={next.register}
             target="_blank"
             rel="noopener noreferrer"
-            class="nudge inline-flex h-13 items-center gap-2 rounded-full bg-primary px-7 font-medium text-primary-foreground shadow-[0_14px_30px_-14px_rgba(20,82,60,.9)] transition-all hover:-translate-y-0.5 hover:bg-board"
+            class="inline-flex h-12 items-center gap-2 rounded-sm bg-primary px-6 font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            <Bolt size={15} class="text-gold" />
+            <Bolt size={15} />
             Register: {next.display.replace(", 2026", "")}
           </a>
           <a
             href={next.entries}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex h-13 items-center rounded-full border border-input bg-card px-7 font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
+            class="inline-flex h-12 items-center rounded-sm border border-[#d2d2d7] px-6 font-medium text-[#0066cc] transition-colors hover:border-[#0066cc] hover:bg-[#f5f5f7]"
           >
             Live entries
           </a>
           <a
             href="/quads/faq"
-            class="inline-flex h-13 items-center rounded-full px-3 font-medium text-muted-foreground transition-colors hover:text-primary"
+            class="inline-flex h-12 items-center rounded-sm px-2 font-medium text-[#6e6e73] transition-colors hover:text-[#0066cc]"
           >
             <span class="strike">Quad FAQ</span>
           </a>
         </div>
 
-        <p class="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.94rem] text-muted-foreground">
-          <span class="rounded-full bg-gold px-2.5 py-0.5 text-[0.62rem] font-semibold uppercase tracking-wider text-gold-foreground">
+        <p class="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.94rem] text-[#6e6e73]">
+          <span class="rounded-sm bg-gold px-2 py-0.5 font-mono text-[0.62rem] uppercase tracking-wider text-gold-foreground">
             Championship
           </span>
           Entries are also open for the {nextChamp.name},
-          <a href="/championship" class="font-medium text-primary underline underline-offset-4 hover:text-board">
+          <a href="/championship" class="font-medium text-[#0066cc] underline underline-offset-4 hover:text-primary">
             {nextChamp.display.replace(", 2026", "")}
           </a>
         </p>
       </div>
 
-      <div class="relative mx-auto aspect-[1/1] w-full max-w-[40rem]">
-        {heroPhotos.map((ph) => (
-          <div class:list={["absolute", ph.cls]} data-parallax={ph.speed}>
-            <figure
-              class="pop float zoom-frame rounded-[1.25rem] bg-card p-1.5 shadow-[0_30px_60px_-30px_rgba(15,46,35,.55)] ring-1 ring-border"
-              style={`--d:${ph.d};--rot:${ph.rot};--float-dur:${7 + Number(ph.d.replace(".", "0.")) * 6}s;--float-delay:-${ph.d.replace(".", "")}s`}
-            >
-              <img src={ph.src} alt={ph.alt} fetchpriority="high" class:list={["w-full rounded-[1rem] object-cover", ph.ratio]} />
-            </figure>
-          </div>
-        ))}
-        {/* Floating chess glyphs and the club's bolt. */}
-        <span aria-hidden="true" class="pop float absolute left-[2%] top-[4%] grid size-16 place-items-center rounded-2xl bg-board font-heading text-4xl text-gold shadow-xl" style="--d:.85s;--rot:-6deg;--float-dur:6s">&#9822;</span>
-        <span aria-hidden="true" class="pop float absolute right-[2%] top-[0%] grid size-12 place-items-center rounded-full bg-spark text-white shadow-xl" style="--d:.95s;--rot:8deg;--float-dur:5s;--float-delay:-1s"><Bolt size={22} /></span>
-        <span aria-hidden="true" class="pop float absolute bottom-[34%] left-[38%] grid size-12 place-items-center rounded-xl bg-gold font-heading text-3xl text-board shadow-xl" style="--d:1.05s;--rot:5deg;--float-dur:6.5s;--float-delay:-3s">&#9819;</span>
-        <div class="pop absolute -bottom-2 left-[40%] hidden rounded-2xl border border-border bg-card/90 px-4 py-3 shadow-xl backdrop-blur sm:block" style="--d:1.2s">
-          <p class="stat-figure font-heading text-3xl leading-none text-primary">{programs[0].figure}</p>
-          <p class="mt-1 text-[0.72rem] text-muted-foreground">{programs[0].figureNote}</p>
-        </div>
-      </div>
+      <figure class="overflow-hidden rounded-md border border-border bg-card p-2 shadow-sm sm:p-3">
+      <img
+        src="/home-hero-collage-hq.jpg"
+        alt="Lightning Square students coaching classes, playing chess and running tournaments"
+        width="3584"
+        height="2560"
+        fetchpriority="high"
+        class="h-auto w-full rounded-sm object-contain"
+      />
+      </figure>
     </div>
   </section>
 
-  {/* Ticker. Decorative: everything in it is said elsewhere on the page. */}
-  <div aria-hidden="true" class="overflow-hidden border-y border-border bg-board py-4 text-board-foreground">
-    <div class="marquee">
-      {[0, 1].map(() => (
-        <div class="flex shrink-0 items-center">
-          {ticker.map((t) => (
-            <span class="flex items-center gap-6 px-6 font-heading text-[1.5rem] whitespace-nowrap">
-              {t}
-              <Bolt size={16} class="text-gold" />
-            </span>
-          ))}
-        </div>
-      ))}
-    </div>
-  </div>
-
-  {/* Schedule. */}
-  <section aria-labelledby="sched" class="bg-background">
-    <div class="mx-auto max-w-7xl px-5 py-20 sm:py-24">
-      <div class="mb-10 flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h2 id="sched" class="label mb-3 text-primary">2026 quad schedule &middot; registration open</h2>
-          <p class="max-w-[20ch] font-heading text-4xl leading-tight sm:text-5xl">Three rated games, one morning.</p>
-        </div>
-        <a href="/quads" class="nudge inline-flex items-center gap-1.5 text-[0.95rem] font-medium text-primary hover:underline">
-          Format and details <Fragment set:html={arrow} />
+  {/* Schedule strip, set like a fixtures list rather than a marketing banner. */}
+  <section aria-labelledby="sched" class="border-b border-border bg-secondary">
+    <div class="mx-auto max-w-6xl px-5 py-8">
+      <div class="mb-5 flex flex-wrap items-baseline justify-between gap-3">
+        <h2 id="sched" class="label">2026 quad schedule &middot; registration open</h2>
+        <a href="/quads" class="text-[0.88rem] font-medium text-primary hover:underline">
+          Format and details
         </a>
       </div>
-      <ol class:list={["grid gap-4 sm:grid-cols-2", upcomingQuads.length >= 4 ? "lg:grid-cols-4" : upcomingQuads.length === 3 && "lg:grid-cols-3"]}>
+      <ol class:list={["grid gap-px overflow-hidden rounded-md bg-border sm:grid-cols-2", upcomingQuads.length >= 4 ? "lg:grid-cols-4" : upcomingQuads.length === 3 && "lg:grid-cols-3"]}>
         {
           upcomingQuads.map((q, i) => (
-            <li
-              class:list={[
-                "group flex flex-col rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_50px_-28px_rgba(15,46,35,.55)]",
-                i === 0 ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card",
-              ]}
-            >
-              <div class="flex items-center justify-between gap-3">
-                <span class:list={["text-[0.7rem] font-semibold uppercase tracking-[0.14em]", i === 0 ? "text-gold" : "text-muted-foreground"]}>
-                  {i === 0 ? "Next" : `Quad ${i + 1}`}
-                </span>
-                <Bolt size={16} class:list={["transition-transform duration-500 group-hover:rotate-12 group-hover:scale-125", i === 0 ? "text-gold" : "text-spark"]} />
+            <li class="flex flex-col bg-card p-4">
+              <div class="flex items-baseline justify-between gap-3">
+                <time datetime={q.date} class="font-mono text-[0.95rem] font-medium">
+                  {q.display.replace(", 2026", "")}
+                </time>
+                {i === 0 && (
+                  <span class="rounded-sm bg-primary px-1.5 py-0.5 font-mono text-[0.62rem] uppercase tracking-wider text-primary-foreground">
+                    Next
+                  </span>
+                )}
               </div>
-              <time datetime={q.date} class="mt-6 font-heading text-[2rem] leading-none">
-                {q.display.replace(", 2026", "")}
-              </time>
-              <p class:list={["mt-2 text-[0.85rem]", i === 0 ? "text-primary-foreground/75" : "text-muted-foreground"]}>
+              <p class="mt-1 text-[0.82rem] text-muted-foreground">
                 {q.venue.name} &middot; {q.format}
               </p>
-              <div class:list={["mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 border-t pt-4", i === 0 ? "border-white/20" : "border-border"]}>
+              <div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 pt-3 [border-top:1px_solid_var(--rule)]">
                 <a
                   href={q.register}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class:list={["inline-flex items-center gap-1 text-[0.88rem] font-semibold hover:underline", i === 0 ? "text-gold" : "text-primary"]}
+                  class="inline-flex items-center gap-1 text-[0.84rem] font-medium text-primary hover:underline"
                 >
                   <Bolt size={11} />
                   Register
@@ -227,7 +160,7 @@ const arrow = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" strok
                   href={q.entries}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class:list={["text-[0.88rem] underline-offset-4 hover:underline", i === 0 ? "text-primary-foreground/75" : "text-muted-foreground"]}
+                  class="text-[0.84rem] text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
                 >
                   Live entries
                 </a>
@@ -239,32 +172,32 @@ const arrow = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" strok
     </div>
   </section>
 
-  {/* The flagship event. Gold is the championship accent everywhere. */}
-  <section aria-labelledby="champ" class="px-3 sm:px-4">
-    <div class="board-texture relative isolate mx-auto max-w-[90rem] overflow-hidden rounded-[1.75rem] bg-board text-board-foreground">
-      <div class="champ-rays" aria-hidden="true"></div>
-      <div class="mx-auto grid max-w-7xl gap-12 px-6 py-16 sm:px-8 sm:py-20 lg:grid-cols-12">
+  {/* The flagship event. Gold is the championship accent everywhere on the
+      site, so the band leans on it rather than inventing a new treatment. */}
+  <section aria-labelledby="champ" class="border-b border-border bg-background">
+    <div class="mx-auto max-w-6xl px-5 py-14 sm:py-16">
+      <div class="grid gap-10 rounded-md border border-border bg-card p-6 shadow-sm sm:p-8 lg:grid-cols-12 lg:gap-12">
         <div class="lg:col-span-7">
-          <p class="bolt-rule label mb-5 max-w-[15rem] text-gold">
-            <Bolt size={13} class="flicker" />
+          <p class="bolt-rule label mb-4 max-w-[15rem] text-primary">
+            <Bolt size={13} />
             The flagship event
           </p>
-          <h2 id="champ" class="text-4xl text-white sm:text-[3.6rem]">
+          <h2 id="champ" class="text-3xl font-semibold sm:text-[2.5rem]">
             {nextChamp.name}
           </h2>
-          <p class="mt-4 font-heading text-[1.4rem] italic text-gold">{nextChamp.display}</p>
-          <p class="mt-6 max-w-[54ch] leading-relaxed text-board-foreground/75">
+          <p class="mt-3 font-mono text-[1.05rem] text-muted-foreground">{nextChamp.display}</p>
+          <p class="mt-5 max-w-[54ch] leading-relaxed text-muted-foreground">
             Our seasonal championship is a bigger day than a quad: a rated Swiss
             main tournament with prize money, then an evening blitz. Enter one
             or both. Sections and the venue are confirmed closer to the date.
           </p>
 
-          <div class="mt-8 flex flex-wrap items-center gap-3">
+          <div class="mt-7 flex flex-wrap gap-3">
             <a
               href={nextChamp.swiss.register}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex h-12 items-center gap-2 rounded-full bg-gold px-6 font-medium text-gold-foreground transition-transform hover:-translate-y-0.5"
+              class="inline-flex h-12 items-center gap-2 rounded-sm bg-gold px-6 font-medium text-gold-foreground transition-colors hover:bg-gold/90"
             >
               <Bolt size={15} />
               Register: Swiss
@@ -273,236 +206,174 @@ const arrow = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" strok
               href={nextChamp.blitz.register}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex h-12 items-center rounded-full border border-white/25 px-6 font-medium text-white transition-colors hover:border-white/60 hover:bg-white/10"
+              class="inline-flex h-12 items-center rounded-sm border border-input px-6 font-medium transition-colors hover:bg-accent"
             >
               Register: Blitz
             </a>
             <a
               href="/championship"
-              class="nudge inline-flex h-12 items-center gap-1.5 rounded-full px-3 font-medium text-gold transition-colors hover:underline"
+              class="inline-flex h-12 items-center gap-1.5 rounded-sm px-2 font-medium text-primary transition-colors hover:underline"
             >
               All championship dates
-              <Fragment set:html={arrow} />
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
           </div>
         </div>
 
-        <div class="lg:col-span-5">
-          <div class="rounded-2xl border border-white/12 bg-white/[.06] p-6 backdrop-blur-sm">
-            <p class="label mb-4 text-board-foreground/60">Championship calendar</p>
-            <ol class="divide-y divide-white/10">
-              <li class="flex items-baseline justify-between gap-3 pb-3">
-                <span class="font-medium text-white">{nextChamp.season} {new Date(nextChamp.date).getUTCFullYear()}</span>
-                <span class="flex items-center gap-2">
-                  <time datetime={nextChamp.date} class="text-[0.88rem] text-board-foreground/75">
-                    {nextChamp.display}
-                  </time>
-                  <span class="rounded-full bg-gold px-2 py-0.5 text-[0.6rem] font-semibold uppercase tracking-wider text-gold-foreground">
-                    Next
-                  </span>
+        <div class="lg:col-span-5 lg:border-l lg:border-border lg:pl-10">
+          <p class="label mb-4">Championship calendar</p>
+          <ol class="divide-y divide-border">
+            <li class="flex items-baseline justify-between gap-3 pb-3">
+              <span class="font-medium">{nextChamp.season} {new Date(nextChamp.date).getUTCFullYear()}</span>
+              <span class="flex items-center gap-2">
+                <time datetime={nextChamp.date} class="font-mono text-[0.88rem] text-muted-foreground">
+                  {nextChamp.display}
+                </time>
+                <span class="rounded-sm bg-primary px-1.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider text-primary-foreground">
+                  Next
                 </span>
+              </span>
+            </li>
+            {laterChamps.map((e) => (
+              <li class="flex items-baseline justify-between gap-3 py-3">
+                <span class="text-muted-foreground">{e.season} {new Date(e.date).getUTCFullYear()}</span>
+                <time datetime={e.date} class="font-mono text-[0.88rem] text-muted-foreground">
+                  {e.display}
+                </time>
               </li>
-              {laterChamps.map((e) => (
-                <li class="flex items-baseline justify-between gap-3 py-3">
-                  <span class="text-board-foreground/70">{e.season} {new Date(e.date).getUTCFullYear()}</span>
-                  <time datetime={e.date} class="text-[0.88rem] text-board-foreground/60">
-                    {e.display}
-                  </time>
-                </li>
-              ))}
-            </ol>
-            <a href="/championship/past" class="nudge mt-5 inline-flex items-center gap-1.5 text-[0.9rem] font-medium text-gold hover:underline">
-              Results from the 2026 championship <Fragment set:html={arrow} />
-            </a>
-          </div>
+            ))}
+          </ol>
+          <a href="/championship/past" class="mt-5 inline-flex items-center gap-1.5 text-[0.9rem] font-medium text-primary hover:underline">
+            Results from the 2026 championship
+          </a>
         </div>
       </div>
     </div>
   </section>
 
   {/* The All Girls Winter Chess Festival: free, so it gets its own band. */}
-  <section aria-labelledby="festival" class="bg-background">
-    <div class="mx-auto max-w-7xl px-5 py-20">
-      <div class="grid items-center gap-10 overflow-hidden rounded-[1.75rem] bg-secondary p-6 sm:p-10 lg:grid-cols-[minmax(0,1fr)_auto]">
-        <div class="max-w-2xl">
-          <p class="bolt-rule label mb-5 max-w-[15rem] text-primary">
-            <Bolt size={13} class="text-spark" />
-            Free entry · Girls K–12
-          </p>
-          <h2 id="festival" class="text-4xl sm:text-[3rem]">{girlsFestival.name}</h2>
-          <p class="mt-4 font-heading text-[1.3rem] italic text-primary">{girlsFestival.display} · San Jose</p>
-          <p class="mt-4 max-w-[56ch] leading-relaxed text-muted-foreground">
-            Five rounds at {girlsFestival.control}, with rated U800 and 800+ sections and an
-            unrated First Move section for girls new to tournament chess.
-          </p>
-        </div>
-        <div class="flex flex-wrap gap-3 lg:flex-col">
-          <a href={girlsFestival.register} target="_blank" rel="noopener noreferrer"
-             class="nudge inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-7 font-medium text-primary-foreground transition-all hover:-translate-y-0.5 hover:bg-board">
-            <Bolt size={15} class="text-gold" />
-            Register
-          </a>
-          <a href="/girls-festival"
-             class="inline-flex h-12 items-center justify-center rounded-full border border-input bg-card px-7 font-medium transition-colors hover:border-primary hover:text-primary">
-            Festival details
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* Programmes as sticky cards that stack as you scroll, after Spark's
-      figures band. */}
-  <section class="bg-background">
-    <div class="mx-auto max-w-7xl px-5 pb-20 sm:pb-28">
-      <div class="mb-12 grid gap-6 lg:grid-cols-2 lg:items-end">
-        <div>
-          <p class="label mb-4 text-primary">What we run</p>
-          <h2 class="text-4xl sm:text-[3.4rem]">
-            The tournaments come first. The teaching feeds them.
-          </h2>
-        </div>
-      </div>
-
-      <div class="space-y-6" data-no-reveal>
-        {
-          programs.map((p, i) => (
-            <article
-              class="stack-card grid overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-[0_-20px_50px_-35px_rgba(15,46,35,.5)] lg:grid-cols-12"
-              style={`--i:${i}`}
-            >
-              <a href={p.href} class="zoom-frame block lg:col-span-5" tabindex="-1" aria-hidden="true">
-                <img
-                  src={p.photo}
-                  alt=""
-                  loading="lazy"
-                  width="640"
-                  height="480"
-                  class="aspect-[4/3] h-full w-full object-cover"
-                />
-              </a>
-              <div class="flex flex-col justify-between gap-8 p-7 sm:p-10 lg:col-span-7">
-                <div>
-                  <p class="label mb-3 text-primary">{p.tag}</p>
-                  <h3 class="mb-4 text-[1.9rem] leading-tight sm:text-[2.3rem]">{p.title}</h3>
-                  <p class="max-w-[58ch] leading-relaxed text-muted-foreground">{p.body}</p>
-                </div>
-                <div class="flex flex-wrap items-end justify-between gap-6 border-t border-border pt-6">
-                  <div>
-                    <p class="stat-figure font-heading text-6xl leading-none text-primary">{p.figure}</p>
-                    <p class="mt-2 text-[0.85rem] leading-snug text-muted-foreground">{p.figureNote}</p>
-                  </div>
-                  <a
-                    href={p.href}
-                    class="nudge inline-flex h-11 items-center gap-1.5 rounded-full bg-secondary px-5 text-[0.92rem] font-medium text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
-                  >
-                    How it works
-                    <Fragment set:html={arrow} />
-                  </a>
-                </div>
-              </div>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  {/* Origin: a full-bleed photo with the story set over it, like Spark's
-      community band. */}
-  <section class="px-3 sm:px-4">
-    <div class="relative isolate mx-auto min-h-[36rem] max-w-[90rem] overflow-hidden rounded-[1.75rem] bg-board">
-      <div class="absolute inset-0 -z-10" aria-hidden="true">
-        <img src="/championship-2026-directors.jpeg" alt="" loading="lazy" data-parallax="0.12" class="h-[120%] w-full -translate-y-[8%] object-cover" />
-        <div class="absolute inset-0 bg-gradient-to-r from-board via-board/85 to-board/20"></div>
-      </div>
-      <div class="mx-auto grid max-w-7xl gap-10 px-6 py-20 sm:px-8 sm:py-28 lg:grid-cols-12">
-        <div class="lg:col-span-7">
-          <p class="label mb-6 text-gold">Who runs it</p>
-          <p class="max-w-[26ch] font-heading text-[2rem] leading-[1.15] text-white sm:text-[2.7rem]">
-            Three high school chess players founded Lightning Square in San Jose
-            in 2022: WCM Kally Wen, Wentao&nbsp;(Sean)&nbsp;Wu and Vincent&nbsp;Qin.
-          </p>
-          <p class="mt-7 max-w-[56ch] leading-relaxed text-board-foreground/80">
-            They were high school students at the time, and the club is still run
-            by high school students. The tournament directors are students. The
-            coaches are students. That student-led model keeps the club focused on
-            creating practical ways for young players to learn and compete.
-          </p>
-          <a
-            href="/about"
-            class="nudge mt-8 inline-flex h-12 items-center gap-2 rounded-full bg-white px-6 text-[0.95rem] font-medium text-board transition-transform hover:-translate-y-0.5"
-          >
-            The people involved
-            <Fragment set:html={arrow} />
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* Facebook: the photos the club posts after every event, scrolling past. */}
-  <section aria-labelledby="fb-heading" class="bg-background" data-no-reveal>
-    <div class="mx-auto flex max-w-7xl flex-wrap items-end justify-between gap-6 px-5 pb-10 pt-24">
-      <div class="reveal">
-        <p class="label mb-4 inline-flex items-center gap-2 text-primary">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z"/></svg>
-          On Facebook
+  <section aria-labelledby="festival" class="border-b border-border bg-secondary">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-8 px-5 py-12">
+      <div class="max-w-2xl">
+        <p class="bolt-rule label mb-4 max-w-[15rem] text-primary">
+          <Bolt size={13} />
+          Free entry · Girls K–12
         </p>
-        <h2 id="fb-heading" class="max-w-[18ch] text-4xl sm:text-[3.2rem]">Follow along on Facebook.</h2>
+        <h2 id="festival" class="text-3xl font-semibold sm:text-[2.3rem]">{girlsFestival.name}</h2>
+        <p class="mt-3 font-mono text-[1.05rem] text-muted-foreground">{girlsFestival.display} · San Jose</p>
+        <p class="mt-4 max-w-[56ch] leading-relaxed text-muted-foreground">
+          Five rounds at {girlsFestival.control}, with rated U800 and 800+ sections and an
+          unrated First Move section for girls new to tournament chess.
+        </p>
       </div>
-      <a href={org.facebook} target="_blank" rel="noopener noreferrer"
-         class="reveal nudge inline-flex h-12 items-center gap-2 rounded-full bg-primary px-6 font-medium text-primary-foreground transition-all hover:-translate-y-0.5 hover:bg-board">
-        Lightning Square Chess on Facebook
-        <Fragment set:html={arrow} />
-      </a>
+      <div class="flex flex-wrap gap-3">
+        <a href={girlsFestival.register} target="_blank" rel="noopener noreferrer"
+           class="inline-flex h-12 items-center gap-2 rounded-sm bg-primary px-6 font-medium text-primary-foreground transition-colors hover:bg-primary/90">
+          <Bolt size={15} />
+          Register
+        </a>
+        <a href="/girls-festival"
+           class="inline-flex h-12 items-center rounded-sm border border-input bg-card px-6 font-medium transition-colors hover:bg-accent">
+          Festival details
+        </a>
+      </div>
     </div>
-    <a href={org.facebook} target="_blank" rel="noopener noreferrer" aria-label="See more photos on the Lightning Square Chess Facebook page" class="block overflow-hidden py-4">
-      <div class="marquee gap-5" style="--marquee-dur:60s">
-        {[0, 1].map((copy) => (
-          <div class="flex shrink-0 items-center gap-5 pr-5">
-            {facebookPhotos.map((ph, i) => (
-              <figure
-                class:list={["zoom-frame shrink-0 rounded-[1.25rem] shadow-[0_20px_40px_-26px_rgba(15,46,35,.6)]", i % 2 ? "h-56 sm:h-64" : "h-72 sm:h-80"]}
-                style={`rotate:${i % 3 === 0 ? -1.5 : i % 3 === 1 ? 1 : 0}deg`}
-              >
-                <img src={ph.src} alt={copy ? "" : ph.alt} loading="lazy" class="h-full w-auto rounded-[1.25rem] object-cover" />
-              </figure>
-            ))}
-          </div>
-        ))}
-      </div>
-    </a>
   </section>
 
-  {/* Testimonials. */}
-  <section class="bg-background">
-    <div class="mx-auto max-w-7xl px-5 py-20 sm:py-24">
-      <p class="label mb-4 text-primary">What parents and directors say</p>
-      <h2 class="mb-12 max-w-[20ch] text-4xl sm:text-[3rem]">In their words.</h2>
-      <div class="grid gap-5 md:grid-cols-2">
-        {
-          testimonials.map((t, i) => (
-            <figure class:list={["flex flex-col justify-between rounded-[1.5rem] p-7 transition-transform duration-500 hover:-translate-y-1 sm:p-9", i % 3 === 0 ? "bg-secondary" : i % 3 === 1 ? "bg-card ring-1 ring-border" : "bg-[#EAF0EA]"]}>
-              <blockquote class="font-heading text-[1.25rem] leading-snug">
-                <span aria-hidden="true" class="mb-2 block font-heading text-5xl leading-none text-gold">&ldquo;</span>
-                {t.text}
-              </blockquote>
-              <figcaption class="mt-6 text-[0.75rem] font-semibold uppercase tracking-wider text-muted-foreground">
-                {t.who}
-                {t.role && <span class="font-normal text-muted-foreground/70"> &middot; {t.role}</span>}
-              </figcaption>
-            </figure>
-          ))
-        }
+  {/* Programmes. Asymmetric editorial rows, not a three-card grid. */}
+  <section class="mx-auto max-w-6xl px-5 py-20 sm:py-24">
+    <div class="mb-12 max-w-2xl">
+      <p class="label mb-3">What we run</p>
+      <h2 class="text-3xl font-semibold sm:text-[2.6rem]">
+        The tournaments come first. The teaching feeds them.
+      </h2>
+    </div>
+
+    <div class="divide-y divide-border">
+      {
+        programs.map((p) => (
+          <article class="grid gap-8 py-10 lg:grid-cols-12 lg:gap-12">
+            <div class="lg:col-span-4">
+              <img
+                src={p.photo}
+                alt=""
+                loading="lazy"
+                width="640"
+                height="480"
+                class="aspect-[4/3] w-full rounded-md border border-border object-cover"
+              />
+            </div>
+            <div class="lg:col-span-6">
+              <p class="label mb-2">{p.tag}</p>
+              <h3 class="mb-3 text-[1.45rem] font-semibold">{p.title}</h3>
+              <p class="max-w-[58ch] leading-relaxed text-muted-foreground">{p.body}</p>
+              <a
+                href={p.href}
+                class="mt-5 inline-flex items-center gap-1.5 text-[0.92rem] font-medium text-primary hover:underline"
+              >
+                How it works
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+            <div class="lg:col-span-2 lg:border-l lg:border-border lg:pl-6">
+              <p class="stat-figure font-heading text-4xl font-semibold text-primary">{p.figure}</p>
+              <p class="mt-1 text-[0.82rem] leading-snug text-muted-foreground">{p.figureNote}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* Origin. Text-led, no hero image, breaks the page rhythm on purpose. */}
+  <section class="border-y border-border bg-secondary">
+    <div class="mx-auto grid max-w-6xl gap-10 px-5 py-20 lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <p class="label">Who runs it</p>
       </div>
+      <div class="lg:col-span-8">
+        <p class="max-w-[46ch] font-heading text-[1.6rem] leading-snug sm:text-[1.9rem]">
+          Three high school chess players founded Lightning Square in San Jose
+          in 2022: WCM Kally Wen, Wentao&nbsp;(Sean)&nbsp;Wu and Vincent&nbsp;Qin.
+        </p>
+        <p class="mt-6 max-w-[62ch] leading-relaxed text-muted-foreground">
+          They were high school students at the time, and the club is still run
+          by high school students. The tournament directors are students. The
+          coaches are students. That student-led model keeps the club focused on
+          creating practical ways for young players to learn and compete.
+        </p>
+        <a
+          href="/about"
+          class="mt-6 inline-flex h-11 items-center rounded-sm border border-input px-5 text-[0.92rem] font-medium transition-colors hover:bg-accent"
+        >
+          The people involved
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* Testimonials as a quiet quote list rather than a card carousel. */}
+  <section class="mx-auto max-w-6xl px-5 py-20 sm:py-24">
+    <p class="label mb-10">What parents and directors say</p>
+    <div class="grid gap-x-12 gap-y-10 md:grid-cols-2">
+      {
+        testimonials.map((t) => (
+          <figure class="rule-top pt-6">
+            <blockquote class="text-[0.98rem] leading-relaxed">{t.text}</blockquote>
+            <figcaption class="mt-4 font-mono text-[0.75rem] uppercase tracking-wider text-muted-foreground">
+              {t.who}
+              {t.role && <span class="text-muted-foreground/60"> &middot; {t.role}</span>}
+            </figcaption>
+          </figure>
+        ))
+      }
     </div>
   </section>
 
   {/* Patrons, acknowledged on the old site and kept here. */}
-  <section class="border-y border-border bg-secondary">
-    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-8 px-5 py-12">
-      <p class="label">Lightning Square Chess Club thanks its generous patrons</p>
+  <section class="border-t border-border bg-secondary">
+    <div class="mx-auto max-w-6xl px-5 py-12">
+      <p class="label mb-6">Lightning Square Chess Club thanks its generous patrons</p>
       <ul class="flex flex-wrap items-center gap-10">
         {patrons.map((pt) => (
           <li>
@@ -512,7 +383,7 @@ const arrow = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" strok
               width="150"
               height="107"
               loading="lazy"
-              class="h-14 w-auto opacity-80 grayscale transition-all hover:opacity-100 hover:grayscale-0"
+              class="h-14 w-auto opacity-80 transition-opacity hover:opacity-100"
             />
             {pt.name && <p class="mt-2 text-[0.82rem] text-muted-foreground">{pt.name}</p>}
           </li>
@@ -521,95 +392,51 @@ const arrow = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" strok
     </div>
   </section>
 
-  {/* Closing CTA. */}
-  <section class="bg-background">
-    <div class="mx-auto max-w-7xl px-5 pt-24">
-      <div class="grid gap-10 md:grid-cols-2 md:items-end">
-        <div>
-          <p class="bolt-rule label mb-5 max-w-[14rem] text-primary">
-            <Bolt size={13} class="text-spark" />
-            Play with us
-          </p>
-          <h2 class="text-4xl sm:text-[3.4rem]">
-            Come to a quad. Three rated games, one morning.
-          </h2>
-          <p class="mt-5 max-w-[48ch] leading-relaxed text-muted-foreground">
-            Every quad date through November is open for entry, and so is the
-            {" "}{nextChamp.name} on {nextChamp.display.replace(", 2026", "")}. Join the
-            WhatsApp group and you will hear about pairings, results and new
-            events first.
-          </p>
-        </div>
-        <div class="flex flex-wrap items-start gap-3 md:justify-end">
-          <a
-            href={next.register}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="nudge inline-flex h-12 items-center gap-2 rounded-full bg-primary px-6 font-medium text-primary-foreground transition-all hover:-translate-y-0.5 hover:bg-board"
-          >
-            <Bolt size={15} class="text-gold" />
-            Register for the next quad
-          </a>
-          <a
-            href="/championship"
-            class="inline-flex h-12 items-center rounded-full bg-gold px-6 font-medium text-gold-foreground transition-transform hover:-translate-y-0.5"
-          >
-            Enter the championship
-          </a>
-          <a
-            href={org.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex h-12 items-center rounded-full border border-input bg-card px-6 font-medium transition-colors hover:border-primary hover:text-primary"
-          >
-            Join the WhatsApp group
-          </a>
-        </div>
+  {/* Closing CTA: the quad stays the primary action, with the championship
+      named beside it so the page does not end quads-only. */}
+  <section class="board-texture relative isolate overflow-hidden border-t border-border bg-board text-board-foreground">
+    <Bolt size={300} class="bolt-mark hidden sm:block" />
+    <div class="mx-auto grid max-w-6xl gap-8 px-5 py-16 md:grid-cols-2">
+      <div>
+        <p class="bolt-rule label mb-3 max-w-[14rem] text-gold">
+          <Bolt size={13} />
+          Play with us
+        </p>
+        <h2 class="text-2xl font-semibold text-white sm:text-3xl">
+          Come to a quad. Three rated games, one morning.
+        </h2>
+        <p class="mt-3 max-w-[48ch] leading-relaxed text-board-foreground/70">
+          Every quad date through November is open for entry, and so is the
+          {" "}{nextChamp.name} on {nextChamp.display.replace(", 2026", "")}. Join the
+          WhatsApp group and you will hear about pairings, results and new
+          events first.
+        </p>
+      </div>
+      <div class="flex flex-wrap items-start gap-3 md:justify-end">
+        <a
+          href={next.register}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex h-12 items-center gap-2 rounded-sm bg-gold px-6 font-medium text-gold-foreground transition-colors hover:bg-gold/90"
+        >
+          <Bolt size={15} />
+          Register for the next quad
+        </a>
+        <a
+          href="/championship"
+          class="inline-flex h-12 items-center rounded-sm border border-white/25 px-6 font-medium text-white transition-colors hover:border-white/50 hover:bg-white/10"
+        >
+          Enter the championship
+        </a>
+        <a
+          href={org.whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex h-12 items-center rounded-sm border border-white/25 px-6 font-medium text-white transition-colors hover:border-white/50 hover:bg-white/10"
+        >
+          Join the WhatsApp group
+        </a>
       </div>
     </div>
   </section>
-
-  <style>
-    .hero-grid {
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background-image:
-        linear-gradient(to right, color-mix(in srgb, var(--border) 70%, transparent) 1px, transparent 1px),
-        linear-gradient(to bottom, color-mix(in srgb, var(--border) 70%, transparent) 1px, transparent 1px);
-      background-size: 72px 72px;
-      mask-image: radial-gradient(ellipse 70% 60% at 70% 40%, #000 20%, transparent 75%);
-    }
-    .hero-em {
-      font-style: italic;
-      color: var(--primary);
-      background: linear-gradient(transparent 70%, color-mix(in srgb, var(--gold) 45%, transparent) 70%);
-      background-size: 0% 100%;
-      background-repeat: no-repeat;
-      animation: hl 1.2s 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
-    }
-    @keyframes hl { to { background-size: 100% 100%; } }
-    .hero-in > * { animation: hero-up 1s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-    .hero-in > :nth-child(2) { animation-delay: 0.08s; }
-    .hero-in > :nth-child(3) { animation-delay: 0.18s; }
-    .hero-in > :nth-child(4) { animation-delay: 0.28s; }
-    .hero-in > :nth-child(5) { animation-delay: 0.38s; }
-    @keyframes hero-up { from { opacity: 0; transform: translateY(26px); } }
-    .champ-rays {
-      position: absolute;
-      inset: -60% -30% auto auto;
-      width: 70rem;
-      height: 70rem;
-      z-index: -1;
-      opacity: 0.09;
-      background: repeating-conic-gradient(from 0deg, var(--gold) 0deg 6deg, transparent 6deg 18deg);
-      mask-image: radial-gradient(closest-side, #000, transparent);
-      animation: rays 60s linear infinite;
-    }
-    @keyframes rays { to { transform: rotate(360deg); } }
-    @media (prefers-reduced-motion: reduce) {
-      .hero-in > *, .champ-rays { animation: none; }
-      .hero-em { animation: none; background-size: 100% 100%; }
-    }
-  </style>
 </Base>

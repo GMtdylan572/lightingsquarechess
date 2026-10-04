@@ -2,21 +2,22 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* Type system, after Spark Advisors: a light, editorial serif for headlines
-   and a tight grotesk for everything else.
-   Fraunces    — headlines. Set light and large, never bold.
-   Inter Tight — body, UI, labels and every number. */
-@import "@fontsource-variable/fraunces";
-@import "@fontsource-variable/inter-tight";
+/* Type system: editorial serifs, so the site reads like print, not a template.
+   Playfair Display — headlines. High contrast, set tight.
+   Lora             — body and UI. Warm and very readable at text sizes.
+   Merriweather     — labels and every number: ratings, scores, dates, time
+                      controls. Sturdy at small sizes, with tabular figures. */
+@import "@fontsource-variable/playfair-display";
+@import "@fontsource-variable/lora";
+@import "@fontsource/merriweather/400.css";
+@import "@fontsource/merriweather/700.css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-sans: 'Inter Tight Variable', ui-sans-serif, system-ui, sans-serif;
-    --font-heading: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
-    --font-mono: 'Inter Tight Variable', ui-sans-serif, system-ui, sans-serif;
-    --color-spark: var(--spark);
-    --color-ivory: var(--ivory);
+    --font-sans: 'Lora Variable', Georgia, 'Times New Roman', serif;
+    --font-heading: 'Playfair Display Variable', Georgia, 'Times New Roman', serif;
+    --font-mono: 'Merriweather', Georgia, serif;
 
     --color-board: var(--board);
     --color-board-foreground: var(--board-foreground);
@@ -65,56 +66,55 @@
     --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* The palette comes from the club's own Facebook cover: ivory paper, a deep
-   tournament-board green, and gold trim. The red of the club T-shirts is
-   kept for one thing only, the bolt, the way Spark uses its red star. */
+/* Apple's palette: white and #f5f5f7 grey surfaces, #1d1d1f ink, #6e6e73
+   secondary text, and one blue for actions. Dark panels are Apple's near
+   black. The "gold" tokens are kept as the accent slot so the markup does
+   not change; they are blue now. */
 :root {
-    --radius: 0.85rem;
+    --radius: 0.5rem;
     color-scheme: light;
 
-    --background: #FBF9F4;
-    --foreground: #13241D;
+    --background: #FFFFFF;
+    --foreground: #1D1D1F;
     --card: #FFFFFF;
-    --card-foreground: #13241D;
+    --card-foreground: #1D1D1F;
     --popover: #FFFFFF;
-    --popover-foreground: #13241D;
+    --popover-foreground: #1D1D1F;
 
-    --primary: #14523C;
+    --primary: #0071E3;
     --primary-foreground: #FFFFFF;
-    --secondary: #F1ECE1;
-    --secondary-foreground: #13241D;
-    --muted: #F1ECE1;
-    --muted-foreground: #5D6B64;
-    --accent: #ECE6D8;
-    --accent-foreground: #14523C;
-    --destructive: #C8302A;
+    --secondary: #F5F5F7;
+    --secondary-foreground: #1D1D1F;
+    --muted: #F5F5F7;
+    --muted-foreground: #6E6E73;
+    --accent: #F5F5F7;
+    --accent-foreground: #0066CC;
+    --destructive: #E30000;
 
-    --border: #E2DBCB;
-    --input: #D6CEBB;
-    --ring: #14523C;
+    --border: #D2D2D7;
+    --input: #D2D2D7;
+    --ring: #0071E3;
 
-    --board: #0F2E23;
-    --board-foreground: #F3EFE4;
-    --gold: #C9962F;
-    --gold-foreground: #0F2E23;
-    --rule: #E2DBCB;
-    --spark: #D7362B;
-    --ivory: #F7F2E7;
+    --board: #1D1D1F;
+    --board-foreground: #F5F5F7;
+    --gold: #0071E3;
+    --gold-foreground: #FFFFFF;
+    --rule: #D2D2D7;
 
-    --chart-1: #14523C;
-    --chart-2: #C9962F;
-    --chart-3: #5D6B64;
-    --chart-4: #8E9A93;
-    --chart-5: #13241D;
+    --chart-1: #0071E3;
+    --chart-2: #2997FF;
+    --chart-3: #6E6E73;
+    --chart-4: #86868B;
+    --chart-5: #1D1D1F;
 
-    --sidebar: #F1ECE1;
-    --sidebar-foreground: #13241D;
-    --sidebar-primary: #14523C;
+    --sidebar: #F5F5F7;
+    --sidebar-foreground: #1D1D1F;
+    --sidebar-primary: #0071E3;
     --sidebar-primary-foreground: #FFFFFF;
-    --sidebar-accent: #ECE6D8;
-    --sidebar-accent-foreground: #14523C;
-    --sidebar-border: #E2DBCB;
-    --sidebar-ring: #14523C;
+    --sidebar-accent: #F5F5F7;
+    --sidebar-accent-foreground: #0066CC;
+    --sidebar-border: #D2D2D7;
+    --sidebar-ring: #0071E3;
 }
 
 .dark {
@@ -164,7 +164,7 @@
 /* On the near-black panels, Apple uses a lighter blue for text so it stays
    legible. Buttons keep the standard blue. */
 .bg-board {
-    --text-accent-on-dark: #E2B654;
+    --text-accent-on-dark: #2997FF;
 }
 .bg-board .text-gold,
 .bg-board .bolt-rule,
@@ -180,7 +180,6 @@
     @apply bg-background text-foreground;
     font-size: 17px;
     line-height: 1.6;
-    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
   }
   html {
@@ -194,12 +193,10 @@
 
   h1, h2, h3 {
     @apply font-heading;
-    letter-spacing: -0.022em;
-    line-height: 1.06;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
     text-wrap: balance;
-    font-optical-sizing: auto;
   }
-  ::selection { background: #C9962F55; }
 
   /* Numerals are data. Line them up. */
   .tnum, table td, table th, time, .stat-figure {
@@ -211,7 +208,7 @@
   /* A label set in mono and letterspaced, the way a pairing sheet or a
      scoresheet header is set. Replaces the usual coloured "eyebrow". */
   .label {
-    @apply font-mono text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground;
+    @apply font-mono text-[0.66rem] font-normal uppercase tracking-[0.12em] text-muted-foreground;
   }
 
   /* Hairline rule used to open a section instead of a centred heading block. */
@@ -230,7 +227,7 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    opacity: 0.03;
+    opacity: 0.055;
     background-image:
       linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%),
       linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%);
@@ -298,73 +295,4 @@
   @media (prefers-reduced-motion: reduce) {
     .strike::after { transition: none; }
   }
-}
-
-/* Spark-style headlines: large and light. Unlayered so it wins over the
-   font-semibold utilities the page markup still carries. */
-h1, h2, h3, .font-heading {
-  font-weight: 360;
-}
-h2.label, h3.label, p.label { font-weight: 600; }
-
-/* ---------------------------------------------------------------- motion
-   Everything that moves lives here, and all of it stops for people who ask
-   their system for reduced motion. */
-
-/* Scroll reveal. Base.astro adds .reveal to blocks and .is-in when they
-   enter the viewport. Without JS nothing is hidden. */
-.js .reveal {
-  opacity: 0;
-  translate: 0 28px;
-  transition: opacity .9s cubic-bezier(.2,.7,.2,1), translate .9s cubic-bezier(.2,.7,.2,1);
-  transition-delay: var(--d, 0s);
-}
-.js .reveal.is-in { opacity: 1; translate: 0 0; }
-
-/* Photos that pop in, then drift. */
-.js .pop {
-  opacity: 0;
-  scale: .82;
-  transition: opacity .8s ease, scale 1s cubic-bezier(.2,1.4,.3,1);
-  transition-delay: var(--d, 0s);
-}
-.js .pop.is-in { opacity: 1; scale: 1; }
-
-.float { animation: float var(--float-dur, 7s) ease-in-out infinite; animation-delay: var(--float-delay, 0s); }
-@keyframes float {
-  0%, 100% { transform: translate3d(0, 0, 0) rotate(var(--rot, 0deg)); }
-  50%      { transform: translate3d(0, -14px, 0) rotate(calc(var(--rot, 0deg) * -1)); }
-}
-
-/* Parallax: Base.astro writes --py from scroll position. */
-[data-parallax] { translate: 0 var(--py, 0px); will-change: translate; }
-
-/* Endless ticker. The list is rendered twice so the loop is seamless. */
-.marquee { display: flex; width: max-content; animation: marquee var(--marquee-dur, 38s) linear infinite; }
-.marquee:hover { animation-play-state: paused; }
-@keyframes marquee { to { transform: translateX(-50%); } }
-
-/* Photo zoom on hover, inside a rounded frame. */
-.zoom-frame { overflow: hidden; }
-.zoom-frame img { transition: scale 1.1s cubic-bezier(.2,.7,.2,1); }
-.zoom-frame:hover img, a:hover .zoom-frame img { scale: 1.06; }
-
-/* Sticky, stacking cards, like Spark's figures band. */
-.stack-card { position: sticky; top: calc(6rem + var(--i, 0) * 1.6rem); }
-
-/* Spark-style pill button arrow nudge. */
-.nudge svg { transition: translate .25s ease; }
-.nudge:hover svg { translate: 3px 0; }
-
-/* Bolt that flickers once in a while. */
-.flicker { animation: flicker 6s infinite; }
-@keyframes flicker {
-  0%, 92%, 100% { opacity: 1; }
-  93% { opacity: .25; } 94% { opacity: 1; } 95.5% { opacity: .4; } 97% { opacity: 1; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .js .reveal, .js .pop { opacity: 1; translate: none; scale: none; transition: none; }
-  .float, .marquee, .flicker { animation: none; }
-  [data-parallax] { translate: none; }
 }

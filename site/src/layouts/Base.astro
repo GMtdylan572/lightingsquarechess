@@ -42,10 +42,6 @@ const jsonLd = {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light" />
-    <meta name="theme-color" content="#FBF9F4" />
-    {/* Flag JS before first paint so reveal styles never hide content
-        from visitors without it. */}
-    <script is:inline>document.documentElement.classList.add("js")</script>
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <meta property="og:title" content={fullTitle} />
@@ -80,58 +76,5 @@ const jsonLd = {
       <slot />
     </main>
     <SiteFooter />
-
-    <script>
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-      /* Scroll reveal. Anything marked .reveal or .pop fades up when it
-         enters the viewport. Blocks inside ordinary page sections are
-         tagged automatically, so every page gets the same motion. */
-      document
-        .querySelectorAll<HTMLElement>("main section:not([data-no-reveal]) > div > *")
-        .forEach((el, i) => {
-          if (!el.closest("[data-no-reveal]") && !el.classList.contains("pop")) {
-            el.classList.add("reveal");
-          }
-        });
-
-      const io = new IntersectionObserver(
-        (entries) => {
-          for (const e of entries) {
-            if (e.isIntersecting) {
-              e.target.classList.add("is-in");
-              io.unobserve(e.target);
-            }
-          }
-        },
-        { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
-      );
-      document.querySelectorAll(".reveal, .pop").forEach((el) => io.observe(el));
-
-      /* Parallax: each [data-parallax="0.15"] drifts at that fraction of
-         the scroll distance relative to the viewport centre. */
-      const layers = [...document.querySelectorAll<HTMLElement>("[data-parallax]")];
-      const header = document.querySelector<HTMLElement>("[data-site-header]");
-      let ticking = false;
-      const onScroll = () => {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(() => {
-          header?.toggleAttribute("data-scrolled", window.scrollY > 8);
-          if (!reduce) {
-            const vh = window.innerHeight;
-            for (const el of layers) {
-              const r = el.parentElement!.getBoundingClientRect();
-              const offset = r.top + r.height / 2 - vh / 2;
-              el.style.setProperty("--py", `${(-offset * Number(el.dataset.parallax || 0.1)).toFixed(1)}px`);
-            }
-          }
-          ticking = false;
-        });
-      };
-      window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", onScroll);
-      onScroll();
-    </script>
   </body>
 </html>
