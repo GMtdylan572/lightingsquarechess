@@ -175,7 +175,7 @@ const later = upcomingQuads.slice(1);
         const observer = new IntersectionObserver((entries) => {
           if (!entries.some((entry) => entry.isIntersecting)) return;
           observer.disconnect();
-          const colors = ["#e8b04b", "#ffffff", "#4fb37e", "#1b5138"];
+          const colors = ["#0071e3", "#ffffff", "#86868b", "#1d1d1f"];
           confetti({ particleCount: 150, angle: 60, spread: 100, startVelocity: 58, origin: { x: 0.02, y: 0.65 }, colors });
           confetti({ particleCount: 150, angle: 120, spread: 100, startVelocity: 58, origin: { x: 0.98, y: 0.65 }, colors });
           setTimeout(() => confetti({ particleCount: 190, spread: 165, startVelocity: 50, origin: { x: 0.5, y: 0.4 }, colors }), 260);

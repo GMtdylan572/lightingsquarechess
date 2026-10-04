@@ -59,9 +59,14 @@ Keep it that way. Before adding `client:load` to something, check whether a
 
 ## Design notes
 
-The palette is tournament-board green and buff on warm paper. Numerals are set
-in IBM Plex Mono with tabular figures, because most of this site is records:
-dates, ratings, time controls, scores. Headings are Fraunces, used sparingly.
+The palette is Apple's: white and #f5f5f7 grey surfaces, #1d1d1f ink,
+#6e6e73 secondary text, one blue (#0071e3) for actions, and near-black for
+the dark panels. The `gold` tokens are still the accent slot in the markup;
+they are blue now.
+
+Type is editorial serif throughout. Headings are Playfair Display, body text
+is Lora, and labels and every number (dates, ratings, time controls, scores)
+are Merriweather with tabular figures, because most of this site is records.
 Corner radius is small on purpose.
 
 The checkerboard texture (`.board-texture`) belongs **only on solid dark

@@ -4,7 +4,7 @@ import PageHeader from "@/components/PageHeader.astro";
 import QuadActions from "@/components/QuadActions.astro";
 import Bolt from "@/components/Bolt.astro";
 import ResultsArchive from "@/components/ResultsArchive";
-import { august2026QuadCelebration, upcomingQuads, pastQuads, championshipSeries, upcomingChampionships, legacyEvents, org } from "@/data/site";
+import { august2026QuadCelebration, upcomingQuads, pastQuads, championshipSeries, upcomingChampionships, legacyEvents, girlsFestival, org } from "@/data/site";
 
 const next = upcomingQuads[0];
 const nextChampionships = upcomingChampionships.filter((e) => new Date(e.date) >= new Date());
@@ -142,6 +142,35 @@ const nextChampionships = upcomingChampionships.filter((e) => new Date(e.date) >
     </ol>
   </section>
 
+  {/* The All Girls Winter Chess Festival: free, so it gets its own band. */}
+  <section aria-labelledby="festival" class="border-y border-border bg-secondary">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-8 px-5 py-12">
+      <div class="max-w-2xl">
+        <p class="bolt-rule label mb-4 max-w-[15rem] text-primary">
+          <Bolt size={13} />
+          Free entry · Girls K–12
+        </p>
+        <h2 id="festival" class="text-3xl font-semibold sm:text-[2.3rem]">{girlsFestival.name}</h2>
+        <p class="mt-3 font-mono text-[1.05rem] text-muted-foreground">{girlsFestival.display} · San Jose</p>
+        <p class="mt-4 max-w-[56ch] leading-relaxed text-muted-foreground">
+          Five rounds at {girlsFestival.control}, with rated U800 and 800+ sections and an
+          unrated First Move section for girls new to tournament chess.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href={girlsFestival.register} target="_blank" rel="noopener noreferrer"
+           class="inline-flex h-12 items-center gap-2 rounded-sm bg-primary px-6 font-medium text-primary-foreground transition-colors hover:bg-primary/90">
+          <Bolt size={15} />
+          Register
+        </a>
+        <a href="/girls-festival"
+           class="inline-flex h-12 items-center rounded-sm border border-input bg-card px-6 font-medium transition-colors hover:bg-accent">
+          Festival details
+        </a>
+      </div>
+    </div>
+  </section>
+
   {/* Online, deliberately last: we run these rarely now. */}
   <section class="border-t border-border">
     <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-6 px-5 py-10">
@@ -202,7 +231,7 @@ const nextChampionships = upcomingChampionships.filter((e) => new Date(e.date) >
       <article
         id="august-2026-record"
         aria-labelledby="record-heading"
-        class="record-celebration board-texture relative mb-10 overflow-hidden rounded-md border border-gold/70 bg-board px-5 py-8 text-board-foreground shadow-[0_18px_60px_rgba(16,40,28,.24)] sm:px-8 sm:py-10"
+        class="record-celebration board-texture relative mb-10 overflow-hidden rounded-md border border-gold/70 bg-board px-5 py-8 text-board-foreground shadow-[0_18px_60px_rgba(0,0,0,.2)] sm:px-8 sm:py-10"
       >
         <div class="record-rays" aria-hidden="true"></div>
         <svg class="record-burst record-burst-left" viewBox="0 0 120 120" aria-hidden="true">
@@ -327,7 +356,7 @@ const nextChampionships = upcomingChampionships.filter((e) => new Date(e.date) >
           if (!entries.some((entry) => entry.isIntersecting)) return;
           currentObserver.disconnect();
 
-          const colors = ["#e8b04b", "#f7d98d", "#ffffff", "#4fb37e", "#1b5138"];
+          const colors = ["#0071e3", "#2997ff", "#ffffff", "#86868b", "#1d1d1f"];
           const launch = (originX, angle) => confetti({
             particleCount: 130,
             angle,

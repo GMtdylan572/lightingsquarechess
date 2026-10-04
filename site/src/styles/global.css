@@ -2,25 +2,22 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* Type system.
-   Fraunces  — display only, used sparingly and set tight.
-   Plex Sans — body and UI. Institutional rather than startup-neutral.
-   Plex Mono — every number: ratings, scores, dates, time controls.
-               Chess records are tabular data and should read like it. */
-@import "@fontsource-variable/fraunces";
-@import "@fontsource/ibm-plex-sans/400.css";
-@import "@fontsource/ibm-plex-sans/500.css";
-@import "@fontsource/ibm-plex-sans/600.css";
-@import "@fontsource/ibm-plex-mono/400.css";
-@import "@fontsource/ibm-plex-mono/500.css";
-@import "@fontsource/ibm-plex-mono/600.css";
+/* Type system: editorial serifs, so the site reads like print, not a template.
+   Playfair Display — headlines. High contrast, set tight.
+   Lora             — body and UI. Warm and very readable at text sizes.
+   Merriweather     — labels and every number: ratings, scores, dates, time
+                      controls. Sturdy at small sizes, with tabular figures. */
+@import "@fontsource-variable/playfair-display";
+@import "@fontsource-variable/lora";
+@import "@fontsource/merriweather/400.css";
+@import "@fontsource/merriweather/700.css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
-    --font-heading: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
-    --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+    --font-sans: 'Lora Variable', Georgia, 'Times New Roman', serif;
+    --font-heading: 'Playfair Display Variable', Georgia, 'Times New Roman', serif;
+    --font-mono: 'Merriweather', Georgia, serif;
 
     --color-board: var(--board);
     --color-board-foreground: var(--board-foreground);
@@ -69,97 +66,110 @@
     --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* Tournament green and buff, the colours of a vinyl board, on warm paper.
-   Radius is deliberately small: records pages have corners, not pills. */
+/* Apple's palette: white and #f5f5f7 grey surfaces, #1d1d1f ink, #6e6e73
+   secondary text, and one blue for actions. Dark panels are Apple's near
+   black. The "gold" tokens are kept as the accent slot so the markup does
+   not change; they are blue now. */
 :root {
-    --radius: 0.25rem;
+    --radius: 0.5rem;
     color-scheme: light;
 
-    --background: #F7F2E7;
-    --foreground: #14181A;
-    --card: #FFFCF6;
-    --card-foreground: #14181A;
-    --popover: #FFFCF6;
-    --popover-foreground: #14181A;
+    --background: #FFFFFF;
+    --foreground: #1D1D1F;
+    --card: #FFFFFF;
+    --card-foreground: #1D1D1F;
+    --popover: #FFFFFF;
+    --popover-foreground: #1D1D1F;
 
-    --primary: #1B5138;
+    --primary: #0071E3;
     --primary-foreground: #FFFFFF;
-    --secondary: #EDE4D3;
-    --secondary-foreground: #22292B;
-    --muted: #EDE4D3;
-    --muted-foreground: #57625D;
-    --accent: #ECF2ED;
-    --accent-foreground: #1B5138;
-    --destructive: #A8321C;
+    --secondary: #F5F5F7;
+    --secondary-foreground: #1D1D1F;
+    --muted: #F5F5F7;
+    --muted-foreground: #6E6E73;
+    --accent: #F5F5F7;
+    --accent-foreground: #0066CC;
+    --destructive: #E30000;
 
-    --border: #D8CDB9;
-    --input: #CBBEA4;
-    --ring: #1B5138;
+    --border: #D2D2D7;
+    --input: #D2D2D7;
+    --ring: #0071E3;
 
-    --board: #10281C;
-    --board-foreground: #E9F0EA;
-    --gold: #E8B04B;
-    --gold-foreground: #2A1F06;
-    --rule: #C4B696;
+    --board: #1D1D1F;
+    --board-foreground: #F5F5F7;
+    --gold: #0071E3;
+    --gold-foreground: #FFFFFF;
+    --rule: #D2D2D7;
 
-    --chart-1: #1B5138;
-    --chart-2: #C9922B;
-    --chart-3: #3E7D5C;
-    --chart-4: #8A7A4E;
-    --chart-5: #5B6B62;
+    --chart-1: #0071E3;
+    --chart-2: #2997FF;
+    --chart-3: #6E6E73;
+    --chart-4: #86868B;
+    --chart-5: #1D1D1F;
 
-    --sidebar: #F2EBDD;
-    --sidebar-foreground: #14181A;
-    --sidebar-primary: #1B5138;
+    --sidebar: #F5F5F7;
+    --sidebar-foreground: #1D1D1F;
+    --sidebar-primary: #0071E3;
     --sidebar-primary-foreground: #FFFFFF;
-    --sidebar-accent: #ECF2ED;
-    --sidebar-accent-foreground: #1B5138;
-    --sidebar-border: #D8CDB9;
-    --sidebar-ring: #1B5138;
+    --sidebar-accent: #F5F5F7;
+    --sidebar-accent-foreground: #0066CC;
+    --sidebar-border: #D2D2D7;
+    --sidebar-ring: #0071E3;
 }
 
 .dark {
-    --background: #0B100D;
-    --foreground: #E9EDE8;
-    --card: #121815;
-    --card-foreground: #E9EDE8;
-    --popover: #121815;
-    --popover-foreground: #E9EDE8;
+    --background: #000000;
+    --foreground: #F5F5F7;
+    --card: #1D1D1F;
+    --card-foreground: #F5F5F7;
+    --popover: #1D1D1F;
+    --popover-foreground: #F5F5F7;
 
-    --primary: #4FB37E;
-    --primary-foreground: #08130D;
-    --secondary: #1A221E;
-    --secondary-foreground: #E9EDE8;
-    --muted: #1A221E;
-    --muted-foreground: #9BA79F;
-    --accent: #17251D;
-    --accent-foreground: #6DCB9B;
-    --destructive: #E0684E;
+    --primary: #2997FF;
+    --primary-foreground: #000000;
+    --secondary: #1D1D1F;
+    --secondary-foreground: #F5F5F7;
+    --muted: #1D1D1F;
+    --muted-foreground: #A1A1A6;
+    --accent: #1D1D1F;
+    --accent-foreground: #2997FF;
+    --destructive: #FF453A;
 
-    --border: #232E29;
-    --input: #2C3833;
-    --ring: #4FB37E;
+    --border: #424245;
+    --input: #424245;
+    --ring: #2997FF;
 
-    --board: #08100C;
-    --board-foreground: #E9F0EA;
-    --gold: #E8B04B;
-    --gold-foreground: #2A1F06;
-    --rule: #2C3833;
+    --board: #000000;
+    --board-foreground: #F5F5F7;
+    --gold: #2997FF;
+    --gold-foreground: #000000;
+    --rule: #424245;
 
-    --chart-1: #4FB37E;
-    --chart-2: #E8B04B;
-    --chart-3: #6DCB9B;
-    --chart-4: #B9A46A;
-    --chart-5: #8C9A92;
+    --chart-1: #2997FF;
+    --chart-2: #0071E3;
+    --chart-3: #A1A1A6;
+    --chart-4: #86868B;
+    --chart-5: #F5F5F7;
 
-    --sidebar: #101613;
-    --sidebar-foreground: #E9EDE8;
-    --sidebar-primary: #4FB37E;
-    --sidebar-primary-foreground: #08130D;
-    --sidebar-accent: #17251D;
-    --sidebar-accent-foreground: #6DCB9B;
-    --sidebar-border: #232E29;
-    --sidebar-ring: #4FB37E;
+    --sidebar: #1D1D1F;
+    --sidebar-foreground: #F5F5F7;
+    --sidebar-primary: #2997FF;
+    --sidebar-primary-foreground: #000000;
+    --sidebar-accent: #1D1D1F;
+    --sidebar-accent-foreground: #2997FF;
+    --sidebar-border: #424245;
+    --sidebar-ring: #2997FF;
+}
+
+/* On the near-black panels, Apple uses a lighter blue for text so it stays
+   legible. Buttons keep the standard blue. */
+.bg-board {
+    --text-accent-on-dark: #2997FF;
+}
+.bg-board .text-gold,
+.bg-board .bolt-rule,
+.bg-board .bolt-mark {
+    color: var(--text-accent-on-dark);
 }
 
 @layer base {
@@ -168,7 +178,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-size: 16.5px;
+    font-size: 17px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
@@ -183,9 +193,8 @@
 
   h1, h2, h3 {
     @apply font-heading;
-    font-variation-settings: "SOFT" 0, "WONK" 0, "opsz" 48;
-    letter-spacing: -0.021em;
-    line-height: 1.08;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
     text-wrap: balance;
   }
 
@@ -199,7 +208,7 @@
   /* A label set in mono and letterspaced, the way a pairing sheet or a
      scoresheet header is set. Replaces the usual coloured "eyebrow". */
   .label {
-    @apply font-mono text-[0.7rem] font-medium uppercase tracking-[0.18em] text-muted-foreground;
+    @apply font-mono text-[0.66rem] font-normal uppercase tracking-[0.12em] text-muted-foreground;
   }
 
   /* Hairline rule used to open a section instead of a centred heading block. */

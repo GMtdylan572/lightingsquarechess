@@ -81,6 +81,7 @@ export const nav: Nav[] = [
           { href: "/championship/past", label: "Past championships", note: "Summer 2026 results and podiums" },
         ],
       },
+      { href: "/girls-festival", label: "All Girls Festival", note: "Free for girls K–12. December 19, 2026" },
       { href: "/online", label: "Online tournaments", note: "Free events on Chess.com" },
     ],
   },
@@ -114,15 +115,9 @@ export type Upcoming = {
 };
 
 /* Registration form and live entry sheet for each date, taken from the
-   official US Chess announcement for that event. Both open in a new tab. */
+   official US Chess announcement for that event. Both open in a new tab.
+   Remove a date once it has been played; add its crosstable to pastQuads. */
 export const upcomingQuads: Upcoming[] = [
-  {
-    date: "2026-09-27", display: "September 27, 2026", name: "September Quads",
-    venue: venues.deAnza, format: "G/25 d5",
-    register: "https://forms.gle/Aqhnmig3hrrfhMbH8",
-    entries: "https://docs.google.com/spreadsheets/d/1ljbiGexQ0QQd22uTYYSYb8ufHrHkiHqBAY3lsa1UCOs",
-    tla: "https://new.uschess.org/lightning-square-quads-sept-2026",
-  },
   {
     date: "2026-10-18", display: "October 18, 2026", name: "October Quads",
     venue: venues.deAnza, format: "G/25 d5",
@@ -138,6 +133,53 @@ export const upcomingQuads: Upcoming[] = [
     tla: "https://new.uschess.org/lightning-square-quads-nov-2026",
   },
 ];
+
+/* The All Girls Winter Chess Festival. Facts are from the v6 flyer; the
+   registration form and entry sheet are the links the club circulated. */
+export const girlsFestival = {
+  name: "All Girls Winter Chess Festival",
+  date: "2026-12-19",
+  display: "Saturday, December 19, 2026",
+  short: "December 19",
+  eligibility: "Open to all girls in K–12",
+  fee: "Free",
+  venue: "San Jose. Venue announced in October.",
+  register: "https://docs.google.com/forms/d/e/1FAIpQLSeZs7F64fvybTGejeLGYsyc1-Dd37lhgyYWRkMIV3DADNGyvQ/viewform",
+  entries: "https://docs.google.com/spreadsheets/u/1/d/1iDYYQIkG4VdFy6b_uqasb6qZ-jdoEmYAvcZoxJwbTtM/htmlview",
+  flyer: "/girls-festival-2026-flyer.pdf",
+  onlineCloses: "Friday, December 18, 10:00 PM",
+  onsite: "December 19, 9:00 AM",
+  format: "Swiss",
+  rounds: 5,
+  control: "G/30 d5",
+  roundTimes: ["9:30 AM", "11:00 AM", "1:30 PM", "3:00 PM", "4:30 PM"],
+  sections: [
+    {
+      name: "800+",
+      rated: true,
+      body: "US Chess-rated, dual-rated Regular and Quick.",
+      prize: "Trophies to the top 3",
+    },
+    {
+      name: "U800",
+      rated: true,
+      body: "US Chess-rated, dual-rated Regular and Quick.",
+      prize: "Trophies to the top 3",
+    },
+    {
+      name: "First Move",
+      rated: false,
+      body: "For players new to tournament chess without a US Chess rating. No US Chess membership required. Not rated.",
+      prize: "Medals to the top 5, and a one-year US Chess membership to the top new player",
+    },
+  ],
+  rules: [
+    "Sections may be adjusted based on sign-ups to best serve the players.",
+    "Play-ups are allowed within 200 rating points of the next section.",
+    "Current US Chess ratings are used for sections and pairings.",
+    "Byes are available in any round for players who cannot play that round but want to stay in the tournament.",
+  ],
+};
 
 export type PastEvent = {
   date: string;
@@ -167,6 +209,7 @@ export const august2026QuadCelebration = {
 
 /* Crosstables on uschess.org. Ordered newest first. */
 export const pastQuads: PastEvent[] = [
+  { date: "September 27, 2026", venue: venues.deAnza, results: "https://ratings.uschess.org/event/202609270063" },
   { date: "August 30, 2026", venue: venues.deAnza, results: august2026QuadCelebration.results },
   { date: "May 31, 2026", venue: venues.deAnza, results: "https://ratings.uschess.org/event/202605310073" },
   { date: "April 26, 2026", venue: venues.deAnza, results: "https://ratings.uschess.org/event/202604260143" },
