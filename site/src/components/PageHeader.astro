@@ -8,29 +8,102 @@ interface Props {
   crumbs?: { href: string; label: string }[];
 }
 const { kicker, title, lede, crumbs = [] } = Astro.props;
+
+/* Club photos that float beside every inner page title. Each page gets a
+   different three, chosen from its title, so the headers do not all look
+   the same but a page never changes between visits. */
+const pool = [
+  "/championship-2026-action.jpg",
+  "/fb/class-1.jpg",
+  "/championship-2026-prize.jpg",
+  "/fb/class-4.jpg",
+  "/championship-2026-room.jpg",
+  "/fb/class-2.jpg",
+  "/championship-2026-directors.jpeg",
+  "/fb/class-3.jpg",
+  "/championship-2026-team.jpg",
+  "/fb/class-5.jpg",
+];
+const seed = [...title].reduce((n, c) => (n * 31 + c.charCodeAt(0)) >>> 0, 7);
+const photos = [0, 3, 6].map((k) => pool[(seed + k) % pool.length]);
 ---
-<section class="board-texture relative isolate overflow-hidden border-b border-border bg-board text-board-foreground">
-  <Bolt size={280} class="bolt-mark hidden sm:block" />
-  <div class="mx-auto max-w-6xl px-5 py-14 sm:py-16">
-    {crumbs.length > 0 && (
-      <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-2 font-mono text-[0.72rem] text-board-foreground/50">
-        {crumbs.map((c, i) => (
-          <>
-            <a href={c.href} class="hover:text-white hover:underline">{c.label}</a>
-            <span aria-hidden="true">/</span>
-          </>
-        ))}
-        <span class="text-board-foreground/80">{title}</span>
-      </nav>
-    )}
-    {kicker && (
-      <p class="bolt-rule label mb-3 max-w-md text-gold">
-        <Bolt size={13} />
-        {kicker}
-      </p>
-    )}
-    <h1 class="max-w-3xl text-4xl font-semibold text-white sm:text-5xl">{title}</h1>
-    {lede && <p class="mt-4 max-w-2xl text-[1.05rem] leading-relaxed text-board-foreground/70">{lede}</p>}
-    <slot />
+<section data-no-reveal class="px-3 pt-3 sm:px-4">
+  <div class="board-texture relative isolate overflow-hidden rounded-[1.75rem] bg-board text-board-foreground">
+    <div class="header-glow" aria-hidden="true"></div>
+    <Bolt size={280} class="bolt-mark hidden sm:block lg:hidden" />
+
+    <div class="mx-auto grid max-w-7xl items-center gap-10 px-6 py-14 sm:px-8 sm:py-20 lg:grid-cols-[minmax(0,1fr)_26rem] lg:py-24">
+      <div class="header-in">
+        {crumbs.length > 0 && (
+          <nav aria-label="Breadcrumb" class="mb-6 flex flex-wrap items-center gap-2 text-[0.78rem] text-board-foreground/55">
+            {crumbs.map((c) => (
+              <>
+                <a href={c.href} class="hover:text-white hover:underline">{c.label}</a>
+                <span aria-hidden="true">/</span>
+              </>
+            ))}
+            <span class="text-board-foreground/85">{title}</span>
+          </nav>
+        )}
+        {kicker && (
+          <p class="bolt-rule label mb-5 max-w-md text-gold">
+            <Bolt size={13} class="flicker" />
+            {kicker}
+          </p>
+        )}
+        <h1 class="max-w-[18ch] text-[2.7rem] leading-[1.02] text-white sm:text-6xl lg:text-[4.4rem]">{title}</h1>
+        {lede && <p class="mt-6 max-w-2xl text-[1.1rem] leading-relaxed text-board-foreground/75">{lede}</p>}
+        <slot />
+      </div>
+
+      {/* Decorative only: the photos repeat ones used in the page body. */}
+      <div class="relative hidden h-[26rem] lg:block" aria-hidden="true">
+        <div class="absolute right-0 top-0 w-48" data-parallax="0.08">
+          <div class="pop float overflow-hidden rounded-2xl shadow-2xl ring-1 ring-white/10" style="--d:.15s;--rot:2deg;--float-dur:8s">
+            <img src={photos[0]} alt="" class="aspect-[4/5] w-full object-cover" />
+          </div>
+        </div>
+        <div class="absolute bottom-6 left-0 w-48" data-parallax="-0.06">
+          <div class="pop float overflow-hidden rounded-2xl shadow-2xl ring-1 ring-white/10" style="--d:.35s;--rot:-3deg;--float-dur:9s;--float-delay:-2s">
+            <img src={photos[1]} alt="" class="aspect-square w-full object-cover" />
+          </div>
+        </div>
+        <div class="absolute bottom-0 right-6 w-44" data-parallax="0.12">
+          <div class="pop float overflow-hidden rounded-2xl shadow-2xl ring-1 ring-white/10" style="--d:.55s;--rot:4deg;--float-dur:7s;--float-delay:-4s">
+            <img src={photos[2]} alt="" class="aspect-[4/3] w-full object-cover" />
+          </div>
+        </div>
+        <span class="pop absolute left-16 top-6 grid size-14 place-items-center rounded-2xl bg-gold text-board shadow-xl" style="--d:.7s">
+          <Bolt size={26} />
+        </span>
+      </div>
+    </div>
   </div>
 </section>
+
+<style>
+  .header-glow {
+    position: absolute;
+    inset: -40% -10% auto auto;
+    width: 60rem;
+    height: 60rem;
+    z-index: -1;
+    background: radial-gradient(closest-side, rgba(201, 150, 47, 0.22), transparent 70%);
+    animation: glow-drift 16s ease-in-out infinite alternate;
+  }
+  @keyframes glow-drift {
+    to { transform: translate3d(-18%, 22%, 0) scale(1.15); }
+  }
+  .header-in > * {
+    animation: header-up 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .header-in > :nth-child(2) { animation-delay: 0.08s; }
+  .header-in > :nth-child(3) { animation-delay: 0.16s; }
+  .header-in > :nth-child(4) { animation-delay: 0.24s; }
+  @keyframes header-up {
+    from { opacity: 0; transform: translateY(24px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .header-glow, .header-in > * { animation: none; }
+  }
+</style>

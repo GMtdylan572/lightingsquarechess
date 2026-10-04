@@ -10,19 +10,20 @@ const isActive = (href: string) =>
 ---
 
 <header
-  class="sticky top-0 z-50 border-b border-border bg-background"
+  data-site-header
+  class="sticky top-0 z-50 border-b border-transparent bg-background/70 backdrop-blur-xl transition-[border-color,background-color,box-shadow] duration-300 data-[scrolled]:border-border data-[scrolled]:bg-background/85 data-[scrolled]:shadow-[0_8px_30px_-18px_rgba(15,46,35,.35)]"
 >
-  <div class="mx-auto flex h-16 max-w-6xl items-center gap-6 px-5">
-    <a href="/" class="flex shrink-0 items-center gap-2.5">
+  <div class="mx-auto flex h-[4.5rem] max-w-7xl items-center gap-6 px-5">
+    <a href="/" class="group/logo flex shrink-0 items-center gap-2.5">
       <img
         src={org.logo}
         alt=""
         width="34"
         height="34"
-        class="rounded-sm bg-board p-1"
+        class="rounded-lg bg-board p-1 transition-transform duration-500 group-hover/logo:rotate-[-8deg] group-hover/logo:scale-105"
       />
       <span class="leading-none">
-        <span class="block font-heading text-[1.02rem] font-semibold tracking-tight"
+        <span class="block font-heading text-[1.18rem] tracking-tight"
           >Lightning Square</span
         >
         <span class="label text-[0.62rem]">Chess Club</span>
@@ -38,10 +39,10 @@ const isActive = (href: string) =>
                 href={item.href}
                 aria-current={isActive(item.href) ? "page" : undefined}
                 class:list={[
-                  "flex items-center gap-1 rounded-sm px-3 py-2 text-[0.9rem] font-medium transition-colors",
+                  "flex items-center gap-1 rounded-full px-3.5 py-2 text-[0.9rem] font-medium transition-colors",
                   isActive(item.href)
                     ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground",
+                    : "text-foreground/75 hover:bg-accent hover:text-foreground",
                 ]}
               >
                 {item.label}
@@ -63,14 +64,14 @@ const isActive = (href: string) =>
               <div
                 class="invisible absolute left-0 top-full w-72 translate-y-1 pt-2 opacity-0 transition-all group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100"
               >
-                <div class="rounded-md border border-border bg-popover p-1 shadow-lg">
+                <div class="rounded-2xl border border-border bg-popover p-1.5 shadow-[0_24px_60px_-24px_rgba(15,46,35,.45)]">
                   {item.children.map((c) =>
                     c.children ? (
                       /* Third level: opens to the right on hover or keyboard focus. */
                       <div class="group/sub relative">
                         <a
                           href={c.href}
-                          class="flex items-center gap-2 rounded-sm px-3 py-2.5 transition-colors hover:bg-accent group-focus-within/sub:bg-accent group-hover/sub:bg-accent"
+                          class="flex items-center gap-2 rounded-xl px-3 py-2.5 transition-colors hover:bg-accent group-focus-within/sub:bg-accent group-hover/sub:bg-accent"
                         >
                           <span class="min-w-0 flex-1">
                             <span class="block text-[0.88rem] font-medium">{c.label}</span>
@@ -94,11 +95,11 @@ const isActive = (href: string) =>
                           </svg>
                         </a>
                         <div class="invisible absolute left-full top-0 w-72 translate-x-1 pl-2 opacity-0 transition-all group-focus-within/sub:visible group-focus-within/sub:translate-x-0 group-focus-within/sub:opacity-100 group-hover/sub:visible group-hover/sub:translate-x-0 group-hover/sub:opacity-100">
-                          <div class="rounded-md border border-border bg-popover p-1 shadow-lg">
+                          <div class="rounded-2xl border border-border bg-popover p-1.5 shadow-[0_24px_60px_-24px_rgba(15,46,35,.45)]">
                             {c.children.map((g) => (
                               <a
                                 href={g.href}
-                                class="block rounded-sm px-3 py-2.5 transition-colors hover:bg-accent"
+                                class="block rounded-xl px-3 py-2.5 transition-colors hover:bg-accent"
                               >
                                 <span class="block text-[0.88rem] font-medium">{g.label}</span>
                                 <span class="block text-[0.78rem] text-muted-foreground">
@@ -112,7 +113,7 @@ const isActive = (href: string) =>
                     ) : (
                       <a
                         href={c.href}
-                        class="block rounded-sm px-3 py-2.5 transition-colors hover:bg-accent"
+                        class="block rounded-xl px-3 py-2.5 transition-colors hover:bg-accent"
                       >
                         <span class="block text-[0.88rem] font-medium">{c.label}</span>
                         <span class="block text-[0.78rem] text-muted-foreground">
@@ -129,10 +130,10 @@ const isActive = (href: string) =>
               href={item.href}
               aria-current={isActive(item.href) ? "page" : undefined}
               class:list={[
-                "rounded-sm px-3 py-2 text-[0.9rem] font-medium transition-colors",
+                "rounded-full px-3.5 py-2 text-[0.9rem] font-medium transition-colors",
                 isActive(item.href)
                   ? "text-primary"
-                  : "text-muted-foreground hover:text-foreground",
+                  : "text-foreground/75 hover:bg-accent hover:text-foreground",
               ]}
             >
               {item.label}
@@ -146,9 +147,19 @@ const isActive = (href: string) =>
       {/* The quad FAQ answers most of the questions we get, so it sits in the
           top right corner where help links are looked for. */}
       <a
+        href={org.facebook}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Lightning Square Chess on Facebook"
+        title="Follow us on Facebook"
+        class="hidden h-10 w-10 items-center justify-center rounded-full border border-border text-foreground/70 transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground md:inline-flex"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z"/></svg>
+      </a>
+      <a
         href="/quads/faq"
         class:list={[
-          "hidden h-9 items-center gap-1.5 rounded-sm border px-3 text-[0.85rem] font-medium transition-colors md:inline-flex",
+          "hidden h-10 items-center gap-1.5 rounded-full border px-4 text-[0.85rem] font-medium transition-colors md:inline-flex",
           isActive("/quads/faq")
             ? "border-primary text-primary"
             : "border-border text-muted-foreground hover:border-input hover:text-foreground",
@@ -175,9 +186,9 @@ const isActive = (href: string) =>
         href={nextQuad.register ?? "/quads"}
         target={nextQuad.register ? "_blank" : undefined}
         rel={nextQuad.register ? "noopener noreferrer" : undefined}
-        class="hidden h-9 items-center gap-1.5 rounded-sm bg-primary px-4 text-[0.88rem] font-medium text-primary-foreground transition-colors hover:bg-primary/90 sm:inline-flex"
+        class="nudge hidden h-10 items-center gap-1.5 rounded-full bg-primary px-5 text-[0.88rem] font-medium text-primary-foreground shadow-[0_8px_20px_-10px_rgba(20,82,60,.8)] transition-all hover:-translate-y-0.5 hover:bg-board sm:inline-flex"
       >
-        <Bolt size={13} />
+        <Bolt size={13} class="flicker text-gold" />
         Register for a quad
       </a>
       <MobileNav />
