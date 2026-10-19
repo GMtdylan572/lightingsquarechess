@@ -3,70 +3,76 @@ import { nav, org } from "@/data/site";
 const tournaments = nav[0].children!.slice(1);
 const programs = nav[1].children!.slice(1);
 ---
-<footer class="mt-24 border-t border-border bg-board text-board-foreground board-texture">
+<footer class="relative mt-24 border-t border-border bg-secondary text-foreground">
   <div class="mx-auto grid max-w-6xl gap-10 px-5 py-16 sm:grid-cols-2 lg:grid-cols-4">
     <div class="lg:pr-8">
       <div class="mb-4 flex items-center gap-2.5">
-        <img src={org.logo} alt="" width="36" height="36" class="rounded-sm bg-white/5 p-1" />
-        <span class="font-heading text-[1.05rem] font-semibold text-white">Lightning Square</span>
+        <img src={org.logo} alt="" width="36" height="36" class="rounded-lg bg-primary p-1" />
+        <span class="font-heading text-[1.05rem] font-bold text-navy">Lightning Square</span>
       </div>
-      <p class="text-[0.9rem] leading-relaxed text-board-foreground/65">
+      <p class="text-[0.9rem] leading-relaxed text-muted-foreground">
         A youth-led nonprofit founded in San Jose in {org.founded}. Student coaches
         teach the classes and student directors run our over-the-board tournaments.
       </p>
       <div class="mt-5 flex flex-wrap gap-2">
         <a href={org.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp group"
-           class="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-white/15 text-board-foreground/70 transition-colors hover:border-white/40 hover:text-white">
+           class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-input bg-white text-primary transition-colors hover:border-primary hover:bg-primary hover:text-primary">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5v-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1 2.1-.3 3.4a11 11 0 0 0 4.4 4.4c1.6.7 2.8.8 3.6.4.5-.2 1.1-.8 1.2-1.3.1-.4.1-.8 0-.9l-.2-.1Z"/></svg>
         </a>
         <a href={org.chessCom} target="_blank" rel="noopener noreferrer" aria-label="Chess.com club"
-           class="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-white/15 text-board-foreground/70 transition-colors hover:border-white/40 hover:text-white">
+           class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-input bg-white text-primary transition-colors hover:border-primary hover:bg-primary hover:text-primary">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="6.5" r="2.8"/><path d="M9.9 9.4c.2 1.8-1.4 2.9-1.4 4.9h7c0-2-1.6-3.1-1.4-4.9"/><path d="M8.5 14.3c0 2-.6 3.4-1.6 4.7h10.2c-1-1.3-1.6-2.7-1.6-4.7"/><path d="M6 19h12"/></svg>
         </a>
         <a href={org.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook"
-           class="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-white/15 text-board-foreground/70 transition-colors hover:border-white/40 hover:text-white">
+           class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-input bg-white text-primary transition-colors hover:border-primary hover:bg-primary hover:text-primary">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z"/></svg>
         </a>
         <a href={`mailto:${org.email}`} aria-label="Email"
-           class="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-white/15 text-board-foreground/70 transition-colors hover:border-white/40 hover:text-white">
+           class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-input bg-white text-primary transition-colors hover:border-primary hover:bg-primary hover:text-primary">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
         </a>
       </div>
     </div>
 
     <div>
-      <h2 class="label mb-4 text-board-foreground/50">Tournaments</h2>
+      <h2 class="label mb-4 text-navy">Tournaments</h2>
       <ul class="space-y-2">
         {tournaments.map((t) => (
-          <li><a href={t.href} class="text-[0.9rem] text-board-foreground/75 hover:text-white hover:underline">{t.label}</a></li>
+          <li><a href={t.href} class="text-[0.9rem] text-muted-foreground hover:font-semibold text-spark hover:underline">{t.label}</a></li>
         ))}
       </ul>
     </div>
 
     <div>
-      <h2 class="label mb-4 text-board-foreground/50">Programs</h2>
+      <h2 class="label mb-4 text-navy">Programs</h2>
       <ul class="space-y-2">
         {programs.map((p) => (
-          <li><a href={p.href} class="text-[0.9rem] text-board-foreground/75 hover:text-white hover:underline">{p.label}</a></li>
+          <li><a href={p.href} class="text-[0.9rem] text-muted-foreground hover:font-semibold text-spark hover:underline">{p.label}</a></li>
         ))}
       </ul>
     </div>
 
     <div>
-      <h2 class="label mb-4 text-board-foreground/50">Club</h2>
+      <h2 class="label mb-4 text-navy">Club</h2>
       <ul class="space-y-2">
-        <li><a href="/schools" class="text-[0.9rem] text-board-foreground/75 hover:text-white hover:underline">Partner schools</a></li>
-        <li><a href="/about" class="text-[0.9rem] text-board-foreground/75 hover:text-white hover:underline">About us</a></li>
-        <li><a href="/contact" class="text-[0.9rem] text-board-foreground/75 hover:text-white hover:underline">Contact</a></li>
-        <li><a href={org.whatsapp} target="_blank" rel="noopener noreferrer" class="text-[0.9rem] text-gold hover:underline">Join the WhatsApp group</a></li>
+        <li><a href="/schools" class="text-[0.9rem] text-muted-foreground hover:font-semibold text-spark hover:underline">Partner schools</a></li>
+        <li><a href="/about" class="text-[0.9rem] text-muted-foreground hover:font-semibold text-spark hover:underline">About us</a></li>
+        <li><a href="/contact" class="text-[0.9rem] text-muted-foreground hover:font-semibold text-spark hover:underline">Contact</a></li>
+        <li><a href={org.whatsapp} target="_blank" rel="noopener noreferrer" class="text-[0.9rem] font-semibold text-spark hover:underline">Join the WhatsApp group</a></li>
       </ul>
     </div>
   </div>
 
+  <div class="mx-auto max-w-6xl overflow-hidden px-5" aria-hidden="true">
+    <p class="select-none whitespace-nowrap text-center font-heading text-[11.5vw] font-extrabold leading-[0.8] tracking-[-0.06em] text-transparent [-webkit-text-stroke:1.5px_rgb(30_58_138/0.13)] lg:text-[8.6rem]">
+      LIGHTNING<span class="text-spark [-webkit-text-stroke:0]">.</span>SQ
+    </p>
+  </div>
+
   <div class="mx-auto max-w-6xl px-5">
-    <div class="flex flex-wrap justify-between gap-4 border-t border-white/10 py-6 font-mono text-[0.75rem] text-board-foreground/50">
+    <div class="flex flex-wrap justify-between gap-4 border-t border-border py-6 text-[0.8rem] text-muted-foreground">
       <span>&copy; {new Date().getFullYear()} {org.name}</span>
-      <a href={`mailto:${org.email}`} class="hover:text-white">{org.email}</a>
+      <a href={`mailto:${org.email}`} class="hover:text-primary">{org.email}</a>
     </div>
   </div>
 </footer>
