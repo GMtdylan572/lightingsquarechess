@@ -6,9 +6,12 @@
   // (Tdylan572@gmail.com). Pinned so a deploy cannot land on the wrong
   // account when more than one is authorised.
   "account_id": "7536fc6e5400ec4963afd2e8fd121b78",
-  // Static-only: no Worker script, just the built Astro output in site/dist.
+  // The Worker serves a live pairings API; other routes remain static assets.
+  "main": "./worker/index.js",
   "assets": {
-    "directory": "./site/dist"
+    "directory": "./site/dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
   },
   // Attaching the apex and www as custom domains makes Cloudflare create the
   // DNS records and issue the certificate itself, which is also what finally

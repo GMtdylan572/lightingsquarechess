@@ -71,6 +71,7 @@ export const nav: Nav[] = [
     children: [
       { href: "/tournaments", label: "All tournaments", note: "Schedule, championships and results archive" },
       { href: "/quads", label: "Monthly Quads", note: "Our main event. USCF-rated, G/25 d5" },
+      { href: "/pairings", label: "Pairings", note: "Find your round and board on tournament day" },
       { href: "/quads/faq", label: "Quad FAQ", note: "Ratings, pairings, trophies" },
       {
         href: "/championship",

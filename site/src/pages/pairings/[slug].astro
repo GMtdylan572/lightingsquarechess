@@ -1,0 +1,159 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import { pairingEvents } from "@/data/pairings";
+import type { PairingEvent } from "@/data/pairings";
+
+export function getStaticPaths() {
+  return pairingEvents.map((event) => ({ params: { slug: event.slug }, props: { event } }));
+}
+
+const { event } = Astro.props as { event: PairingEvent };
+---
+
+<Base
+  title={`${event.title} pairings`}
+  description={`Live published pairings for ${event.title} on ${event.date}. Updated from the tournament director's pairing sheet.`}
+>
+  <PageHeader
+    kicker={event.eventType}
+    title="Tournament pairings"
+    lede={`${event.title} · ${event.date}`}
+    crumbs={[{ href: "/", label: "Home" }, { href: "/tournaments", label: "Tournaments" }]}
+  />
+
+  <section class="mx-auto max-w-6xl px-5 py-12 sm:py-16" data-pairings-page data-slug={event.slug}>
+    <div class="mb-8 flex flex-wrap items-start justify-between gap-5 border-b border-border pb-7">
+      <div>
+        <p class="label mb-2 text-primary">At the board</p>
+        <h2 class="text-2xl font-bold sm:text-3xl">{event.title}</h2>
+        <p class="mt-2 text-muted-foreground">{event.date} · Check this page again for later rounds and updates.</p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <button id="refresh-pairings" type="button" class="inline-flex min-h-11 items-center rounded-sm border border-input bg-card px-4 font-semibold transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
+          Refresh pairings
+        </button>
+        <a href={event.entries} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center rounded-sm border border-input bg-card px-4 font-semibold transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
+          Entry list
+        </a>
+      </div>
+    </div>
+
+    <p id="pairings-status" role="status" aria-live="polite" class="rounded-sm border border-border bg-card p-6 text-muted-foreground">Checking for published pairings…</p>
+    <div id="pairings-content" hidden>
+      <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
+        <label for="pairings-search" class="block w-full max-w-sm text-sm font-semibold">
+          Find a player
+          <input id="pairings-search" type="search" placeholder="Search by name" class="mt-2 block min-h-11 w-full rounded-sm border border-input bg-card px-3 text-base font-normal text-foreground placeholder:text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring" />
+        </label>
+        <p id="pairings-updated" class="text-sm text-muted-foreground"></p>
+      </div>
+      <div id="pairings-list" class="space-y-8"></div>
+      <p id="pairings-empty" hidden class="rounded-sm border border-border bg-card p-6 text-muted-foreground">No player matches that search.</p>
+    </div>
+
+    <p class="mt-10 max-w-[65ch] text-sm text-muted-foreground">
+      Pairings can change if a player withdraws or a director corrects a section. Please confirm your board at the venue before each round.
+    </p>
+  </section>
+
+  <script>
+    type Pairing = { round: string; section: string; board: string; white: string; black: string };
+    const page = document.querySelector<HTMLElement>("[data-pairings-page]");
+    const status = document.querySelector<HTMLElement>("#pairings-status");
+    const content = document.querySelector<HTMLElement>("#pairings-content");
+    const list = document.querySelector<HTMLElement>("#pairings-list");
+    const empty = document.querySelector<HTMLElement>("#pairings-empty");
+    const updated = document.querySelector<HTMLElement>("#pairings-updated");
+    const search = document.querySelector<HTMLInputElement>("#pairings-search");
+    const refresh = document.querySelector<HTMLButtonElement>("#refresh-pairings");
+    let pairings: Pairing[] = [];
+
+    const element = (tag: string, className: string, value?: string) => {
+      const node = document.createElement(tag);
+      node.className = className;
+      if (value !== undefined) node.textContent = value;
+      return node;
+    };
+
+    function render() {
+      if (!list || !empty || !search) return;
+      list.replaceChildren();
+      const query = search.value.trim().toLocaleLowerCase();
+      const filtered = pairings.filter((p) => !query || `${p.white} ${p.black}`.toLocaleLowerCase().includes(query));
+      empty.hidden = filtered.length > 0;
+      const groups = new Map<string, Map<string, Pairing[]>>();
+      for (const pairing of filtered) {
+        if (!groups.has(pairing.round)) groups.set(pairing.round, new Map());
+        const sections = groups.get(pairing.round)!;
+        if (!sections.has(pairing.section)) sections.set(pairing.section, []);
+        sections.get(pairing.section)!.push(pairing);
+      }
+      for (const [round, sections] of groups) {
+        const roundSection = element("section", "");
+        roundSection.append(element("h3", "mb-4 border-b border-rule pb-3 text-xl font-bold", `Round ${round}`));
+        for (const [section, games] of sections) {
+          const sectionBlock = element("div", "mb-5 overflow-hidden rounded-sm border border-border bg-card");
+          sectionBlock.append(element("h4", "border-b border-border bg-secondary px-4 py-3 font-semibold", section));
+          const overflow = element("div", "overflow-x-auto");
+          const table = element("table", "w-full min-w-[35rem] text-left text-[0.95rem]");
+          const head = document.createElement("thead");
+          const headerRow = document.createElement("tr");
+          for (const label of ["Board", "White", "Black"]) headerRow.append(element("th", "px-4 py-3 text-sm font-semibold text-muted-foreground", label));
+          head.append(headerRow);
+          table.append(head);
+          const body = document.createElement("tbody");
+          for (const game of games) {
+            const row = element("tr", "border-t border-border");
+            row.append(element("td", "px-4 py-3 font-mono text-sm", game.board));
+            row.append(element("td", "px-4 py-3 font-semibold", game.white));
+            row.append(element("td", "px-4 py-3 font-semibold", game.black));
+            body.append(row);
+          }
+          table.append(body);
+          overflow.append(table);
+          sectionBlock.append(overflow);
+          roundSection.append(sectionBlock);
+        }
+        list.append(roundSection);
+      }
+    }
+
+    async function loadPairings() {
+      if (!page || !status || !content || !refresh) return;
+      refresh.disabled = true;
+      try {
+        const response = await fetch(`/api/pairings/${page.dataset.slug}`, { cache: "no-store" });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "Pairings could not be loaded.");
+        pairings = data.pairings;
+        if (!data.published) {
+          content.hidden = true;
+          status.hidden = false;
+          status.textContent = "Pairings have not been released yet. The director will publish them here when they are final.";
+        } else if (pairings.length === 0) {
+          content.hidden = true;
+          status.hidden = false;
+          status.textContent = "Pairings are marked for publication, but no games have been entered yet.";
+        } else {
+          status.hidden = true;
+          content.hidden = false;
+          if (updated) updated.textContent = `Checked ${new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}`;
+          render();
+        }
+      } catch (error) {
+        status.hidden = false;
+        status.textContent = error instanceof Error ? error.message : "Pairings could not be loaded. Please try again.";
+        if (pairings.length === 0) content.hidden = true;
+      } finally {
+        refresh.disabled = false;
+      }
+    }
+
+    search?.addEventListener("input", render);
+    refresh?.addEventListener("click", loadPairings);
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) loadPairings(); });
+    window.setInterval(() => { if (!document.hidden) loadPairings(); }, 60_000);
+    loadPairings();
+  </script>
+</Base>
