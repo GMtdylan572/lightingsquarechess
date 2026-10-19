@@ -1,7 +1,6 @@
 ---
 import Base from "@/layouts/Base.astro";
 import Bolt from "@/components/Bolt.astro";
-import { pairingHref } from "@/data/pairings";
 import { upcomingQuads, upcomingChampionships, testimonials, patrons, org } from "@/data/site";
 
 const next = upcomingQuads[0];
@@ -61,10 +60,9 @@ const stats = [
 /* Charlotte-style "where do you want to go" list, all existing pages. */
 const quickLinks = [
   { href: next.register, label: `Register for the ${next.display.replace(", 2026", "")} quad`, ext: true },
-  { href: pairingHref(`${next.date}-quads`), label: "See pairings for the next quad" },
   { href: "/championship", label: `Enter the ${nextChamp.name}` },
   { href: "/programs/bay-area", label: "Explore Bay Area classes" },
-  { href: "/quads/faq", label: "Read the quad FAQ" },
+  { href: "/quads", label: "How the monthly quads work" },
 ];
 ---
 
@@ -78,7 +76,7 @@ const quickLinks = [
     {" "}{nextChamp.display.replace(", 2026", "")}. <span class="font-semibold underline underline-offset-4">Explore now</span>
   </a>
 
-  {/* Hero: the photo collage full bleed, copy on the left, quick links on the right. */}
+  {/* Hero: the photo collage full bleed, shaded only behind the copy so the people stay visible. */}
   <section class="relative isolate overflow-hidden">
     <img
       src="/home-hero-collage-hq.jpg"
@@ -88,10 +86,10 @@ const quickLinks = [
       fetchpriority="high"
       class="absolute inset-0 -z-20 h-full w-full object-cover"
     />
-    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-[#14213D]/90 via-[#1E3A8A]/75 to-[#1E3A8A]/35" aria-hidden="true"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-[#14213D]/85 from-10% via-[#14213D]/45 via-50% to-transparent to-80%" aria-hidden="true"></div>
 
-    <div class="mx-auto grid max-w-6xl gap-10 px-5 py-16 sm:py-24 lg:grid-cols-12 lg:items-center">
-      <div class="lg:col-span-7">
+    <div class="mx-auto max-w-6xl px-5 py-16 sm:py-28 [text-shadow:0_1px_12px_rgb(0_0_0/0.45)]">
+      <div class="max-w-2xl">
         <p class="bolt-rule label mb-5 max-w-sm text-sun">
           <Bolt size={13} />
           Founded {org.founded} in {org.foundedIn}
@@ -99,7 +97,7 @@ const quickLinks = [
         <h1 class="max-w-[16ch] text-[2.6rem] text-white sm:text-6xl lg:text-[4.2rem]">
           A chess club run by the <span class="text-sun">students</span> it teaches.
         </h1>
-        <p class="mt-6 max-w-[56ch] text-[1.05rem] leading-relaxed text-white/85">
+        <p class="mt-6 max-w-[56ch] text-[1.05rem] leading-relaxed text-white">
           <strong class="font-semibold text-white">Our Mission:</strong>{" "}
           We are a student-led nonprofit organization dedicated to broadening access to chess across
           communities and backgrounds while empowering young people to learn, play, teach, and lead. We are
@@ -111,35 +109,32 @@ const quickLinks = [
             Register: {next.display.replace(", 2026", "")}
           </a>
           <a href={next.entries} target="_blank" rel="noopener noreferrer" class="pill pill-glass">Live entries</a>
-          <a href={pairingHref(`${next.date}-quads`)} class="pill pill-glass">Pairings</a>
           <a href="/quads/faq" class="pill px-3 text-white/85 hover:text-white">
             <span class="strike">Quad FAQ</span>
           </a>
         </div>
       </div>
-
-      <div class="lg:col-span-5">
-        <div class="rounded-2xl bg-white p-6 shadow-2xl shadow-navy/30 sm:p-7">
-          <p class="text-[1.15rem] font-bold text-navy">Where would you like to start?</p>
-          <ul class="mt-4 divide-y divide-border">
-            {quickLinks.map((l) => (
-              <li>
-                <a
-                  href={l.href}
-                  target={l.ext ? "_blank" : undefined}
-                  rel={l.ext ? "noopener noreferrer" : undefined}
-                  class="group flex items-center justify-between gap-4 py-3.5 text-[0.95rem] font-medium text-foreground transition-colors hover:text-spark"
-                >
-                  {l.label}
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0 transition-transform group-hover:translate-x-1"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
     </div>
   </section>
+
+  {/* Quick links, Charlotte-style: where do you want to start. */}
+  <nav aria-label="Get started" class="border-b border-border bg-white">
+    <ul class="mx-auto grid max-w-6xl divide-y divide-border px-5 sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4">
+      {quickLinks.map((l) => (
+        <li>
+          <a
+            href={l.href}
+            target={l.ext ? "_blank" : undefined}
+            rel={l.ext ? "noopener noreferrer" : undefined}
+            class="group flex items-center justify-between gap-3 py-5 text-[0.95rem] font-semibold text-navy transition-colors hover:text-spark sm:px-4"
+          >
+            {l.label}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0 text-spark transition-transform group-hover:translate-x-1"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
 
   {/* Stats strip, as on a club's "trusted by" row. */}
   <section class="border-b border-border">
@@ -169,7 +164,7 @@ const quickLinks = [
         </div>
         <a href="/quads" class="pill pill-outline h-11 px-5 text-[0.9rem]">Format and details &rarr;</a>
       </div>
-      <ol class:list={["grid gap-5 sm:grid-cols-2", upcomingQuads.length % 3 === 0 ? "lg:grid-cols-3" : "lg:grid-cols-4"]}>
+      <ol class:list={["grid gap-5", upcomingQuads.length === 1 ? "max-w-md" : "sm:grid-cols-2", upcomingQuads.length % 3 === 0 ? "lg:grid-cols-3" : upcomingQuads.length > 1 && "lg:grid-cols-4"]}>
         {upcomingQuads.map((q, i) => (
           <li class="lift flex flex-col overflow-hidden rounded-2xl border border-border bg-white" >
             <span class="h-1.5" style={`background: ${tones[i % 4]}`} aria-hidden="true"></span>
@@ -188,7 +183,6 @@ const quickLinks = [
                   <Bolt size={12} /> Register
                 </a>
                 <a href={q.entries} target="_blank" rel="noopener noreferrer" class="text-[0.88rem] text-muted-foreground hover:text-primary hover:underline">Live entries</a>
-                <a href={pairingHref(`${q.date}-quads`)} class="text-[0.88rem] text-muted-foreground hover:text-primary hover:underline">Pairings</a>
               </div>
             </div>
           </li>

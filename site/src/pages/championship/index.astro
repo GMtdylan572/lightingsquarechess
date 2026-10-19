@@ -2,7 +2,6 @@
 import Base from "@/layouts/Base.astro";
 import PageHeader from "@/components/PageHeader.astro";
 import Bolt from "@/components/Bolt.astro";
-import { pairingHref } from "@/data/pairings";
 import { upcomingChampionships, championship } from "@/data/site";
 
 const now = new Date();
@@ -37,8 +36,8 @@ const next = upcoming[0];
         </div>
         <div class="grid gap-4 sm:grid-cols-2 lg:col-span-7">
           {[
-            { label: "Swiss main tournament", when: "Daytime", links: next.swiss, pairing: pairingHref(`${next.date}-swiss`) },
-            { label: "Evening blitz", when: "Evening", links: next.blitz, pairing: pairingHref(`${next.date}-blitz`) },
+            { label: "Swiss main tournament", when: "Daytime", links: next.swiss },
+            { label: "Evening blitz", when: "Evening", links: next.blitz },
           ].map((part) => (
             <div class="rounded-sm bg-secondary p-5">
               <p class="label mb-1">{part.when}</p>
@@ -51,9 +50,6 @@ const next = upcoming[0];
                 <a href={part.links.entries} target="_blank" rel="noopener noreferrer"
                    class="inline-flex h-10 items-center justify-center rounded-sm border border-input bg-card px-4 text-[0.88rem] font-medium transition-colors hover:bg-accent">
                   Live entry list
-                </a>
-                <a href={part.pairing} class="inline-flex h-10 items-center justify-center rounded-sm border border-input bg-card px-4 text-[0.88rem] font-medium transition-colors hover:bg-accent">
-                  Pairings
                 </a>
               </div>
             </div>
@@ -88,8 +84,8 @@ const next = upcoming[0];
               </time>
             </div>
             {[
-              { label: "Swiss", links: e.swiss, pairing: pairingHref(`${e.date}-swiss`) },
-              { label: "Blitz", links: e.blitz, pairing: pairingHref(`${e.date}-blitz`) },
+              { label: "Swiss", links: e.swiss },
+              { label: "Blitz", links: e.blitz },
             ].map((part) => (
               <div class="lg:col-span-4">
                 <p class="label mb-2">{part.label}</p>
@@ -101,9 +97,6 @@ const next = upcoming[0];
                   <a href={part.links.entries} target="_blank" rel="noopener noreferrer"
                      class="inline-flex h-9 items-center rounded-sm border border-input px-3 text-[0.85rem] font-medium transition-colors hover:bg-accent">
                     Live entries
-                  </a>
-                  <a href={part.pairing} class="inline-flex h-9 items-center rounded-sm border border-input px-3 text-[0.85rem] font-medium transition-colors hover:bg-accent">
-                    Pairings
                   </a>
                 </div>
               </div>

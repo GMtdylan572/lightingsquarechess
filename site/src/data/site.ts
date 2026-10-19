@@ -71,7 +71,6 @@ export const nav: Nav[] = [
     children: [
       { href: "/tournaments", label: "All tournaments", note: "Schedule, championships and results archive" },
       { href: "/quads", label: "Monthly Quads", note: "Our main event. USCF-rated, G/25 d5" },
-      { href: "/pairings", label: "Pairings", note: "Find your round and board on tournament day" },
       { href: "/quads/faq", label: "Quad FAQ", note: "Ratings, pairings, trophies" },
       {
         href: "/championship",
@@ -117,20 +116,6 @@ export type Upcoming = {
 /* Registration form and live entry sheet for each date, taken from the
    official US Chess announcement for that event. Both open in a new tab. */
 export const upcomingQuads: Upcoming[] = [
-  {
-    date: "2026-09-27", display: "September 27, 2026", name: "September Quads",
-    venue: venues.deAnza, format: "G/25 d5",
-    register: "https://forms.gle/Aqhnmig3hrrfhMbH8",
-    entries: "https://docs.google.com/spreadsheets/d/1ljbiGexQ0QQd22uTYYSYb8ufHrHkiHqBAY3lsa1UCOs",
-    tla: "https://new.uschess.org/lightning-square-quads-sept-2026",
-  },
-  {
-    date: "2026-10-18", display: "October 18, 2026", name: "October Quads",
-    venue: venues.deAnza, format: "G/25 d5",
-    register: "https://forms.gle/WUYnqwgjyybTiiPo9",
-    entries: "https://docs.google.com/spreadsheets/d/1Wh1-X-cYKdh-MhTP8OYs1WIoajitB3vKy2Oxw1g69cQ",
-    tla: "https://new.uschess.org/lightning-square-quads-oct-2026",
-  },
   {
     date: "2026-11-15", display: "November 15, 2026", name: "November Quads",
     venue: venues.deAnza, format: "G/25 d5",

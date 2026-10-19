@@ -8,7 +8,6 @@
  */
 import Bolt from "@/components/Bolt.astro";
 import type { Upcoming } from "@/data/site";
-import { pairingHref } from "@/data/pairings";
 
 interface Props {
   event: Upcoming;
@@ -47,15 +46,6 @@ const h = size === "sm" ? "h-9 px-3 text-[0.84rem]" : "h-11 px-5 text-[0.92rem]"
       Live entries
     </a>
   )}
-  <a
-    href={pairingHref(`${event.date}-quads`)}
-    class:list={[
-      "inline-flex items-center rounded-sm border border-input font-medium transition-colors hover:bg-accent",
-      h,
-    ]}
-  >
-    Pairings
-  </a>
   {event.tla && (
     <a
       href={event.tla}
