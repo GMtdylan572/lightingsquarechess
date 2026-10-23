@@ -3,6 +3,7 @@ import Base from "@/layouts/Base.astro";
 import PageHeader from "@/components/PageHeader.astro";
 import QuadActions from "@/components/QuadActions.astro";
 import Bolt from "@/components/Bolt.astro";
+import ComingUp from "@/components/ComingUp.astro";
 import ResultsArchive from "@/components/ResultsArchive";
 import { august2026QuadCelebration, upcomingQuads, pastQuads, championshipSeries, upcomingChampionships, legacyEvents, org } from "@/data/site";
 
@@ -19,6 +20,8 @@ const nextChampionships = upcomingChampionships.filter((e) => new Date(e.date) >
     lede="Our monthly quads are over-the-board, USCF-rated tournaments. This page also carries the seasonal championships, with registration and live entry lists, and the full results archive."
     crumbs={[{ href: "/", label: "Home" }]}
   />
+
+  <ComingUp />
 
   {/* Monthly quads: the headline series, not one card among three. */}
   <section class="mx-auto max-w-6xl px-5 py-16">

@@ -1,6 +1,7 @@
 ---
 import Base from "@/layouts/Base.astro";
 import Bolt from "@/components/Bolt.astro";
+import ComingUp from "@/components/ComingUp.astro";
 import { upcomingQuads, upcomingChampionships, testimonials, patrons, org } from "@/data/site";
 
 const next = upcomingQuads[0];
@@ -117,6 +118,8 @@ const quickLinks = [
     </div>
   </section>
 
+  <ComingUp />
+
   {/* Quick links, Charlotte-style: where do you want to start. */}
   <nav aria-label="Get started" class="border-b border-border bg-white">
     <ul class="mx-auto grid max-w-6xl divide-y divide-border px-5 sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4">
@@ -151,43 +154,6 @@ const quickLinks = [
           </div>
         ))}
       </dl>
-    </div>
-  </section>
-
-  {/* Schedule. */}
-  <section aria-labelledby="sched" class="bg-secondary">
-    <div class="mx-auto max-w-6xl px-5 py-20">
-      <div class="mb-10 flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p class="bolt-rule label mb-3 max-w-xs text-spark"><Bolt size={13} /> Registration open</p>
-          <h2 id="sched" class="text-4xl text-navy sm:text-[2.75rem]">2026 Quad <span class="hl">Schedule</span></h2>
-        </div>
-        <a href="/quads" class="pill pill-outline h-11 px-5 text-[0.9rem]">Format and details &rarr;</a>
-      </div>
-      <ol class:list={["grid gap-5", upcomingQuads.length === 1 ? "max-w-md" : "sm:grid-cols-2", upcomingQuads.length % 3 === 0 ? "lg:grid-cols-3" : upcomingQuads.length > 1 && "lg:grid-cols-4"]}>
-        {upcomingQuads.map((q, i) => (
-          <li class="lift flex flex-col overflow-hidden rounded-2xl border border-border bg-white" >
-            <span class="h-1.5" style={`background: ${tones[i % 4]}`} aria-hidden="true"></span>
-            <div class="flex flex-1 flex-col p-6">
-              <div class="flex items-start justify-between gap-3">
-                <time datetime={q.date} class="font-heading text-[1.6rem] font-bold leading-tight tracking-[-0.02em] text-navy">
-                  {q.display.replace(", 2026", "")}
-                </time>
-                {i === 0 && <span class="chip bg-spark text-white">Next</span>}
-              </div>
-              <p class="mt-2 text-[0.88rem] text-muted-foreground">
-                {q.venue.name} &middot; {q.format}
-              </p>
-              <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-border pt-4">
-                <a href={q.register} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[0.9rem] font-semibold hover:underline" style={`color: ${tones[i % 4]}`}>
-                  <Bolt size={12} /> Register
-                </a>
-                <a href={q.entries} target="_blank" rel="noopener noreferrer" class="text-[0.88rem] text-muted-foreground hover:text-primary hover:underline">Live entries</a>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ol>
     </div>
   </section>
 
