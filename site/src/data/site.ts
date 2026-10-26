@@ -202,6 +202,7 @@ export const august2026QuadCelebration = {
 
 /* Crosstables on uschess.org. Ordered newest first. */
 export const pastQuads: PastEvent[] = [
+  { date: "October 18, 2026", venue: venues.deAnza, results: "https://ratings.uschess.org/event/202610180093" },
   { date: "September 27, 2026", venue: venues.deAnza, results: "https://ratings.uschess.org/event/202609270063" },
   { date: "August 30, 2026", venue: venues.deAnza, results: august2026QuadCelebration.results },
   { date: "May 31, 2026", venue: venues.deAnza, results: "https://ratings.uschess.org/event/202605310073" },

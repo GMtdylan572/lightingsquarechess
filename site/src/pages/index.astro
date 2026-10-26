@@ -1,7 +1,6 @@
 ---
 import Base from "@/layouts/Base.astro";
 import Bolt from "@/components/Bolt.astro";
-import ComingUp from "@/components/ComingUp.astro";
 import { upcomingQuads, upcomingChampionships, girlsFestival, testimonials, patrons, org } from "@/data/site";
 
 const next = upcomingQuads[0];
@@ -23,7 +22,6 @@ const programs = [
     figure: "24",
     figureNote: "rated quads run since 2023",
     photo: "https://i.ibb.co/Fq5BmC0n/bayarea-1s.jpg",
-    tone: "var(--sky)",
   },
   {
     href: "/programs/national",
@@ -34,7 +32,6 @@ const programs = [
     figure: "8",
     figureNote: "courses taught, 2024–2025",
     photo: "https://i.ibb.co/d0j36SF9/25206877-7060296.jpg",
-    tone: "var(--mint)",
   },
   {
     href: "/programs/international",
@@ -45,25 +42,7 @@ const programs = [
     figure: "8",
     figureNote: "public schools, four countries",
     photo: "https://i.ibb.co/BVX6f9ys/2c20fafa-4eec-46bd-9870-b171db690b8f.jpg",
-    tone: "var(--berry)",
   },
-];
-/* Each schedule card gets its own light, cycling through the palette. */
-const tones = ["var(--sky)", "var(--spark)", "var(--mint)", "var(--berry)"];
-
-const stats = [
-  { n: String(org.founded), note: `Founded in ${org.foundedIn}` },
-  { n: "24", note: "Rated quads since 2023" },
-  { n: "4", note: "States taught for free" },
-  { n: "8", note: "Schools in four countries" },
-];
-
-/* Charlotte-style "where do you want to go" list, all existing pages. */
-const quickLinks = [
-  { href: next.register, label: `Register for the ${next.display.replace(", 2026", "")} quad`, ext: true },
-  { href: "/championship", label: `Enter the ${nextChamp.name}` },
-  { href: "/programs/bay-area", label: "Explore Bay Area classes" },
-  { href: "/quads", label: "How the monthly quads work" },
 ];
 ---
 
@@ -71,213 +50,289 @@ const quickLinks = [
   title={org.name}
   description="A youth-led nonprofit founded in San Jose that runs monthly USCF-rated quads, seasonal championships and Bay Area chess classes, with past free programs in four states and four countries."
 >
-  {/* Announcement bar for the flagship event. */}
-  <a href="/championship" class="block bg-spark px-5 py-2.5 text-center text-[0.9rem] text-white transition-colors hover:bg-[#CC4823]">
-    <span class="font-semibold">Championship:</span> Entries are also open for the {nextChamp.name},
-    {" "}{nextChamp.display.replace(", 2026", "")}. <span class="font-semibold underline underline-offset-4">Explore now</span>
-  </a>
-
-  {/* Hero: the photo collage full bleed, shaded only behind the copy so the people stay visible. */}
-  <section class="relative isolate overflow-hidden">
-    <img
-      src="/home-hero-collage-hq.jpg"
-      alt="Lightning Square students coaching classes, playing chess and running tournaments"
-      width="3584"
-      height="2560"
-      fetchpriority="high"
-      class="absolute inset-0 -z-20 h-full w-full object-cover"
-    />
-    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-[#14213D]/85 from-10% via-[#14213D]/45 via-50% to-transparent to-80%" aria-hidden="true"></div>
-
-    <div class="mx-auto max-w-6xl px-5 py-16 sm:py-28 [text-shadow:0_1px_12px_rgb(0_0_0/0.45)]">
-      <div class="max-w-2xl">
-        <p class="bolt-rule label mb-5 max-w-sm text-sun">
+  {/* Clean split hero: copy and photograph stay separate so neither competes. */}
+  <section class="border-b border-border bg-background text-[#1d1d1f]">
+    <div class="mx-auto grid max-w-7xl items-center gap-10 px-5 py-12 sm:py-16 lg:grid-cols-[minmax(0,.82fr)_minmax(0,1.18fr)] lg:gap-14 lg:py-20">
+      <div class="max-w-xl">
+        <p class="bolt-rule label mb-5 max-w-sm text-primary">
           <Bolt size={13} />
           Founded {org.founded} in {org.foundedIn}
         </p>
-        <h1 class="max-w-[16ch] text-[2.6rem] text-white sm:text-6xl lg:text-[4.2rem]">
-          A chess club run by the <span class="text-sun">students</span> it teaches.
+        <h1
+          class="max-w-[18ch] text-[2.6rem] font-semibold leading-[1.04] text-[#1d1d1f] sm:text-6xl lg:text-[4.1rem]"
+        >
+          A chess club run by the students it teaches.
         </h1>
-        <p class="mt-6 max-w-[56ch] text-[1.05rem] leading-relaxed text-white">
-          <strong class="font-semibold text-white">Our Mission:</strong>{" "}
+        <p class="mt-6 max-w-[54ch] text-[1.06rem] leading-relaxed text-[#6e6e73]">
+          <strong class="font-semibold text-[#1d1d1f]">Our Mission:</strong>{" "}
           We are a student-led nonprofit organization dedicated to broadening access to chess across
           communities and backgrounds while empowering young people to learn, play, teach, and lead. We are
           committed to expanding opportunities for underrepresented players to participate, belong, and thrive in chess.
         </p>
+
         <div class="mt-9 flex flex-wrap gap-3">
-          <a href={next.register} target="_blank" rel="noopener noreferrer" class="pill pill-spark">
+          <a
+            href={next.register}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex h-12 items-center gap-2 rounded-sm bg-primary px-6 font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
             <Bolt size={15} />
             Register: {next.display.replace(", 2026", "")}
           </a>
-          <a href={next.entries} target="_blank" rel="noopener noreferrer" class="pill pill-glass">Live entries</a>
-          <a href="/quads/faq" class="pill px-3 text-white/85 hover:text-white">
+          <a
+            href={next.entries}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex h-12 items-center rounded-sm border border-[#d2d2d7] px-6 font-medium text-[#0066cc] transition-colors hover:border-[#0066cc] hover:bg-[#f5f5f7]"
+          >
+            Live entries
+          </a>
+          <a
+            href="/quads/faq"
+            class="inline-flex h-12 items-center rounded-sm px-2 font-medium text-[#6e6e73] transition-colors hover:text-[#0066cc]"
+          >
             <span class="strike">Quad FAQ</span>
           </a>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <ComingUp />
-
-  {/* Quick links, Charlotte-style: where do you want to start. */}
-  <nav aria-label="Get started" class="border-b border-border bg-white">
-    <ul class="mx-auto grid max-w-6xl divide-y divide-border px-5 sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4">
-      {quickLinks.map((l) => (
-        <li>
-          <a
-            href={l.href}
-            target={l.ext ? "_blank" : undefined}
-            rel={l.ext ? "noopener noreferrer" : undefined}
-            class="group flex items-center justify-between gap-3 py-5 text-[0.95rem] font-semibold text-navy transition-colors hover:text-spark sm:px-4"
-          >
-            {l.label}
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0 text-spark transition-transform group-hover:translate-x-1"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        <p class="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.94rem] text-[#6e6e73]">
+          <span class="rounded-sm bg-gold px-2 py-0.5 font-mono text-[0.62rem] uppercase tracking-wider text-gold-foreground">
+            Championship
+          </span>
+          Entries are also open for the {nextChamp.name},
+          <a href="/championship" class="font-medium text-[#0066cc] underline underline-offset-4 hover:text-primary">
+            {nextChamp.display.replace(", 2026", "")}
           </a>
-        </li>
-      ))}
-    </ul>
-  </nav>
-
-  {/* Stats strip, as on a club's "trusted by" row. */}
-  <section class="border-b border-border">
-    <div class="mx-auto grid max-w-6xl items-center gap-8 px-5 py-12 lg:grid-cols-12">
-      <h2 class="text-3xl text-navy lg:col-span-3">Run by students <span class="hl">since {org.founded}</span></h2>
-      <dl class="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:col-span-9">
-        {stats.map((st, i) => (
-          <div class="text-center">
-            <dt class="sr-only">{st.note}</dt>
-            <dd>
-              <span class="stat-figure block font-heading text-4xl font-bold tracking-[-0.03em] sm:text-5xl" style={`color: ${tones[i]}`}>{st.n}</span>
-              <span class="mt-1 block text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-muted-foreground">{st.note}</span>
-            </dd>
-          </div>
-        ))}
-      </dl>
-    </div>
-  </section>
-
-  {/* The flagship event, in championship gold. */}
-  <section aria-labelledby="champ" class="mx-auto max-w-6xl px-5 py-20">
-    <div class="tint grid overflow-hidden rounded-3xl border border-gold/40 lg:grid-cols-12" style="--tint: var(--sun)">
-      <div class="p-7 sm:p-10 lg:col-span-7">
-        <p class="bolt-rule label mb-4 max-w-[15rem] text-spark"><Bolt size={13} /> The flagship event</p>
-        <h2 id="champ" class="text-4xl text-navy sm:text-5xl">{nextChamp.name}</h2>
-        <p class="mt-3 text-[1.1rem] font-semibold text-spark">{nextChamp.display}</p>
-        <p class="mt-5 max-w-[54ch] leading-relaxed text-muted-foreground">
-          Our seasonal championship is a bigger day than a quad: a rated Swiss
-          main tournament with prize money, then an evening blitz. Enter one
-          or both. Sections and the venue are confirmed closer to the date.
         </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href={nextChamp.swiss.register} target="_blank" rel="noopener noreferrer" class="pill bg-gold text-gold-foreground hover:bg-[#E3A600]">
-            <Bolt size={15} /> Register: Swiss
-          </a>
-          <a href={nextChamp.blitz.register} target="_blank" rel="noopener noreferrer" class="pill pill-outline">Register: Blitz</a>
-          <a href="/championship" class="pill px-3 text-primary hover:underline">All championship dates &rarr;</a>
+      </div>
+
+      <figure class="overflow-hidden rounded-md border border-border bg-card p-2 shadow-sm sm:p-3">
+      <img
+        src="/home-hero-collage-hq.jpg"
+        alt="Lightning Square students coaching classes, playing chess and running tournaments"
+        width="3584"
+        height="2560"
+        fetchpriority="high"
+        class="h-auto w-full rounded-sm object-contain"
+      />
+      </figure>
+    </div>
+  </section>
+
+  {/* Schedule strip, set like a fixtures list rather than a marketing banner. */}
+  <section aria-labelledby="sched" class="border-b border-border bg-secondary">
+    <div class="mx-auto max-w-6xl px-5 py-8">
+      <div class="mb-5 flex flex-wrap items-baseline justify-between gap-3">
+        <h2 id="sched" class="label">2026 quad schedule &middot; registration open</h2>
+        <a href="/quads" class="text-[0.88rem] font-medium text-primary hover:underline">
+          Format and details
+        </a>
+      </div>
+      <ol class:list={["grid gap-px overflow-hidden rounded-md bg-border", upcomingQuads.length === 1 ? "max-w-md" : "sm:grid-cols-2", upcomingQuads.length >= 4 ? "lg:grid-cols-4" : upcomingQuads.length === 3 && "lg:grid-cols-3"]}>
+        {
+          upcomingQuads.map((q, i) => (
+            <li class="flex flex-col bg-card p-4">
+              <div class="flex items-baseline justify-between gap-3">
+                <time datetime={q.date} class="font-mono text-[0.95rem] font-medium">
+                  {q.display.replace(", 2026", "")}
+                </time>
+                {i === 0 && (
+                  <span class="rounded-sm bg-primary px-1.5 py-0.5 font-mono text-[0.62rem] uppercase tracking-wider text-primary-foreground">
+                    Next
+                  </span>
+                )}
+              </div>
+              <p class="mt-1 text-[0.82rem] text-muted-foreground">
+                {q.venue.name} &middot; {q.format}
+              </p>
+              <div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 pt-3 [border-top:1px_solid_var(--rule)]">
+                <a
+                  href={q.register}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1 text-[0.84rem] font-medium text-primary hover:underline"
+                >
+                  <Bolt size={11} />
+                  Register
+                </a>
+                <a
+                  href={q.entries}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-[0.84rem] text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+                >
+                  Live entries
+                </a>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  {/* The flagship event. Gold is the championship accent everywhere on the
+      site, so the band leans on it rather than inventing a new treatment. */}
+  <section aria-labelledby="champ" class="border-b border-border bg-background">
+    <div class="mx-auto max-w-6xl px-5 py-14 sm:py-16">
+      <div class="grid gap-10 rounded-md border border-border bg-card p-6 shadow-sm sm:p-8 lg:grid-cols-12 lg:gap-12">
+        <div class="lg:col-span-7">
+          <p class="bolt-rule label mb-4 max-w-[15rem] text-primary">
+            <Bolt size={13} />
+            The flagship event
+          </p>
+          <h2 id="champ" class="text-3xl font-semibold sm:text-[2.5rem]">
+            {nextChamp.name}
+          </h2>
+          <p class="mt-3 font-mono text-[1.05rem] text-muted-foreground">{nextChamp.display}</p>
+          <p class="mt-5 max-w-[54ch] leading-relaxed text-muted-foreground">
+            Our seasonal championship is a bigger day than a quad: a rated Swiss
+            main tournament with prize money, then an evening blitz. Enter one
+            or both. Sections and the venue are confirmed closer to the date.
+          </p>
+
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a
+              href={nextChamp.swiss.register}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex h-12 items-center gap-2 rounded-sm bg-gold px-6 font-medium text-gold-foreground transition-colors hover:bg-gold/90"
+            >
+              <Bolt size={15} />
+              Register: Swiss
+            </a>
+            <a
+              href={nextChamp.blitz.register}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex h-12 items-center rounded-sm border border-input px-6 font-medium transition-colors hover:bg-accent"
+            >
+              Register: Blitz
+            </a>
+            <a
+              href="/championship"
+              class="inline-flex h-12 items-center gap-1.5 rounded-sm px-2 font-medium text-primary transition-colors hover:underline"
+            >
+              All championship dates
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
         </div>
 
-        <div class="mt-10 border-t border-gold/40 pt-6">
-          <p class="label mb-3">Championship calendar</p>
-          <ol class="grid gap-2 sm:grid-cols-2">
-            <li class="flex items-center justify-between gap-3 rounded-xl bg-white px-4 py-3 ring-2 ring-gold">
-              <span class="font-semibold text-navy">{nextChamp.season} {new Date(nextChamp.date).getUTCFullYear()}</span>
-              <time datetime={nextChamp.date} class="text-[0.85rem] font-medium text-spark">{nextChamp.display}</time>
+        <div class="lg:col-span-5 lg:border-l lg:border-border lg:pl-10">
+          <p class="label mb-4">Championship calendar</p>
+          <ol class="divide-y divide-border">
+            <li class="flex items-baseline justify-between gap-3 pb-3">
+              <span class="font-medium">{nextChamp.season} {new Date(nextChamp.date).getUTCFullYear()}</span>
+              <span class="flex items-center gap-2">
+                <time datetime={nextChamp.date} class="font-mono text-[0.88rem] text-muted-foreground">
+                  {nextChamp.display}
+                </time>
+                <span class="rounded-sm bg-primary px-1.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider text-primary-foreground">
+                  Next
+                </span>
+              </span>
             </li>
             {laterChamps.map((e) => (
-              <li class="flex items-center justify-between gap-3 rounded-xl bg-white/70 px-4 py-3 ring-1 ring-border">
-                <span class="text-foreground">{e.season} {new Date(e.date).getUTCFullYear()}</span>
-                <time datetime={e.date} class="text-[0.85rem] text-muted-foreground">{e.display}</time>
+              <li class="flex items-baseline justify-between gap-3 py-3">
+                <span class="text-muted-foreground">{e.season} {new Date(e.date).getUTCFullYear()}</span>
+                <time datetime={e.date} class="font-mono text-[0.88rem] text-muted-foreground">
+                  {e.display}
+                </time>
               </li>
             ))}
           </ol>
-          <a href="/championship/past" class="mt-5 inline-flex text-[0.92rem] font-semibold text-primary hover:underline">
-            Results from the 2026 championship &rarr;
+          <a href="/championship/past" class="mt-5 inline-flex items-center gap-1.5 text-[0.9rem] font-medium text-primary hover:underline">
+            Results from the 2026 championship
           </a>
         </div>
-      </div>
-      <div class="relative min-h-72 lg:col-span-5">
-        <img
-          src="/championship-2026-directors.jpeg"
-          alt="Student directors running pairings at the 2026 Lightning Square championship"
-          loading="lazy"
-          class="absolute inset-0 h-full w-full object-cover object-[50%_75%]"
-        />
       </div>
     </div>
   </section>
 
   {/* The All Girls Winter Chess Festival: free, so it gets its own band. */}
-  <section aria-labelledby="festival" class="mx-auto max-w-6xl px-5 pb-20">
-    <div class="tint flex flex-wrap items-center justify-between gap-8 rounded-3xl border border-berry/25 p-7 sm:p-10" style="--tint: var(--berry)">
+  <section aria-labelledby="festival" class="border-b border-border bg-secondary">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-8 px-5 py-12">
       <div class="max-w-2xl">
-        <p class="bolt-rule label mb-4 max-w-[15rem] text-berry">
+        <p class="bolt-rule label mb-4 max-w-[15rem] text-primary">
           <Bolt size={13} />
           Free entry · Girls K–12
         </p>
-        <h2 id="festival" class="text-3xl text-navy sm:text-[2.4rem]">{girlsFestival.name}</h2>
-        <p class="mt-3 text-[1.05rem] font-semibold text-berry">{girlsFestival.display} · San Jose</p>
+        <h2 id="festival" class="text-3xl font-semibold sm:text-[2.3rem]">{girlsFestival.name}</h2>
+        <p class="mt-3 font-mono text-[1.05rem] text-muted-foreground">{girlsFestival.display} · San Jose</p>
         <p class="mt-4 max-w-[56ch] leading-relaxed text-muted-foreground">
           Five rounds at {girlsFestival.control}, with rated U800 and 800+ sections and an
           unrated First Move section for girls new to tournament chess.
         </p>
       </div>
       <div class="flex flex-wrap gap-3">
-        <a href={girlsFestival.register} target="_blank" rel="noopener noreferrer" class="pill bg-berry text-white hover:opacity-90">
+        <a href={girlsFestival.register} target="_blank" rel="noopener noreferrer"
+           class="inline-flex h-12 items-center gap-2 rounded-sm bg-primary px-6 font-medium text-primary-foreground transition-colors hover:bg-primary/90">
           <Bolt size={15} />
           Register
         </a>
-        <a href="/girls-festival" class="pill pill-outline">Festival details</a>
+        <a href="/girls-festival"
+           class="inline-flex h-12 items-center rounded-sm border border-input bg-card px-6 font-medium transition-colors hover:bg-accent">
+          Festival details
+        </a>
       </div>
     </div>
   </section>
 
-  {/* Programmes, as alternating photo and text rows. */}
-  <section class="border-t border-border bg-secondary">
-    <div class="mx-auto max-w-6xl px-5 py-20 sm:py-24">
-      <div class="mb-14 text-center">
-        <p class="label mb-3">What we run</p>
-        <h2 class="mx-auto max-w-3xl text-4xl text-navy sm:text-5xl">
-          The tournaments come first. <span class="hl">The teaching feeds them.</span>
-        </h2>
-      </div>
+  {/* Programmes. Asymmetric editorial rows, not a three-card grid. */}
+  <section class="mx-auto max-w-6xl px-5 py-20 sm:py-24">
+    <div class="mb-12 max-w-2xl">
+      <p class="label mb-3">What we run</p>
+      <h2 class="text-3xl font-semibold sm:text-[2.6rem]">
+        The tournaments come first. The teaching feeds them.
+      </h2>
+    </div>
 
-      <div class="space-y-8">
-        {programs.map((p, i) => (
-          <article class="grid overflow-hidden rounded-3xl border border-border bg-white lg:grid-cols-2">
-            <div class:list={["relative min-h-64", i % 2 === 1 && "lg:order-2"]}>
-              <img src={p.photo} alt="" loading="lazy" width="640" height="480" class="absolute inset-0 h-full w-full object-cover" />
+    <div class="divide-y divide-border">
+      {
+        programs.map((p) => (
+          <article class="grid gap-8 py-10 lg:grid-cols-12 lg:gap-12">
+            <div class="lg:col-span-4">
+              <img
+                src={p.photo}
+                alt=""
+                loading="lazy"
+                width="640"
+                height="480"
+                class="aspect-[4/3] w-full rounded-md border border-border object-cover"
+              />
             </div>
-            <div class="flex flex-col p-7 sm:p-10">
-              <span class="chip tint self-start" style={`--tint: ${p.tone}; color: ${p.tone}`}>{p.tag}</span>
-              <h3 class="mt-4 text-[1.75rem] text-navy">{p.title}</h3>
-              <p class="mt-3 max-w-[58ch] leading-relaxed text-muted-foreground">{p.body}</p>
-              <div class="mt-6 flex items-baseline gap-3 border-t border-border pt-5">
-                <span class="stat-figure font-heading text-4xl font-bold" style={`color: ${p.tone}`}>{p.figure}</span>
-                <span class="text-[0.88rem] text-muted-foreground">{p.figureNote}</span>
-              </div>
-              <a href={p.href} class="group mt-6 inline-flex items-center gap-2 self-start font-semibold text-primary">
+            <div class="lg:col-span-6">
+              <p class="label mb-2">{p.tag}</p>
+              <h3 class="mb-3 text-[1.45rem] font-semibold">{p.title}</h3>
+              <p class="max-w-[58ch] leading-relaxed text-muted-foreground">{p.body}</p>
+              <a
+                href={p.href}
+                class="mt-5 inline-flex items-center gap-1.5 text-[0.92rem] font-medium text-primary hover:underline"
+              >
                 How it works
-                <span class="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-white transition-transform group-hover:translate-x-1">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                </span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
               </a>
             </div>
+            <div class="lg:col-span-2 lg:border-l lg:border-border lg:pl-6">
+              <p class="stat-figure font-heading text-4xl font-semibold text-primary">{p.figure}</p>
+              <p class="mt-1 text-[0.82rem] leading-snug text-muted-foreground">{p.figureNote}</p>
+            </div>
           </article>
-        ))}
-      </div>
+        ))
+      }
     </div>
   </section>
 
-  {/* Origin. */}
-  <section class="mx-auto max-w-6xl px-5 py-20 sm:py-24">
-    <div class="grid gap-10 lg:grid-cols-12">
+  {/* Origin. Text-led, no hero image, breaks the page rhythm on purpose. */}
+  <section class="border-y border-border bg-secondary">
+    <div class="mx-auto grid max-w-6xl gap-10 px-5 py-20 lg:grid-cols-12">
       <div class="lg:col-span-4">
-        <p class="label mb-3">Who runs it</p>
-        <h2 class="text-4xl text-navy">Led by <span class="hl">students</span>, from day one.</h2>
+        <p class="label">Who runs it</p>
       </div>
       <div class="lg:col-span-8">
-        <p class="max-w-[46ch] font-heading text-[1.5rem] font-semibold leading-snug tracking-[-0.02em] text-navy sm:text-[1.8rem]">
+        <p class="max-w-[46ch] font-heading text-[1.6rem] leading-snug sm:text-[1.9rem]">
           Three high school chess players founded Lightning Square in San Jose
           in 2022: WCM Kally Wen, Wentao&nbsp;(Sean)&nbsp;Wu and Vincent&nbsp;Qin.
         </p>
@@ -287,47 +342,49 @@ const quickLinks = [
           coaches are students. That student-led model keeps the club focused on
           creating practical ways for young players to learn and compete.
         </p>
-        <a href="/about" class="pill pill-outline mt-7">The people involved &rarr;</a>
+        <a
+          href="/about"
+          class="mt-6 inline-flex h-11 items-center rounded-sm border border-input px-5 text-[0.92rem] font-medium transition-colors hover:bg-accent"
+        >
+          The people involved
+        </a>
       </div>
     </div>
   </section>
 
-  {/* Testimonials. */}
-  <section class="border-t border-border bg-secondary">
-    <div class="mx-auto max-w-6xl px-5 py-20 sm:py-24">
-      <div class="mb-12 text-center">
-        <h2 class="text-4xl text-navy sm:text-5xl">What parents and directors <span class="hl">say</span></h2>
-      </div>
-      <div class="columns-1 gap-5 md:columns-2 lg:columns-3">
-        {testimonials.map((t, i) => (
-          <figure class="mb-5 break-inside-avoid rounded-2xl border border-border bg-white p-6">
-            <div class="flex gap-0.5" style={`color: ${tones[i % 4]}`} aria-hidden="true">
-              {[0, 1, 2, 3, 4].map(() => <Bolt size={14} />)}
-            </div>
-            <blockquote class="mt-4 text-[0.98rem] leading-relaxed text-foreground">{t.text}</blockquote>
-            <figcaption class="mt-5 flex items-center gap-3 border-t border-border pt-4">
-              <span class="flex h-9 w-9 items-center justify-center rounded-full text-[0.9rem] font-bold text-white" style={`background: ${tones[i % 4]}`} aria-hidden="true">
-                {t.who.charAt(0)}
-              </span>
-              <span>
-                <span class="block text-[0.92rem] font-semibold text-navy">{t.who}</span>
-                {t.role && <span class="block text-[0.78rem] text-muted-foreground">{t.role}</span>}
-              </span>
+  {/* Testimonials as a quiet quote list rather than a card carousel. */}
+  <section class="mx-auto max-w-6xl px-5 py-20 sm:py-24">
+    <p class="label mb-10">What parents and directors say</p>
+    <div class="grid gap-x-12 gap-y-10 md:grid-cols-2">
+      {
+        testimonials.map((t) => (
+          <figure class="rule-top pt-6">
+            <blockquote class="text-[0.98rem] leading-relaxed">{t.text}</blockquote>
+            <figcaption class="mt-4 font-mono text-[0.75rem] uppercase tracking-wider text-muted-foreground">
+              {t.who}
+              {t.role && <span class="text-muted-foreground/60"> &middot; {t.role}</span>}
             </figcaption>
           </figure>
-        ))}
-      </div>
+        ))
+      }
     </div>
   </section>
 
-  {/* Patrons. */}
-  <section class="mx-auto max-w-6xl px-5 py-14">
-    <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 text-center">
-      <p class="label">Lightning Square Chess Club thanks its generous patrons</p>
+  {/* Patrons, acknowledged on the old site and kept here. */}
+  <section class="border-t border-border bg-secondary">
+    <div class="mx-auto max-w-6xl px-5 py-12">
+      <p class="label mb-6">Lightning Square Chess Club thanks its generous patrons</p>
       <ul class="flex flex-wrap items-center gap-10">
         {patrons.map((pt) => (
           <li>
-            <img src={pt.logo} alt={pt.name ? `${pt.name} logo` : "Patron logo"} width="150" height="107" loading="lazy" class="h-14 w-auto" />
+            <img
+              src={pt.logo}
+              alt={pt.name ? `${pt.name} logo` : "Patron logo"}
+              width="150"
+              height="107"
+              loading="lazy"
+              class="h-14 w-auto opacity-80 transition-opacity hover:opacity-100"
+            />
             {pt.name && <p class="mt-2 text-[0.82rem] text-muted-foreground">{pt.name}</p>}
           </li>
         ))}
@@ -335,29 +392,50 @@ const quickLinks = [
     </div>
   </section>
 
-  {/* Closing CTA. */}
-  <section class="mx-auto max-w-6xl px-5">
-    <div class="relative isolate overflow-hidden rounded-3xl px-7 py-14 text-white sm:px-12" style="background: linear-gradient(115deg, #1E3A8A 0%, #2F6FEB 100%);">
-      <div class="board-grid absolute inset-0 -z-10" aria-hidden="true"></div>
-      <Bolt size={340} class="absolute -right-10 -top-8 -z-10 rotate-12 text-sun/25" />
-      <div class="grid gap-8 lg:grid-cols-12 lg:items-end">
-        <div class="lg:col-span-7">
-          <p class="bolt-rule label mb-3 max-w-[14rem] text-sun"><Bolt size={13} /> Play with us</p>
-          <h2 class="text-3xl text-white sm:text-5xl">Come to a quad. Three rated games, one morning.</h2>
-          <p class="mt-4 max-w-[50ch] leading-relaxed text-white/85">
-            Every quad date through November is open for entry, and so is the
-            {" "}{nextChamp.name} on {nextChamp.display.replace(", 2026", "")}. Join the
-            WhatsApp group and you will hear about pairings, results and new
-            events first.
-          </p>
-        </div>
-        <div class="flex flex-wrap gap-3 lg:col-span-5 lg:justify-end">
-          <a href={next.register} target="_blank" rel="noopener noreferrer" class="pill pill-spark">
-            <Bolt size={15} /> Register for the next quad
-          </a>
-          <a href="/championship" class="pill pill-white">Enter the championship</a>
-          <a href={org.whatsapp} target="_blank" rel="noopener noreferrer" class="pill pill-glass">Join the WhatsApp group</a>
-        </div>
+  {/* Closing CTA: the quad stays the primary action, with the championship
+      named beside it so the page does not end quads-only. */}
+  <section class="board-texture relative isolate overflow-hidden border-t border-border bg-board text-board-foreground">
+    <Bolt size={300} class="bolt-mark hidden sm:block" />
+    <div class="mx-auto grid max-w-6xl gap-8 px-5 py-16 md:grid-cols-2">
+      <div>
+        <p class="bolt-rule label mb-3 max-w-[14rem] text-gold">
+          <Bolt size={13} />
+          Play with us
+        </p>
+        <h2 class="text-2xl font-semibold text-white sm:text-3xl">
+          Come to a quad. Three rated games, one morning.
+        </h2>
+        <p class="mt-3 max-w-[48ch] leading-relaxed text-board-foreground/70">
+          Every quad date through November is open for entry, and so is the
+          {" "}{nextChamp.name} on {nextChamp.display.replace(", 2026", "")}. Join the
+          WhatsApp group and you will hear about pairings, results and new
+          events first.
+        </p>
+      </div>
+      <div class="flex flex-wrap items-start gap-3 md:justify-end">
+        <a
+          href={next.register}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex h-12 items-center gap-2 rounded-sm bg-gold px-6 font-medium text-gold-foreground transition-colors hover:bg-gold/90"
+        >
+          <Bolt size={15} />
+          Register for the next quad
+        </a>
+        <a
+          href="/championship"
+          class="inline-flex h-12 items-center rounded-sm border border-white/25 px-6 font-medium text-white transition-colors hover:border-white/50 hover:bg-white/10"
+        >
+          Enter the championship
+        </a>
+        <a
+          href={org.whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex h-12 items-center rounded-sm border border-white/25 px-6 font-medium text-white transition-colors hover:border-white/50 hover:bg-white/10"
+        >
+          Join the WhatsApp group
+        </a>
       </div>
     </div>
   </section>

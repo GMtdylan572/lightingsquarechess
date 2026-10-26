@@ -9,31 +9,28 @@ interface Props {
 }
 const { kicker, title, lede, crumbs = [] } = Astro.props;
 ---
-<section
-  class="relative isolate overflow-hidden border-b border-border"
-  style="background: linear-gradient(120deg, color-mix(in srgb, var(--sky) 10%, white) 0%, color-mix(in srgb, var(--sun) 10%, white) 55%, color-mix(in srgb, var(--spark) 9%, white) 100%);"
->
-  <Bolt size={300} class="bolt-mark hidden sm:block" />
-  <div class="mx-auto max-w-6xl px-5 py-14 sm:py-20">
+<section class="board-texture relative isolate overflow-hidden border-b border-border bg-board text-board-foreground">
+  <Bolt size={280} class="bolt-mark hidden sm:block" />
+  <div class="mx-auto max-w-6xl px-5 py-14 sm:py-16">
     {crumbs.length > 0 && (
-      <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-2 text-[0.8rem] text-muted-foreground">
-        {crumbs.map((c) => (
+      <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-2 font-mono text-[0.72rem] text-board-foreground/50">
+        {crumbs.map((c, i) => (
           <>
-            <a href={c.href} class="hover:text-primary hover:underline">{c.label}</a>
+            <a href={c.href} class="hover:text-white hover:underline">{c.label}</a>
             <span aria-hidden="true">/</span>
           </>
         ))}
-        <span class="font-medium text-foreground">{title}</span>
+        <span class="text-board-foreground/80">{title}</span>
       </nav>
     )}
     {kicker && (
-      <p class="bolt-rule label mb-4 max-w-md text-spark">
+      <p class="bolt-rule label mb-3 max-w-md text-gold">
         <Bolt size={13} />
         {kicker}
       </p>
     )}
-    <h1 class="max-w-4xl text-[2.5rem] text-navy sm:text-6xl">{title}</h1>
-    {lede && <p class="mt-5 max-w-2xl text-[1.08rem] leading-relaxed text-muted-foreground">{lede}</p>}
+    <h1 class="max-w-3xl text-4xl font-semibold text-white sm:text-5xl">{title}</h1>
+    {lede && <p class="mt-4 max-w-2xl text-[1.05rem] leading-relaxed text-board-foreground/70">{lede}</p>}
     <slot />
   </div>
 </section>

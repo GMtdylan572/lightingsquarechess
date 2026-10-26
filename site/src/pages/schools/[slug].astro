@@ -18,18 +18,18 @@ const { school } = Astro.props;
     title={school.name}
     crumbs={[{ href: "/", label: "Home" }, { href: "/schools", label: "Partner schools" }]}
   >
-    <dl class="mt-8 flex flex-wrap gap-x-10 gap-y-4 border-t border-border pt-6">
+    <dl class="mt-8 flex flex-wrap gap-x-10 gap-y-4 border-t border-white/10 pt-6">
       <div>
-        <dt class="label mb-1">Coach</dt>
-        <dd class="text-[0.95rem] text-foreground">{school.coach}</dd>
+        <dt class="label mb-1 text-board-foreground/50">Coach</dt>
+        <dd class="text-[0.95rem] text-white">{school.coach}</dd>
       </div>
       <div>
-        <dt class="label mb-1">Club opened</dt>
-        <dd class="font-mono text-[0.95rem] text-foreground">{school.since}</dd>
+        <dt class="label mb-1 text-board-foreground/50">Club opened</dt>
+        <dd class="font-mono text-[0.95rem] text-white">{school.since}</dd>
       </div>
       <div>
-        <dt class="label mb-1">Country</dt>
-        <dd class="text-[0.95rem] text-foreground">{school.country}</dd>
+        <dt class="label mb-1 text-board-foreground/50">Country</dt>
+        <dd class="text-[0.95rem] text-white">{school.country}</dd>
       </div>
     </dl>
   </PageHeader>

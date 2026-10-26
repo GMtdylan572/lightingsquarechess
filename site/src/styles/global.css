@@ -2,31 +2,28 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* Geist carries both display and reading text: set heavy and tight for
-   headlines, regular for body. Plex Mono stays on every number. */
-@import "@fontsource-variable/geist";
-@import "@fontsource/ibm-plex-mono/400.css";
-@import "@fontsource/ibm-plex-mono/500.css";
-@import "@fontsource/ibm-plex-mono/600.css";
+/* Type system: editorial serifs, so the site reads like print, not a template.
+   Playfair Display — headlines. High contrast, set tight.
+   Lora             — body and UI. Warm and very readable at text sizes.
+   Merriweather     — labels and every number: ratings, scores, dates, time
+                      controls. Sturdy at small sizes, with tabular figures. */
+@import "@fontsource-variable/playfair-display";
+@import "@fontsource-variable/lora";
+@import "@fontsource/merriweather/400.css";
+@import "@fontsource/merriweather/700.css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
-    --font-heading: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
-    --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+    --font-sans: 'Lora Variable', Georgia, 'Times New Roman', serif;
+    --font-heading: 'Playfair Display Variable', Georgia, 'Times New Roman', serif;
+    --font-mono: 'Merriweather', Georgia, serif;
 
     --color-board: var(--board);
     --color-board-foreground: var(--board-foreground);
     --color-gold: var(--gold);
     --color-gold-foreground: var(--gold-foreground);
     --color-rule: var(--rule);
-    --color-navy: var(--navy);
-    --color-spark: var(--spark);
-    --color-sky: var(--sky);
-    --color-sun: var(--sun);
-    --color-mint: var(--mint);
-    --color-berry: var(--berry);
 
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
@@ -69,61 +66,110 @@
     --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* Daylight club-room palette. White pages, navy ink, and a spark of
-   red-orange for the lightning. Sky, sun, mint and berry give each
-   programme and date its own colour, mostly as soft tints behind dark text. */
+/* Apple's palette: white and #f5f5f7 grey surfaces, #1d1d1f ink, #6e6e73
+   secondary text, and one blue for actions. Dark panels are Apple's near
+   black. The "gold" tokens are kept as the accent slot so the markup does
+   not change; they are blue now. */
 :root {
-    --radius: 0.75rem;
+    --radius: 0.5rem;
     color-scheme: light;
 
     --background: #FFFFFF;
-    --foreground: #14213D;
+    --foreground: #1D1D1F;
     --card: #FFFFFF;
-    --card-foreground: #14213D;
+    --card-foreground: #1D1D1F;
     --popover: #FFFFFF;
-    --popover-foreground: #14213D;
+    --popover-foreground: #1D1D1F;
 
-    --primary: #1E3A8A;
+    --primary: #0071E3;
     --primary-foreground: #FFFFFF;
-    --secondary: #F3F6FB;
-    --secondary-foreground: #14213D;
-    --muted: #F3F6FB;
-    --muted-foreground: #55617A;
-    --accent: #EAF1FF;
-    --accent-foreground: #1E3A8A;
-    --destructive: #C2321F;
+    --secondary: #F5F5F7;
+    --secondary-foreground: #1D1D1F;
+    --muted: #F5F5F7;
+    --muted-foreground: #6E6E73;
+    --accent: #F5F5F7;
+    --accent-foreground: #0066CC;
+    --destructive: #E30000;
 
-    --border: #E1E7F0;
-    --input: #CDD6E4;
-    --ring: #2F6FEB;
+    --border: #D2D2D7;
+    --input: #D2D2D7;
+    --ring: #0071E3;
 
-    --board: #1E3A8A;
-    --board-foreground: #E9EFFC;
-    --gold: #F5B301;
-    --gold-foreground: #2B1D00;
-    --rule: #DCE3EE;
+    --board: #1D1D1F;
+    --board-foreground: #F5F5F7;
+    --gold: #0071E3;
+    --gold-foreground: #FFFFFF;
+    --rule: #D2D2D7;
 
-    --navy: #14213D;
-    --spark: #E4572E;
-    --sky: #2F6FEB;
-    --sun: #F5B301;
-    --mint: #0F9F7A;
-    --berry: #C2286B;
+    --chart-1: #0071E3;
+    --chart-2: #2997FF;
+    --chart-3: #6E6E73;
+    --chart-4: #86868B;
+    --chart-5: #1D1D1F;
 
-    --chart-1: #1E3A8A;
-    --chart-2: #E4572E;
-    --chart-3: #2F6FEB;
-    --chart-4: #0F9F7A;
-    --chart-5: #F5B301;
-
-    --sidebar: #F3F6FB;
-    --sidebar-foreground: #14213D;
-    --sidebar-primary: #1E3A8A;
+    --sidebar: #F5F5F7;
+    --sidebar-foreground: #1D1D1F;
+    --sidebar-primary: #0071E3;
     --sidebar-primary-foreground: #FFFFFF;
-    --sidebar-accent: #EAF1FF;
-    --sidebar-accent-foreground: #1E3A8A;
-    --sidebar-border: #E1E7F0;
-    --sidebar-ring: #2F6FEB;
+    --sidebar-accent: #F5F5F7;
+    --sidebar-accent-foreground: #0066CC;
+    --sidebar-border: #D2D2D7;
+    --sidebar-ring: #0071E3;
+}
+
+.dark {
+    --background: #000000;
+    --foreground: #F5F5F7;
+    --card: #1D1D1F;
+    --card-foreground: #F5F5F7;
+    --popover: #1D1D1F;
+    --popover-foreground: #F5F5F7;
+
+    --primary: #2997FF;
+    --primary-foreground: #000000;
+    --secondary: #1D1D1F;
+    --secondary-foreground: #F5F5F7;
+    --muted: #1D1D1F;
+    --muted-foreground: #A1A1A6;
+    --accent: #1D1D1F;
+    --accent-foreground: #2997FF;
+    --destructive: #FF453A;
+
+    --border: #424245;
+    --input: #424245;
+    --ring: #2997FF;
+
+    --board: #000000;
+    --board-foreground: #F5F5F7;
+    --gold: #2997FF;
+    --gold-foreground: #000000;
+    --rule: #424245;
+
+    --chart-1: #2997FF;
+    --chart-2: #0071E3;
+    --chart-3: #A1A1A6;
+    --chart-4: #86868B;
+    --chart-5: #F5F5F7;
+
+    --sidebar: #1D1D1F;
+    --sidebar-foreground: #F5F5F7;
+    --sidebar-primary: #2997FF;
+    --sidebar-primary-foreground: #000000;
+    --sidebar-accent: #1D1D1F;
+    --sidebar-accent-foreground: #2997FF;
+    --sidebar-border: #424245;
+    --sidebar-ring: #2997FF;
+}
+
+/* On the near-black panels, Apple uses a lighter blue for text so it stays
+   legible. Buttons keep the standard blue. */
+.bg-board {
+    --text-accent-on-dark: #2997FF;
+}
+.bg-board .text-gold,
+.bg-board .bolt-rule,
+.bg-board .bolt-mark {
+    color: var(--text-accent-on-dark);
 }
 
 @layer base {
@@ -132,7 +178,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-size: 16px;
+    font-size: 17px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
@@ -147,9 +193,8 @@
 
   h1, h2, h3 {
     @apply font-heading;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.08;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
     text-wrap: balance;
   }
 
@@ -160,9 +205,10 @@
 }
 
 @layer components {
-  /* Labels stay quiet rather than looking like generated dashboard chrome. */
+  /* A label set in mono and letterspaced, the way a pairing sheet or a
+     scoresheet header is set. Replaces the usual coloured "eyebrow". */
   .label {
-    @apply font-sans text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-muted-foreground;
+    @apply font-mono text-[0.66rem] font-normal uppercase tracking-[0.12em] text-muted-foreground;
   }
 
   /* Hairline rule used to open a section instead of a centred heading block. */
@@ -181,7 +227,7 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    opacity: 0.035;
+    opacity: 0.055;
     background-image:
       linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%),
       linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%);
@@ -203,8 +249,8 @@
     top: 50%;
     translate: 0 -50%;
     z-index: -1;
-    color: var(--sun);
-    opacity: 0.14;
+    color: var(--gold);
+    opacity: 0.07;
     pointer-events: none;
     rotate: 8deg;
   }
@@ -213,6 +259,7 @@
     display: flex;
     align-items: center;
     gap: 0.55rem;
+    color: var(--gold);
   }
   .bolt-rule::after {
     content: "";
@@ -220,7 +267,7 @@
     flex: 1;
     background: linear-gradient(
       to right,
-      color-mix(in srgb, currentColor 55%, transparent),
+      color-mix(in srgb, var(--gold) 60%, transparent),
       transparent
     );
   }
@@ -235,7 +282,7 @@
     right: 0;
     bottom: -3px;
     height: 2px;
-    background: var(--spark);
+    background: var(--gold);
     scale: 0 1;
     transform-origin: left;
     transition: scale 0.22s ease;
@@ -245,60 +292,7 @@
     scale: 1 1;
   }
 
-  /* ----------------------------------------------------------- colour */
-
-  /* Two-tone headings: the key word takes the spark colour. */
-  .hl { color: var(--spark); }
-
-  /* Soft tint panels. Pass --tint as any palette colour. */
-  .tint {
-    background: color-mix(in srgb, var(--tint, var(--sky)) 9%, white);
-  }
-
-  /* Faint board pattern for coloured bands. */
-  .board-grid {
-    background-image:
-      linear-gradient(45deg, rgb(255 255 255 / 0.06) 25%, transparent 25%, transparent 75%, rgb(255 255 255 / 0.06) 75%),
-      linear-gradient(45deg, rgb(255 255 255 / 0.06) 25%, transparent 25%, transparent 75%, rgb(255 255 255 / 0.06) 75%);
-    background-size: 56px 56px;
-    background-position: 0 0, 28px 28px;
-    mask-image: linear-gradient(to left, #000, transparent 80%);
-  }
-
-  /* Card that lifts on hover. */
-  .lift {
-    transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
-  }
-  .lift:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 18px 40px -18px rgb(20 33 61 / 0.28);
-  }
-
-  .pill {
-    @apply inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-[0.95rem] font-semibold transition-all;
-  }
-  .pill-primary {
-    @apply bg-primary text-primary-foreground hover:bg-[#172E6E];
-  }
-  .pill-spark {
-    @apply bg-spark text-white hover:bg-[#CC4823];
-  }
-  .pill-outline {
-    @apply border border-input bg-white text-primary hover:border-primary;
-  }
-  .pill-white {
-    @apply bg-white text-primary hover:bg-white/90;
-  }
-  .pill-glass {
-    @apply border border-white/40 text-white hover:bg-white/10;
-  }
-
-  .chip {
-    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.1em];
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .strike::after { transition: none; }
-    .lift, .lift:hover { transition: none; transform: none; }
   }
 }
