@@ -2,7 +2,6 @@
 import "@/styles/global.css";
 import SiteNav from "@/components/SiteNav.astro";
 import SiteFooter from "@/components/SiteFooter.astro";
-import RegisterCheck from "@/components/RegisterCheck.astro";
 import { org } from "@/data/site";
 
 interface Props {
@@ -77,6 +76,5 @@ const jsonLd = {
       <slot />
     </main>
     <SiteFooter />
-    <RegisterCheck />
   </body>
 </html>
