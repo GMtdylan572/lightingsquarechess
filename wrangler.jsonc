@@ -6,10 +6,23 @@
   // (Tdylan572@gmail.com). Pinned so a deploy cannot land on the wrong
   // account when more than one is authorised.
   "account_id": "7536fc6e5400ec4963afd2e8fd121b78",
-  // Static-only: no Worker script, just the built Astro output in site/dist.
+  // The built Astro site in site/dist is served as static assets. A small
+  // Worker answers /api/* only, for the email signup box.
+  "main": "./worker/index.js",
   "assets": {
-    "directory": "./site/dist"
+    "directory": "./site/dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
   },
+  // Email signups from the website. Export with `npm run signups`.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "lightningsquare-signups",
+      "database_id": "58649188-3faa-49e6-825f-d2cbf819cd3c",
+      "migrations_dir": "./migrations"
+    }
+  ],
   // Attaching the apex and www as custom domains makes Cloudflare create the
   // DNS records and issue the certificate itself, which is also what finally
   // gets the site onto HTTPS. This replaces the InfinityFree A record.

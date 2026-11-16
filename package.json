@@ -5,7 +5,8 @@
   "scripts": {
     "build": "npm --prefix site ci && npm --prefix site run build",
     "deploy": "npm run build && wrangler deploy",
-    "deploy:only": "wrangler deploy"
+    "deploy:only": "wrangler deploy",
+    "signups": "node scripts/export-signups.mjs"
   },
   "devDependencies": {
     "wrangler": "^4.123.0"

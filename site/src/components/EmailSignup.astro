@@ -1,0 +1,129 @@
+---
+/**
+ * "Get event emails" box. Posts to the /api/signup Worker, which stores the
+ * address in D1. With JavaScript it stays on the page; without, the browser
+ * posts the form and lands on /subscribed.
+ */
+---
+<section aria-labelledby="signup-title" class="border-b border-white/10">
+  <div class="mx-auto grid max-w-6xl gap-8 px-5 py-12 lg:grid-cols-12 lg:items-start">
+    <div class="lg:col-span-5">
+      <p class="label mb-2 text-gold">Event emails</p>
+      <h2 id="signup-title" class="text-2xl font-semibold text-white sm:text-3xl">
+        Hear about the next tournament first.
+      </h2>
+      <p class="mt-3 max-w-[46ch] text-[0.95rem] leading-relaxed text-board-foreground/70">
+        New dates, registration openings and results, about twice a month. No
+        WeChat needed. Unsubscribe any time by replying to an email.
+      </p>
+    </div>
+
+    <form
+      id="signup-form"
+      action="/api/signup"
+      method="post"
+      class="lg:col-span-7"
+      novalidate
+    >
+      <div class="grid gap-3 sm:grid-cols-[1fr_1fr]">
+        <label class="block">
+          <span class="mb-1 block text-[0.82rem] text-board-foreground/70">Email <span aria-hidden="true">*</span></span>
+          <input
+            type="email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder="you@example.com"
+            class="h-11 w-full rounded-sm border border-white/20 bg-white/[.06] px-3 text-white placeholder:text-white/35 focus:border-white/60 focus:outline-none"
+          />
+        </label>
+        <label class="block">
+          <span class="mb-1 block text-[0.82rem] text-board-foreground/70">Name (optional)</span>
+          <input
+            type="text"
+            name="name"
+            autocomplete="name"
+            class="h-11 w-full rounded-sm border border-white/20 bg-white/[.06] px-3 text-white focus:border-white/60 focus:outline-none"
+          />
+        </label>
+      </div>
+
+      <div class="mt-3 grid gap-3 sm:grid-cols-[1fr_1fr]">
+        <label class="block">
+          <span class="mb-1 block text-[0.82rem] text-board-foreground/70">I am a</span>
+          <select
+            name="role"
+            class="h-11 w-full rounded-sm border border-white/20 bg-[#2a2a2c] px-3 text-white focus:border-white/60 focus:outline-none"
+          >
+            <option value="parent">Parent</option>
+            <option value="player">Player</option>
+            <option value="coach">Coach or chess club</option>
+            <option value="school">School or teacher</option>
+            <option value="other">Other</option>
+          </select>
+        </label>
+        <fieldset>
+          <legend class="mb-1 text-[0.82rem] text-board-foreground/70">Tell me about</legend>
+          <div class="flex flex-wrap gap-x-4 gap-y-1.5 pt-1.5 text-[0.9rem] text-white">
+            <label class="inline-flex items-center gap-2"><input type="checkbox" name="interests" value="quads" checked class="accent-[#2997ff]" /> Quads</label>
+            <label class="inline-flex items-center gap-2"><input type="checkbox" name="interests" value="championships" checked class="accent-[#2997ff]" /> Championships</label>
+            <label class="inline-flex items-center gap-2"><input type="checkbox" name="interests" value="girls-festival" class="accent-[#2997ff]" /> Girls festival</label>
+            <label class="inline-flex items-center gap-2"><input type="checkbox" name="interests" value="classes" class="accent-[#2997ff]" /> Classes</label>
+          </div>
+        </fieldset>
+      </div>
+
+      {/* Honeypot for bots. Hidden from people and screen readers. */}
+      <div aria-hidden="true" class="absolute -left-[9999px] h-px w-px overflow-hidden">
+        <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+      </div>
+      <input type="hidden" name="page" value={Astro.url.pathname} />
+
+      <div class="mt-4 flex flex-wrap items-center gap-4">
+        <button
+          type="submit"
+          class="inline-flex h-11 items-center rounded-sm bg-[#0071e3] px-6 font-medium text-white transition-colors hover:bg-[#0077ed] disabled:opacity-60"
+        >
+          Get event emails
+        </button>
+        <p id="signup-status" role="status" aria-live="polite" class="text-[0.92rem] text-board-foreground/80"></p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById("signup-form") as HTMLFormElement | null;
+  const status = document.getElementById("signup-status");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!status) return;
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      status.textContent = "Please enter a valid email address.";
+      return;
+    }
+    const button = form.querySelector("button[type=submit]") as HTMLButtonElement;
+    button.disabled = true;
+    status.textContent = "Signing you up…";
+    try {
+      const res = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { accept: "application/json" },
+      });
+      const data = await res.json().catch(() => ({ ok: false }));
+      if (data.ok) {
+        form.reset();
+        status.textContent = "You're on the list. Watch your inbox for the next event.";
+      } else {
+        status.textContent = data.error || "Something went wrong. Please email lightningsquarechess@gmail.com.";
+      }
+    } catch {
+      status.textContent = "Could not reach the server. Please try again.";
+    } finally {
+      button.disabled = false;
+    }
+  });
+</script>

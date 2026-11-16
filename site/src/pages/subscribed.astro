@@ -1,0 +1,29 @@
+---
+/* Where the signup form lands when JavaScript is off. */
+import Base from "@/layouts/Base.astro";
+---
+<Base title="Event emails" description="You're signed up for Lightning Square Chess Club event emails.">
+  <section class="mx-auto max-w-2xl px-5 py-24 text-center">
+    <div id="ok">
+      <h1 class="text-4xl font-semibold sm:text-5xl">You're on the list.</h1>
+      <p class="mx-auto mt-4 max-w-[46ch] text-muted-foreground">
+        We'll email you when registration opens for the next tournament.
+        Reply to any email to unsubscribe.
+      </p>
+    </div>
+    <div id="err" hidden>
+      <h1 class="text-4xl font-semibold sm:text-5xl">That didn't work.</h1>
+      <p class="mx-auto mt-4 max-w-[46ch] text-muted-foreground">
+        Please check the email address and try again, or write to
+        lightningsquarechess@gmail.com.
+      </p>
+    </div>
+    <a href="/" class="mt-8 inline-flex h-11 items-center rounded-sm bg-primary px-6 font-medium text-primary-foreground hover:bg-primary/90">Back to the home page</a>
+  </section>
+  <script is:inline>
+    if (new URLSearchParams(location.search).has("error")) {
+      document.getElementById("ok").hidden = true;
+      document.getElementById("err").hidden = false;
+    }
+  </script>
+</Base>
