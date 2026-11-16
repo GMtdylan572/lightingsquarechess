@@ -50,6 +50,7 @@ const day = (d: string) => d.replace(", 2026", "");
 const events = [
   {
     kind: "All Girls Festival · Free",
+    date: girlsFestival.date,
     when: girlsFestival.short,
     detail: `Girls K–12 · ${girlsFestival.venueName}, San José`,
     register: girlsFestival.register,
@@ -57,6 +58,7 @@ const events = [
   },
   {
     kind: "Championship · Swiss",
+    date: nextChamp.date,
     when: day(nextChamp.display),
     detail: `${nextChamp.name} main event, with prize money`,
     register: nextChamp.swiss.register,
@@ -64,12 +66,15 @@ const events = [
   },
   {
     kind: "Championship · Blitz",
+    date: nextChamp.date,
     when: day(nextChamp.display),
     detail: `${nextChamp.name} evening blitz`,
     register: nextChamp.blitz.register,
     entries: nextChamp.blitz.entries,
   },
 ];
+/* Soonest first; same-day events keep their order (Swiss before blitz). */
+events.sort((a, b) => a.date.localeCompare(b.date));
 ---
 
 <Base
@@ -112,7 +117,7 @@ const events = [
       />
       </figure>
     </div>
-    {/* The next three events get equal billing: girls festival, championship Swiss, championship blitz. */}
+    {/* The next three events, in date order, with equal billing. */}
     <div class="mx-auto max-w-7xl px-5 pb-10 lg:pb-8">
       <ol class="grid gap-4 md:grid-cols-3">
         {events.map((e) => (
