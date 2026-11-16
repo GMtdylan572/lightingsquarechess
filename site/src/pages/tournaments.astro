@@ -4,7 +4,7 @@ import PageHeader from "@/components/PageHeader.astro";
 import QuadActions from "@/components/QuadActions.astro";
 import Bolt from "@/components/Bolt.astro";
 import ResultsArchive from "@/components/ResultsArchive";
-import { august2026QuadCelebration, upcomingQuads, pastQuads, championshipSeries, upcomingChampionships, legacyEvents, girlsFestival, org } from "@/data/site";
+import { latestQuadResults, upcomingQuads, pastQuads, championshipSeries, upcomingChampionships, legacyEvents, girlsFestival, org } from "@/data/site";
 
 const next = upcomingQuads[0];
 const nextChampionships = upcomingChampionships.filter((e) => new Date(e.date) >= new Date());
@@ -48,11 +48,22 @@ const nextChampionships = upcomingChampionships.filter((e) => new Date(e.date) >
       <div class="lg:col-span-5">
         <div class="rounded-md border border-border bg-card p-5">
           <p class="label mb-2">Next date</p>
-          <p class="font-heading text-[1.5rem] font-semibold leading-tight">{next.display}</p>
-          <p class="mt-1 text-[0.87rem] text-muted-foreground">
-            {next.venue.name} &middot; {next.format}
-          </p>
-          <QuadActions event={next} size="sm" class="mt-4" />
+          {next ? (
+            <>
+              <p class="font-heading text-[1.5rem] font-semibold leading-tight">{next.display}</p>
+              <p class="mt-1 text-[0.87rem] text-muted-foreground">
+                {next.venue.name} &middot; {next.format}
+              </p>
+              <QuadActions event={next} size="sm" class="mt-4" />
+            </>
+          ) : (
+            <>
+              <p class="font-heading text-[1.5rem] font-semibold leading-tight">Coming soon</p>
+              <p class="mt-1 text-[0.87rem] text-muted-foreground">
+                The next quad date is announced in the WhatsApp group first.
+              </p>
+            </>
+          )}
         </div>
       </div>
     </div>
@@ -229,7 +240,7 @@ const nextChampionships = upcomingChampionships.filter((e) => new Date(e.date) >
       </p>
 
       <article
-        id="august-2026-record"
+        id="latest-quad-results"
         aria-labelledby="record-heading"
         class="record-celebration board-texture relative mb-10 overflow-hidden rounded-md border border-gold/70 bg-board px-5 py-8 text-board-foreground shadow-[0_18px_60px_rgba(0,0,0,.2)] sm:px-8 sm:py-10"
       >
@@ -245,23 +256,23 @@ const nextChampionships = upcomingChampionships.filter((e) => new Date(e.date) >
           <div class="mb-8 grid items-end gap-6 lg:grid-cols-[1fr_auto]">
             <div>
               <p class="mb-3 font-mono text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-gold">
-                New club record · {august2026QuadCelebration.date}
+                Latest results · {latestQuadResults.date}
               </p>
               <h3 id="record-heading" class="max-w-[16ch] text-4xl font-semibold leading-[.98] text-white sm:text-6xl">
-                52 entries. One unforgettable quad.
+                {latestQuadResults.players} players. {latestQuadResults.sections} quads.
               </h3>
               <p class="mt-5 max-w-[62ch] text-[1rem] leading-relaxed text-board-foreground/80">
-                Our biggest monthly quad ever filled 11 quads and a Small Swiss. Congratulations to every first-place finisher who made a record-breaking morning even better.
+                Our November quad filled {latestQuadResults.sections} quads. Congratulations to every first-place finisher, including a shared first in Quad 1.
               </p>
             </div>
-            <div class="record-number" aria-label="52 registered entries">
-              <span class="block font-heading text-[5.5rem] font-semibold leading-[.75] text-gold sm:text-[7.5rem]">52</span>
-              <span class="mt-3 block font-mono text-[0.67rem] font-semibold uppercase tracking-[0.2em] text-white">Registered entries</span>
+            <div class="record-number" aria-label={`${latestQuadResults.players} players`}>
+              <span class="block font-heading text-[5.5rem] font-semibold leading-[.75] text-gold sm:text-[7.5rem]">{latestQuadResults.players}</span>
+              <span class="mt-3 block font-mono text-[0.67rem] font-semibold uppercase tracking-[0.2em] text-white">Players</span>
             </div>
           </div>
 
           <ol class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-            {august2026QuadCelebration.winners.map((winner, i) => (
+            {latestQuadResults.winners.map((winner, i) => (
               <li class="winner-card group flex min-w-0 items-center gap-3 rounded-sm border border-white/15 bg-white/[.075] px-3 py-3 backdrop-blur-sm">
                 <span class="grid size-9 shrink-0 place-items-center rounded-full border border-gold/70 bg-gold/15 font-mono text-xs font-semibold text-gold" aria-hidden="true">
                   {String(i + 1).padStart(2, "0")}
@@ -278,7 +289,7 @@ const nextChampionships = upcomingChampionships.filter((e) => new Date(e.date) >
           <div class="mt-7 flex flex-wrap items-center justify-between gap-4 border-t border-white/15 pt-6">
             <p class="font-heading text-xl font-semibold text-white">Congratulations, champions.</p>
             <a
-              href={august2026QuadCelebration.results}
+              href={latestQuadResults.results}
               target="_blank"
               rel="noopener noreferrer"
               class="inline-flex min-h-11 items-center rounded-sm bg-gold px-5 py-2.5 font-medium text-gold-foreground transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
@@ -350,7 +361,7 @@ const nextChampionships = upcomingChampionships.filter((e) => new Date(e.date) >
     import confetti from "canvas-confetti";
 
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const celebration = document.querySelector("#august-2026-record");
+      const celebration = document.querySelector("#latest-quad-results");
       if (celebration) {
         const observer = new IntersectionObserver((entries, currentObserver) => {
           if (!entries.some((entry) => entry.isIntersecting)) return;

@@ -1,7 +1,7 @@
 ---
 import Base from "@/layouts/Base.astro";
 import Bolt from "@/components/Bolt.astro";
-import { upcomingQuads, upcomingChampionships, girlsFestival, testimonials, patrons, org } from "@/data/site";
+import { upcomingQuads, upcomingChampionships, girlsFestival, testimonials, patrons, org, nextRegistration } from "@/data/site";
 
 const next = upcomingQuads[0];
 
@@ -45,37 +45,98 @@ const programs = [
   },
 ];
 
-/* The three cards at the top of the page. */
 const day = (d: string) => d.replace(", 2026", "");
-const events = [
-  {
-    kind: "Monthly quad",
-    when: day(next.display),
-    detail: `${next.venue.name} · ${next.format} · USCF-rated`,
-    register: next.register,
-    entries: next.entries,
-  },
-  {
-    kind: "Championship · Swiss",
-    when: day(nextChamp.display),
-    detail: `${nextChamp.name} main event, with prize money`,
-    register: nextChamp.swiss.register,
-    entries: nextChamp.swiss.entries,
-  },
-  {
-    kind: "Championship · Blitz",
-    when: day(nextChamp.display),
-    detail: `${nextChamp.name} evening blitz`,
-    register: nextChamp.blitz.register,
-    entries: nextChamp.blitz.entries,
-  },
-];
+const nextReg = nextRegistration();
 ---
 
 <Base
   title={org.name}
   description="A youth-led nonprofit founded in San Jose that runs monthly USCF-rated quads, seasonal championships and Bay Area chess classes, with past free programs in four states and four countries."
 >
+  {/* Up next: the two events taking entries, as loud as the page gets. A
+      quad, when one is scheduled, joins them as a slimmer bar underneath. */}
+  <section aria-label="Up next" class="border-b border-border bg-secondary">
+    <div class="mx-auto max-w-7xl px-5 py-6 sm:py-8">
+      <div class="grid gap-4 lg:grid-cols-2">
+        {nextChamp && (
+          <article class="relative isolate flex flex-col overflow-hidden rounded-lg bg-[#1d1d1f] p-6 text-white sm:p-8">
+            <Bolt size={260} class="pointer-events-none absolute -right-10 -top-6 -z-10 rotate-12 text-white/[.06]" />
+            <p class="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[#2997ff]">
+              Championship · Saturday, {day(nextChamp.display)}
+            </p>
+            <h2 class="mt-3 text-[2rem] font-semibold leading-[1.05] xl:text-[2.6rem]">{nextChamp.name}</h2>
+            <p class="mt-3 max-w-[46ch] text-[0.98rem] leading-relaxed text-white/75">
+              Our biggest day of the season: a rated Swiss with prize money, then
+              an evening blitz. Enter one or both.
+            </p>
+            <div class="mt-auto grid gap-3 pt-6 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+              {[
+                { label: "Swiss · prize money", links: nextChamp.swiss },
+                { label: "Evening blitz", links: nextChamp.blitz },
+              ].map((part) => (
+                <div class="rounded-md bg-white/[.07] p-3 ring-1 ring-white/10">
+                  <p class="mb-2 text-[0.85rem] font-semibold">{part.label}</p>
+                  <div class="grid grid-cols-2 gap-2">
+                    <a href={part.links.register} target="_blank" rel="noopener noreferrer"
+                       class="inline-flex h-11 items-center justify-center gap-1.5 whitespace-nowrap rounded-sm bg-[#0071e3] px-3 text-[0.92rem] font-medium text-white transition-colors hover:bg-[#0077ed]">
+                      <Bolt size={13} /> Register
+                    </a>
+                    <a href={part.links.entries} target="_blank" rel="noopener noreferrer"
+                       class="inline-flex h-11 items-center justify-center whitespace-nowrap rounded-sm border border-white/25 px-3 text-[0.92rem] font-medium text-white transition-colors hover:bg-white/10">
+                      Live entries
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <a href="/championship" class="mt-4 inline-flex text-[0.9rem] font-medium text-[#2997ff] hover:underline">Championship details &rarr;</a>
+          </article>
+        )}
+
+        <article class="relative flex flex-col gap-5 overflow-hidden rounded-lg bg-[#fff0f6] p-6 ring-1 ring-[#f7c6dc] sm:flex-row sm:p-8">
+          <a href={girlsFestival.flyer} target="_blank" rel="noopener noreferrer" class="shrink-0 self-start" aria-label="Open the festival flyer (PDF)">
+            <img src={girlsFestival.flyerImage} alt="All Girls Winter Chess Festival flyer" width="1094" height="1400"
+                 class="w-32 rotate-[-3deg] rounded-sm shadow-lg ring-1 ring-black/5 transition-transform hover:rotate-0 sm:w-40" />
+          </a>
+          <div class="flex min-w-0 flex-1 flex-col">
+            <p class="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[#c2185b]">
+              Free · Girls K–12 · Saturday, {girlsFestival.short}
+            </p>
+            <h2 class="mt-3 text-[1.9rem] font-semibold leading-[1.05] text-[#1d1d1f] xl:text-[2.3rem]">{girlsFestival.name}</h2>
+            <p class="mt-3 text-[0.95rem] leading-relaxed text-[#4a4a4f]">
+              Five rounds, rated U800 and 800+ sections, and an unrated First Move
+              section for girls new to tournaments. At {girlsFestival.venueName}, San José.
+            </p>
+            <div class="mt-auto grid grid-cols-2 gap-2 pt-5">
+              <a href={girlsFestival.register} target="_blank" rel="noopener noreferrer"
+                 class="inline-flex h-11 items-center justify-center gap-1.5 whitespace-nowrap rounded-sm bg-[#c2185b] px-3 text-[0.92rem] font-medium text-white transition-colors hover:bg-[#ad1457]">
+                <Bolt size={13} /> Register free
+              </a>
+              <a href={girlsFestival.entries} target="_blank" rel="noopener noreferrer"
+                 class="inline-flex h-11 items-center justify-center whitespace-nowrap rounded-sm border border-[#e7a3c1] bg-white px-3 text-[0.92rem] font-medium text-[#c2185b] transition-colors hover:bg-[#fff7fa]">
+                Live entries
+              </a>
+            </div>
+            <div class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[0.9rem] font-medium">
+              <a href="/girls-festival" class="text-[#c2185b] hover:underline">Festival details &rarr;</a>
+              <a href={girlsFestival.flyer} target="_blank" rel="noopener noreferrer" class="text-[#c2185b] hover:underline">Download the flyer</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      {next && (
+        <div class="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-md border border-border bg-card px-5 py-4">
+          <p class="text-[0.95rem]"><span class="label mr-2 text-primary">Monthly quad</span><span class="font-semibold">{day(next.display)}</span> <span class="text-muted-foreground">&middot; {next.venue.name} &middot; {next.format}</span></p>
+          <div class="flex gap-2">
+            <a href={next.register} target="_blank" rel="noopener noreferrer" class="inline-flex h-10 items-center gap-1.5 rounded-sm bg-primary px-4 text-[0.9rem] font-medium text-primary-foreground hover:bg-primary/90"><Bolt size={12} /> Register</a>
+            <a href={next.entries} target="_blank" rel="noopener noreferrer" class="inline-flex h-10 items-center rounded-sm border border-input px-4 text-[0.9rem] font-medium text-primary hover:bg-accent">Live entries</a>
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
   {/* Clean split hero: copy and photograph stay separate so neither competes. */}
   <section class="border-b border-border bg-background text-[#1d1d1f]">
     <div class="mx-auto grid max-w-7xl items-center gap-10 px-5 py-12 sm:py-16 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)] lg:gap-12 lg:py-8">
@@ -111,37 +172,6 @@ const events = [
         class="h-auto w-full rounded-sm object-cover lg:max-h-[23rem]"
       />
       </figure>
-    </div>
-    {/* The next three events get equal billing: quad, championship, blitz. */}
-    <div class="mx-auto max-w-7xl px-5 pb-10 lg:pb-8">
-      <ol class="grid gap-4 md:grid-cols-3">
-        {events.map((e) => (
-          <li class="flex flex-col rounded-md border border-border bg-card p-4">
-            <p class="label text-primary">{e.kind}</p>
-            <p class="mt-0.5 text-[1.25rem] font-semibold">{e.when}</p>
-            <p class="text-[0.88rem] text-muted-foreground">{e.detail}</p>
-            <div class="mt-auto grid grid-cols-2 gap-2 pt-4">
-              <a
-                href={e.register}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex h-11 items-center justify-center gap-2 rounded-sm bg-primary px-4 font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-              >
-                <Bolt size={15} />
-                Register
-              </a>
-              <a
-                href={e.entries}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex h-11 items-center justify-center rounded-sm border border-input font-medium text-primary transition-colors hover:bg-accent"
-              >
-                Live entries
-              </a>
-            </div>
-          </li>
-        ))}
-      </ol>
     </div>
   </section>
 
@@ -220,35 +250,6 @@ const events = [
             Results from the 2026 championship
           </a>
         </div>
-      </div>
-    </div>
-  </section>
-
-  {/* The All Girls Winter Chess Festival: free, so it gets its own band. */}
-  <section aria-labelledby="festival" class="border-b border-border bg-secondary">
-    <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-8 px-5 py-12">
-      <div class="max-w-2xl">
-        <p class="bolt-rule label mb-4 max-w-[15rem] text-primary">
-          <Bolt size={13} />
-          Free entry · Girls K–12
-        </p>
-        <h2 id="festival" class="text-3xl font-semibold sm:text-[2.3rem]">{girlsFestival.name}</h2>
-        <p class="mt-3 font-mono text-[1.05rem] text-muted-foreground">{girlsFestival.display} · San Jose</p>
-        <p class="mt-4 max-w-[56ch] leading-relaxed text-muted-foreground">
-          Five rounds at {girlsFestival.control}, with rated U800 and 800+ sections and an
-          unrated First Move section for girls new to tournament chess.
-        </p>
-      </div>
-      <div class="flex flex-wrap gap-3">
-        <a href={girlsFestival.register} target="_blank" rel="noopener noreferrer"
-           class="inline-flex h-12 items-center gap-2 rounded-sm bg-primary px-6 font-medium text-primary-foreground transition-colors hover:bg-primary/90">
-          <Bolt size={15} />
-          Register
-        </a>
-        <a href="/girls-festival"
-           class="inline-flex h-12 items-center rounded-sm border border-input bg-card px-6 font-medium transition-colors hover:bg-accent">
-          Festival details
-        </a>
       </div>
     </div>
   </section>
@@ -365,8 +366,7 @@ const events = [
     </div>
   </section>
 
-  {/* Closing CTA: the quad stays the primary action, with the championship
-      named beside it so the page does not end quads-only. */}
+  {/* Closing CTA: whatever is taking entries soonest, plus the festival. */}
   <section class="board-texture relative isolate overflow-hidden border-t border-border bg-board text-board-foreground">
     <Bolt size={300} class="bolt-mark hidden sm:block" />
     <div class="mx-auto grid max-w-6xl gap-8 px-5 py-16 md:grid-cols-2">
@@ -376,30 +376,32 @@ const events = [
           Play with us
         </p>
         <h2 class="text-2xl font-semibold text-white sm:text-3xl">
-          Come to a quad. Three rated games, one morning.
+          Play with us this season.
         </h2>
         <p class="mt-3 max-w-[48ch] leading-relaxed text-board-foreground/70">
-          Every quad date through November is open for entry, and so is the
-          {" "}{nextChamp.name} on {nextChamp.display.replace(", 2026", "")}. Join the
-          WhatsApp group and you will hear about pairings, results and new
-          events first.
+          Entries are open for the {nextChamp.name} on {day(nextChamp.display)} and
+          the free {girlsFestival.name} on {girlsFestival.short}. Join the
+          WhatsApp group and you will hear about pairings, results and the next
+          quad date first.
         </p>
       </div>
       <div class="flex flex-wrap items-start gap-3 md:justify-end">
+        {nextReg && (
+          <a
+            href={nextReg.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex h-12 items-center gap-2 rounded-sm bg-gold px-6 font-medium text-gold-foreground transition-colors hover:bg-gold/90"
+          >
+            <Bolt size={15} />
+            {nextReg.label}
+          </a>
+        )}
         <a
-          href={next.register}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex h-12 items-center gap-2 rounded-sm bg-gold px-6 font-medium text-gold-foreground transition-colors hover:bg-gold/90"
-        >
-          <Bolt size={15} />
-          Register for the next quad
-        </a>
-        <a
-          href="/championship"
+          href="/girls-festival"
           class="inline-flex h-12 items-center rounded-sm border border-white/25 px-6 font-medium text-white transition-colors hover:border-white/50 hover:bg-white/10"
         >
-          Enter the championship
+          All Girls Festival
         </a>
         <a
           href={org.whatsapp}

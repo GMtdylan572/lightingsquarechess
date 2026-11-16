@@ -118,16 +118,9 @@ export type Upcoming = {
    official US Chess announcement for that event. Both open in a new tab.
    Remove a date once it has been played; add its crosstable to pastQuads. */
 export const upcomingQuads: Upcoming[] = [
-  {
-    date: "2026-11-15", display: "November 15, 2026", name: "November Quads",
-    venue: venues.deAnza, format: "G/25 d5",
-    register: "https://forms.gle/A3wJMQbqo91p8KeX9",
-    entries: "https://docs.google.com/spreadsheets/d/1JSdkXXbLyXmLc2NHM4q4E6DxEYzWDwNNdfMGUQN6FwI",
-    tla: "https://new.uschess.org/lightning-square-quads-nov-2026",
-  },
 ];
 
-/* The All Girls Winter Chess Festival. Facts are from the v6 flyer; the
+/* The All Girls Winter Chess Festival. Facts are from the final flyer (November 2026); the
    registration form and entry sheet are the links the club circulated. */
 export const girlsFestival = {
   name: "All Girls Winter Chess Festival",
@@ -136,7 +129,8 @@ export const girlsFestival = {
   short: "December 19",
   eligibility: "Open to all girls in K–12",
   fee: "Free",
-  venue: "San Jose. Venue announced in October.",
+  venue: "Biblioteca Latinoamericana, Community Room, 921 S. 1st St., San José, CA 95110.",
+  venueName: "Biblioteca Latinoamericana",
   register: "https://docs.google.com/forms/d/e/1FAIpQLSeZs7F64fvybTGejeLGYsyc1-Dd37lhgyYWRkMIV3DADNGyvQ/viewform",
   entries: "https://docs.google.com/spreadsheets/u/1/d/1iDYYQIkG4VdFy6b_uqasb6qZ-jdoEmYAvcZoxJwbTtM/htmlview",
   flyer: "/girls-festival-2026-flyer.pdf",
@@ -145,7 +139,8 @@ export const girlsFestival = {
   format: "Swiss",
   rounds: 5,
   control: "G/30 d5",
-  roundTimes: ["9:30 AM", "11:00 AM", "1:30 PM", "3:00 PM", "4:30 PM"],
+  roundTimes: ["10:00 AM", "11:30 AM", "1:30 PM", "3:00 PM", "4:30 PM"],
+  flyerImage: "/girls-festival-2026-flyer.jpg",
   sections: [
     {
       name: "800+",
@@ -200,8 +195,32 @@ export const august2026QuadCelebration = {
   ],
 };
 
+/* The most recent quad, featured above the results archive. Replace this
+   after each quad with the first-place finishers from its crosstable. */
+export const latestQuadResults = {
+  date: "November 15, 2026",
+  players: 44,
+  sections: 11,
+  results: "https://ratings.uschess.org/event/202611150323",
+  winners: [
+    { section: "Quad 1 (shared)", name: "Juncheng Jia", score: 2 },
+    { section: "Quad 1 (shared)", name: "Justin Zhao", score: 2 },
+    { section: "Quad 2", name: "Allen Y Zhang", score: 2.5 },
+    { section: "Quad 3", name: "Dhruva Amol Lele", score: 2 },
+    { section: "Quad 4", name: "Aaden Cao", score: 3 },
+    { section: "Quad 5", name: "Iksha Nair", score: 3 },
+    { section: "Quad 6", name: "Aarav Bapat", score: 3 },
+    { section: "Quad 7", name: "Atharv Joshi", score: 3 },
+    { section: "Quad 8", name: "Anika A Nayak", score: 2.5 },
+    { section: "Quad 9", name: "William Lai Xu", score: 2.5 },
+    { section: "Quad 10", name: "Andrew Yi", score: 3 },
+    { section: "Quad 11", name: "Theodore Yang", score: 3 },
+  ],
+};
+
 /* Crosstables on uschess.org. Ordered newest first. */
 export const pastQuads: PastEvent[] = [
+  { date: "November 15, 2026", venue: venues.deAnza, results: latestQuadResults.results },
   { date: "October 18, 2026", venue: venues.deAnza, results: "https://ratings.uschess.org/event/202610180093" },
   { date: "September 27, 2026", venue: venues.deAnza, results: "https://ratings.uschess.org/event/202609270063" },
   { date: "August 30, 2026", venue: venues.deAnza, results: august2026QuadCelebration.results },
@@ -857,3 +876,18 @@ export const quadFaq = [
     ],
   },
 ];
+
+/* The soonest event that is still taking entries, for the register button
+   in the header and menu. Quads first if one is scheduled, then the
+   championship, then the girls festival. */
+export function nextRegistration() {
+  const today = new Date(new Date().toISOString().slice(0, 10));
+  const options = [
+    ...upcomingQuads.map((q) => ({ date: q.date, label: `Register for ${q.name}`, button: "Register for a quad", href: q.register })),
+    ...upcomingChampionships.map((c) => ({ date: c.date, label: `Register for the ${c.name}`, button: "Register: Championship", href: c.swiss.register })),
+    { date: girlsFestival.date, label: `Register for the ${girlsFestival.name}`, button: "Register: Girls Festival", href: girlsFestival.register },
+  ];
+  return options
+    .filter((o) => o.href && new Date(o.date) >= today)
+    .sort((a, b) => a.date.localeCompare(b.date))[0];
+}
