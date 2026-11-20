@@ -328,11 +328,18 @@ export type UpcomingChampionship = {
   name: string;
   swiss: { register: string; entries: string };
   blitz: { register: string; entries: string };
+  /** Filled in once confirmed. */
+  time?: string;
+  venue?: string;
+  format?: string;
 };
 
 export const upcomingChampionships: UpcomingChampionship[] = [
   {
     date: "2026-11-22", display: "November 22, 2026", season: "Fall", name: "Fall Championship 2026",
+    time: "9:30 AM – 5:30 PM",
+    venue: "Hilton Garden Inn, 10741 N Wolfe Rd, Cupertino",
+    format: "4-round Swiss + Blitz",
     swiss: {
       register: "https://docs.google.com/forms/d/133QxwFMy79Vow1_XjP18E2JjJxdRWC1LbDc7SxMACoQ/viewform",
       entries: "https://docs.google.com/spreadsheets/d/14GYjlDTISQZN1a6A4tYTAAgDmm6eOdyfU32iJ5DhFKI",
