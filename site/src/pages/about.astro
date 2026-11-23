@@ -9,7 +9,7 @@ const [president, ...vps] = leadership;
 // Each group is a list of rows; each row is centred and sized to its own count.
 const groups: { label: string; note: string; rows: Person[][]; wide?: boolean }[] = [
   { label: "Leadership Team", note: "Runs the club day to day", rows: [[president], vps], wide: true },
-  { label: "Coaches", note: "Teach our classes", rows: [coaches], wide: true },
+  { label: "Coaches & TDs", note: "Coaches teach our classes. TDs direct our tournaments day to day.", rows: [coaches], wide: true },
   { label: "Co-founders", note: "Started it in 2022", rows: [founders] },
   { label: "Honorary advisors", note: "Adults who help us do this properly", rows: [advisors] },
 ];

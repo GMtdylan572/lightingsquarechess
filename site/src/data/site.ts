@@ -525,11 +525,11 @@ export const leadership: Person[] = [
 ];
 
 export const coaches: Person[] = [
-  { name: "Sean X. Zhang", role: "Coach", photo: "/team/sean-zhang.jpg" },
-  { name: "NM Jayden Wu", role: "Coach", photo: "/team/jayden-wu.jpg" },
-  { name: "NM Austin Jin", role: "Coach", photo: "/team/austin-jin.jpg" },
-  { name: "Olivia Xu", role: "Coach", photo: "/team/olivia-xu.jpg" },
-  { name: "CM Ivan Zhou", role: "Coach", photo: "/team/ivan-zhou.jpg" },
+  { name: "Sean X. Zhang", role: "Coach · TD", photo: "/team/sean-zhang.jpg" },
+  { name: "NM Jayden Wu", role: "Coach · TD", photo: "/team/jayden-wu.jpg" },
+  { name: "NM Austin Jin", role: "Coach · TD", photo: "/team/austin-jin.jpg" },
+  { name: "Olivia Xu", role: "Coach · TD", photo: "/team/olivia-xu.jpg" },
+  { name: "CM Ivan Zhou", role: "Coach · TD", photo: "/team/ivan-zhou.jpg" },
 ];
 
 export const founders: Person[] = [
