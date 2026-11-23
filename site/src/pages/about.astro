@@ -1,13 +1,17 @@
 ---
 import Base from "@/layouts/Base.astro";
 import PageHeader from "@/components/PageHeader.astro";
-import { leadership, founders, advisors, org } from "@/data/site";
+import { leadership, coaches, founders, advisors, org } from "@/data/site";
 import type { Person } from "@/data/site";
 
-const groups: { label: string; note: string; people: Person[] }[] = [
-  { label: "Leadership", note: "Runs the club day to day", people: leadership },
-  { label: "Co-founders", note: "Started it in 2022", people: founders },
-  { label: "Honorary advisors", note: "Adults who help us do this properly", people: advisors },
+const [president, ...vps] = leadership;
+
+// Each group is a list of rows; each row is centred and sized to its own count.
+const groups: { label: string; note: string; rows: Person[][]; wide?: boolean }[] = [
+  { label: "Leadership Team", note: "Runs the club day to day", rows: [[president], vps], wide: true },
+  { label: "Coaches", note: "Teach our classes", rows: [coaches], wide: true },
+  { label: "Co-founders", note: "Started it in 2022", rows: [founders] },
+  { label: "Honorary advisors", note: "Adults who help us do this properly", rows: [advisors] },
 ];
 ---
 <Base
@@ -61,20 +65,24 @@ const groups: { label: string; note: string; people: Person[] }[] = [
           <h2 class="label">{g.label}</h2>
           <p class="text-[0.88rem] text-muted-foreground">{g.note}</p>
         </div>
-        <ul class:list={[
-          "grid gap-x-8 gap-y-10 sm:grid-cols-2",
-          g.label === "Leadership" ? "lg:grid-cols-5" : "lg:grid-cols-3",
-        ]}>
-          {g.people.map((p) => (
-            <li>
-              <img src={p.photo} alt={`Portrait of ${p.name}`} loading="lazy" width="640" height="800"
-                   class="mb-4 aspect-[4/5] w-full rounded-md border border-border object-cover [object-position:50%_22%]" />
-              {p.role && <p class="label mb-1.5 text-primary">{p.role}</p>}
-              <p class="font-heading text-[1.35rem] font-semibold leading-tight">{p.name}</p>
-              {p.org && <p class="mt-1 text-[0.92rem] text-muted-foreground">{p.org}</p>}
-            </li>
+        <div class="space-y-10">
+          {g.rows.map((row) => (
+            <ul class="flex flex-wrap justify-center gap-x-8 gap-y-10">
+              {row.map((p) => (
+                <li class:list={[
+                  "w-full sm:w-[calc((100%-2rem)/2)]",
+                  g.wide ? "lg:w-[calc((100%-8rem)/5)]" : "lg:w-[calc((100%-4rem)/3)]",
+                ]}>
+                  <img src={p.photo} alt={`Portrait of ${p.name}`} loading="lazy" width="640" height="800"
+                       class="mb-4 aspect-[4/5] w-full rounded-md border border-border object-cover [object-position:50%_22%]" />
+                  {p.role && <p class="label mb-1.5 text-primary">{p.role}</p>}
+                  <p class="font-heading text-[1.35rem] font-semibold leading-tight">{p.name}</p>
+                  {p.org && <p class="mt-1 text-[0.92rem] text-muted-foreground">{p.org}</p>}
+                </li>
+              ))}
+            </ul>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   ))}

@@ -147,7 +147,7 @@ const nextChampionships = upcomingChampionships.filter((e) => new Date(e.date) >
             <p class="font-medium">{c.name}</p>
             <p class="text-[0.85rem] text-muted-foreground">{c.note}</p>
           </div>
-          <a href="/championship/past" class="text-[0.88rem] font-medium text-primary hover:underline">Results</a>
+          <a href={c.results ?? "/championship/past"} class="text-[0.88rem] font-medium text-primary hover:underline">Results</a>
         </li>
       ))}
     </ol>

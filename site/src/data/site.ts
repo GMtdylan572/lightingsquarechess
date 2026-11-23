@@ -308,9 +308,18 @@ export type ChampionshipEntry = {
   when: string;
   status: "played" | "tbd";
   note: string;
+  /** Where the Results link goes; defaults to /championship/past. */
+  results?: string;
 };
 
 export const championshipSeries: ChampionshipEntry[] = [
+  {
+    name: "Fall Championship and Blitz",
+    when: "November 22, 2026",
+    status: "played",
+    note: "Hilton Garden Inn, Cupertino. 1600+, 800–1599 and U800 plus an evening blitz.",
+    results: "/events/fall-championship-2026",
+  },
   {
     name: "Summer Championship and Blitz",
     when: "August 9, 2026",
@@ -394,6 +403,12 @@ export const upcomingChampionships: UpcomingChampionship[] = [
     },
   },
 ];
+
+/* True until the event's day is over in California. Comparing against a bare
+   "2026-11-22" (midnight UTC) would retire an event at 4 PM the day before. */
+export function isUpcoming(isoDate: string, now = new Date()) {
+  return new Date(`${isoDate}T23:59:59-08:00`) >= now;
+}
 
 export const championship = {
   date: "August 9, 2026",
@@ -504,9 +519,17 @@ export type Person = { name: string; role?: string; org?: string; photo: string 
 export const leadership: Person[] = [
   { name: "Vicky Qin", role: "President", org: "Lynbrook High School", photo: "/team/vicky-qin.jpg" },
   { name: "WCM Serena Yuan", role: "Vice President", org: "Menlo School", photo: "https://i.ibb.co/21nLp0nv/71e990e79dc2f7d135f963a9cd29bcce-1.jpg" },
-  { name: "NM Hanchi Yao", role: "Head Tournament Director", org: "Lynbrook High School", photo: "https://i.ibb.co/BHVjfbMN/Hank.jpg" },
-  { name: "FM Dylan Tang", role: "Head of Coaching", org: "The Harker School", photo: "https://i.ibb.co/F4Vr0Q9w/2d7ee4b1c61905d8cdccb497eeb649ad.jpg" },
+  { name: "NM Hanchi Yao", role: "Vice President", org: "Lynbrook High School", photo: "https://i.ibb.co/BHVjfbMN/Hank.jpg" },
+  { name: "FM Dylan Tang", role: "Vice President", org: "The Harker School", photo: "https://i.ibb.co/F4Vr0Q9w/2d7ee4b1c61905d8cdccb497eeb649ad.jpg" },
   { name: "CM Luke Widjaja", role: "Head of International Programs", org: "MVHS", photo: "https://i.ibb.co/hR590m4D/f46f7ccb-c392-4ae0-b558-af669f7abdcb.jpg" },
+];
+
+export const coaches: Person[] = [
+  { name: "Sean X. Zhang", role: "Coach", photo: "/team/sean-zhang.jpg" },
+  { name: "NM Jayden Wu", role: "Coach", photo: "/team/jayden-wu.jpg" },
+  { name: "NM Austin Jin", role: "Coach", photo: "/team/austin-jin.jpg" },
+  { name: "Olivia Xu", role: "Coach", photo: "/team/olivia-xu.jpg" },
+  { name: "CM Ivan Zhou", role: "Coach", photo: "/team/ivan-zhou.jpg" },
 ];
 
 export const founders: Person[] = [

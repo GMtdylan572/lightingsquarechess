@@ -1,14 +1,16 @@
 ---
 import Base from "@/layouts/Base.astro";
 import Bolt from "@/components/Bolt.astro";
-import { upcomingChampionships, girlsFestival, testimonials, patrons, org, nextRegistration } from "@/data/site";
+import { upcomingChampionships, girlsFestival, testimonials, patrons, org, nextRegistration, isUpcoming } from "@/data/site";
 
 const nextReg = nextRegistration();
 
 /* The championship is the flagship event: twice the field, prize money and a
-   blitz. The homepage used to be quads only, so it gets its own band. */
-const nextChamp = upcomingChampionships[0];
-const laterChamps = upcomingChampionships.slice(1);
+   blitz. The homepage used to be quads only, so it gets its own band.
+   Played championships drop off here and are listed with past results. */
+const openChamps = upcomingChampionships.filter((e) => isUpcoming(e.date));
+const nextChamp = openChamps[0];
+const laterChamps = openChamps.slice(1);
 
 /* Ordered by what the club actually runs today. Club Bootstrap is listed
    last and flagged as past work — it is not taking new schools. */
